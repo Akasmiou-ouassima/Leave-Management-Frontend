@@ -1,0 +1,123 @@
+<div alignment="center" class="popup"  size="lg" *ngIf="isModalOpen">
+  <div>
+    <div class="popup-content">
+      <div class="ms-auto mb-3">
+        <button cButtonClose (click)="closePopup()"></button>
+      </div>
+      <div class="tabs mt-2">
+        <div class="tab ms-4" [class.active]="activeTab === 'About'" (click)="setActiveTab('About')">About</div>
+        <div class="tab ms-4" [class.active]="activeTab === 'Members'" (click)="setActiveTab('Members')">
+          Members
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'About'">
+        <div class="card-body ms-3 mt-5">
+          <p class="text-justify">Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
+            contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le contenu de
+            l'onglet "About"
+            Ceci est le contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le
+            contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le contenu de
+            l'onglet "About"
+            Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
+            contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le contenu de
+            l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet
+            "About"
+            Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
+            contenu de l'onglet "About".
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'Members'">
+        <div class="card-body">
+          <div class="table-responsive me-4  ms-4">
+            <table class="table align-middle">
+              <thead>
+              <tr>
+                <th class="fw-bolder font-medium ">Name</th>
+                <th class="fw-bolder font-medium">Post</th>
+                <th class="fw-bolder font-medium">Type</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
+                         class="rounded-circle">
+                    <div class="ms-3">
+                      <h5 class="mb-0 font-medium name">Malak</h5>
+                      <span class="text-muted email" >email@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="post">
+                  Software Engineer
+                </td>
+                <td>
+                  <div class="custom-style-manager">Manager</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
+                         class="rounded-circle">
+                    <div class="ms-3">
+                      <h5 class="mb-0 font-medium name">Malak</h5>
+                      <span class="text-muted email">email@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="post">
+                  Software Engineer
+                </td>
+                <td>
+                  <div class="custom-style-emp">Employee</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
+                         class="rounded-circle">
+                    <div class="ms-3">
+                      <h5 class="mb-0 font-medium name">Malak</h5>
+                      <span class="text-muted email">email@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="post">
+                  Software Engineer
+                </td>
+                <td>
+                  <div class="custom-style-manager">Manager</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
+                         class="rounded-circle">
+                    <div class="ms-3">
+                      <h5 class="mb-0 font-medium name">Malak</h5>
+                      <span class="text-muted email">email@gmail.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="post">
+                  Software Engineer
+                </td>
+                <td>
+                  <div class="custom-style-emp">Employee</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="popup" *ngIf="isModalOpen">
+  <div class="popup-content">
+    <div>
+      <label class="title-label ms-3">Update Request</label>
+      <div class="close-button-container modal-header">
+        <button class="btn btn-close" (click)="closePopup()"></button>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <form class="ms-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="startDate" class="form-label label-input">Start Date</label>
+              <input id="startDate" type="date" class="form-control custom-input">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="endDate" class="form-label label-input">End Date</label>
+              <input id="endDate" type="date" class="form-control custom-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="description" class="label-input">Reason</label>
+          <textarea class="form-control desc-input" id="description" name="description"></textarea>
+        </div>
+
+        <div class="form-group row align-items-center justify-content-between mb-2">
+          <div class="col-6">
+            <label for="type" class="label-input">Type</label>
+            <select class="form-control custom-input" id="type" name="type" required>
+              <option value="type1">Paid</option>
+              <option value="type2">Illness</option>
+              <option value="type3">Parental</option>
+              <option value="type3">Family</option>
+              <option value="type3">Special</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="photo" class="text-center label-input">File</label>
+            <div class="dropzone">
+              <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="photo" />
+              <input type="file" class="upload-input" />
+            </div>
+          </div>
+        </div>
+        <div class="row ms-4" style="margin-top: 40px;">
+          <div class="col-md-6 form-group">
+            <button type="reset" class="btn btn-cancel" (click)="closePopup()">Cancel</button>
+          </div>
+          <div class="col-md-6 form-group">
+            <button type="submit" class="btn btn-confirm">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+

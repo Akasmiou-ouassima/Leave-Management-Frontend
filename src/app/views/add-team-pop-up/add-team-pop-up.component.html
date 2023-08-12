@@ -1,0 +1,47 @@
+<div class="popup" alignment="center" *ngIf="isModalOpen">
+  <div class="popup-content">
+    <div class="mt-4 ms-3">
+      <h2>Add Team</h2>
+      <div class="close-button-container modal-header">
+        <button class="btn btn-close" (click)="closePopup()"></button>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <form class="mt-lg-4">
+        <div class="form-group ms-3">
+          <label for="name" class="label-input">Name*</label>
+          <input type="text" class="form-control NameInput mt-1" id="name" name="name" placeholder="Enter team’s name">
+        </div>
+        <div class="form-group ms-3">
+          <label for="description" class="label-input">Description*</label>
+          <textarea class="form-control DescriptionInput mt-1" id="description" name="description"
+                    placeholder="Enter a description"></textarea>
+        </div>
+
+        <div class="row align-items-center justify-content-between ms-1">
+          <div class="col-7">
+            <label for="manager" class="label-input">Select team's Manager*</label>
+            <select class="form-control ManagerInput mt-1" id="manager" name="manager">
+              <option disabled selected>Choose...</option>
+              <option value="manager1">Manager 1</option>
+              <option value="manager2">Manager 2</option>
+              <option value="manager2">Manager 2</option>
+            </select>
+          </div>
+          <div class="col-4 me-3 mt-3">
+            <label for="photo" class="text-center label-input">Image*</label>
+            <div class="dropzone mt-1">
+              <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="photo"/>
+              <input type="file" class="upload-input "/>
+            </div>
+          </div>
+        </div>
+        <div class="row  justify-content-end" style="margin-top: 60px">
+          <button type="reset" class="col-2 btn btn-reset me-3" (click)="closePopup()">Close</button>
+          <button type="submit" class="col-2 btn btn-save me-5">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

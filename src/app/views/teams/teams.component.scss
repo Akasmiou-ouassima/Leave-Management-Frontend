@@ -1,0 +1,103 @@
+.img{
+  height:167px;
+}
+.team-members {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.member-count {
+  color: gray;
+  padding: 5px 4px;
+  border-radius: 15px;
+  color: #768396;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.member-stack {
+  margin-left: 10px;
+  width: 60px;
+  height: 30px;
+  position: relative;
+}
+
+.member-stack img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.member-stack img:nth-child(2) {
+  transform: translateX(-20px);
+}
+
+.member-stack img:nth-child(3) {
+  transform: translateX(-40px);
+}
+
+.btn-right {
+  width: 150px;
+  height: 42px;
+  flex-shrink: 0;
+  background: #109CF1;
+  border-radius: 4px;
+  box-shadow: 0px 4px 10px 0px rgba(16, 156, 241, 0.24);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.btn-right:hover {
+  background: var(--main-accent-blue, #109CF1);
+}
+span {
+  color: var(--secondary-white, #FFF);
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.13px;
+}
+.button-discover{
+  background: #2C73EB;
+  color: #FFF;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.card-title{
+  color: #232360;
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.card-text{
+  color: #768396;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.number{
+  color: #768396;
+  font-family: Poppins, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

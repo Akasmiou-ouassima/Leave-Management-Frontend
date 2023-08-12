@@ -1,0 +1,72 @@
+<app-default-header class="mb-2 d-print-none header header-sticky" position="sticky"/>
+<div class="container rounded bg-white mt-3 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 border-right">
+      <div class="d-flex justify-content-between align-items-center mb-3"><h4 class="text-right">Edit Profile</h4>
+        <div class="col-md-3 ms-3"><img class="rounded-circle" width="120px" src="assets/img/avatars/image.png"
+                                        alt="image"></div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6"><label class="labels"> First Name </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" value="">
+          </div>
+        </div>
+        <div class="col-md-6"><label class="labels"> Last Name </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span> <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           value="">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12"><label class="labels"> Email </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span> <input
+            type="email" class="form-control" value=""></div>
+        </div>
+        <div class="col-md-12 mt-2"><label class="labels"> Address </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-home"></i></span> <input type="text"
+                                                                                                           class="form-control"
+                                                                                                           value="">
+          </div>
+        </div>
+        <div class="col-md-12 mt-2"><label class="labels"> Contact Number </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-phone"></i></span> <input type="text"
+                                                                                                            class="form-control"
+                                                                                                            value="">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6 me-4"><label class="labels"> Job </label>
+          <div class="input-group"><span class="input-group-text"><i class="fa fa-briefcase"></i></span> <input
+            type="text" class="form-control" value=""></div>
+        </div>
+        <div class="col-md-2 mt-4">
+          <label class="labels switch" for="toggleSwitch"> <input type="checkbox" id="toggleSwitch"
+                                                                  (change)="onToggleSwitchChange($event)">
+            <span class="slider round"></span> <span id="switchLabelContent">{{ switchLabel }}</span> </label></div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12"><label class="labels"> Password </label>
+          <div class="input-group "><span class="input-group-text"><i class="fa fa-lock"></i></span>
+            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" value="">
+            <i class="fa position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password"
+              [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"
+              (click)="togglePasswordVisibility()"
+              style="color: #707683; opacity: 0.44; cursor: pointer;"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-2 me-5">
+          <button class="btn profile-button1" type="button" routerLink="/dashboard">Cancel</button>
+        </div>
+        <div class="col-md-2">
+          <button class="btn profile-button2" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

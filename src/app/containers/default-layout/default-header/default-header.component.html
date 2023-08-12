@@ -1,0 +1,58 @@
+<ng-container>
+  <c-container [fluid]="true">
+    <button
+      toggle="visible"
+      cHeaderToggler
+      [cSidebarToggle]="sidebarId"
+      class="ps-1"
+    >
+      <img ngSrc="assets/img/icons/menu.svg" alt="menu-icon" height="24" width="24">
+    </button>
+
+
+    <c-header-nav class="d-none d-lg-flex">
+    </c-header-nav>
+    <c-header-nav class="ms-3">
+      <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+    </c-header-nav>
+
+  </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button
+      cButton
+      color=""
+      [caret]="false"
+      cDropdownToggle
+      class="py-0"
+    >
+      <c-avatar
+        cTextColor="info"
+        shape="rounded-1"
+        size="md"
+        src="./assets/img/avatars/image.png"
+        status="success"
+      >
+      </c-avatar>
+    </button>
+    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
+      <li>
+        <a routerLink="/profile" cDropdownItem>
+          <span class="ms-1">Profile &nbsp;</span>
+          <img ngSrc="assets/img/icons/profile.svg" alt="profile-icon" class="ms-5" height="21" width="21">
+        </a>
+      </li>
+      <li>
+        <a routerLink="./" cDropdownItem>
+          <span class="ms-1">Logout&nbsp;</span>
+         <img ngSrc="assets/img/icons/logout.svg" alt="logout-icon" class="ms-5" height="21" width="21">
+        </a>
+      </li>
+      <li></li>
+    </ul>
+  </c-dropdown>
+</ng-template>
+

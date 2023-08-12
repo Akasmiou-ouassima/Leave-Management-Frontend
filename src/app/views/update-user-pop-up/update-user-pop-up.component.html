@@ -1,0 +1,90 @@
+<div class="popup" *ngIf="isModalOpen">
+  <div class="popup-content">
+    <div class="mt-4 ms-3">
+      <h2>Update User</h2>
+      <div class="close-button-container modal-header">
+        <button class="btn btn-close" (click)="closePopup1()"></button>
+      </div>
+    </div>
+    <hr>
+    <form class="mt-1">
+      <div class="row mt-2 ms-2">
+        <div class="col-md-6 form-group">
+          <label for="name1" class="label-input">First Name</label>
+          <input type="text" id="name1" name="firstname" class="custom-input form-control">
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="name2" class="label-input">Last Name</label>
+          <input type="text" id="name2" name="lastName" class="custom-input form-control">
+        </div>
+      </div>
+      <div class="row mt-2 ms-2">
+        <div class="col-md-6 form-group">
+          <label for="job1" class="label-input">Job</label>
+          <input type="text" id="job1" name="job" class="custom-input form-control">
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="phone1" class="label-input">Phone Number</label>
+          <input type="text" id="phone1" name="phone" class="custom-input form-control">
+        </div>
+      </div>
+
+      <div class="row mt-2 ms-2">
+        <div class="col-md-12 form-group">
+          <label for="email1" class="label-input">Email</label>
+          <input type="email" id="email1" name="email" class="custom-input1 form-control">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label for="address1" class="label-input ms-4">Address</label>
+        <textarea style="height: 60px" id="address1" class="custom-input1 custom-input-address form-control">
+         </textarea>
+      </div>
+
+      <div class="row mt-3 ms-2">
+        <div class="col-md-6 mt-2 form-group ">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexActive" id="flexActive" checked>
+            <label class="form-check-label" for="flexActive">
+              Active
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexDisable" id="flexDisable">
+            <label class="form-check-label" for="flexDisable">
+              Disable
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label class="label-input ms-1">Profile image</label>
+          <div class='file file--upload mt-2'>
+            <label for='input-file1'>
+              <i class="material-icons">cloud_upload</i>Upload
+            </label>
+            <input type="file" id="input-file1" name="profile" class="custom-input form-control"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12  ms-4 form-group">
+        <label for="team1" class="label-input">Select Employee's team</label>
+        <select id="team1" name="team" class="form-select custom-input form-control">
+          <option disabled selected>Select a team...</option>
+          <option value="">Developement Team</option>
+          <option value="">UI/UX Design Team</option>
+        </select>
+      </div>
+
+      <div class="row ms-3" style="margin-top: 30px;">
+        <div class="col-md-6 form-group">
+          <button type="reset" class="btn btn-cancel" (click)="closePopup1()">Cancel</button>
+        </div>
+        <div class="col-md-6 form-group">
+          <button type="submit" class="btn btn-confirm">Confirm</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

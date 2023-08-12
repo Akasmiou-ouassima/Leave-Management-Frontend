@@ -1,0 +1,117 @@
+<div class="button-container">
+  <button type="button" class="btn btn-right" (click)="ShowPopup = true">
+    <img ngSrc="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
+    <span>Add user</span>
+  </button>
+</div>
+<div class="form-group has-search">
+  <img ngSrc="assets/img/icons/search.svg" width="20" height="20" class="search-icon" alt="search">
+  <input type="text" class="form-control search-input input" placeholder="Search user">
+</div>
+<div class="example-container mat-elevation-z8 mt-4">
+
+  <mat-table [dataSource]="dataSource" class="tab-content table-hover">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-line> ID</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div class="d-flex align-items-center">
+          <img
+            ngSrc="assets/img/avatars/image.png"
+            alt=""
+            width="30" height="30"
+            class="rounded-circle"
+
+          />
+          <div class="ms-2">
+            {{row.name}}</div>
+        </div>
+      </mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="email" class="custom-email-column">
+      <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef> Role</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.role}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div [ngClass]="{'custom-type1': row.type === 'Employee', 'custom-type2': row.type === 'Manager'}">
+          {{row.type}}
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef> Phone</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="balance">
+      <mat-header-cell *matHeaderCellDef> Balance</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div class="custom-tag">{{ row.balance }}</div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div [ngClass]="{'custom-padge1': row.status === 'Active', 'custom-padge2': row.status === 'Disable'}">
+          <ng-container *ngIf="row.status === 'Disable'; else inactiveSvg">
+            <img ngSrc="assets/img/icons/disable.svg" width="9" height="8" alt="disable">
+          </ng-container>
+          <ng-template #inactiveSvg>
+            <img ngSrc="assets/img/icons/active.svg" width="9" height="8" alt="active">
+          </ng-template>
+          {{ row.status }}
+        </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button class="btn">
+          <img ngSrc="assets/img/icons/delete.svg" width="20" height="20" class="delete-icon" alt="delete">
+        </button>
+        <button class="btn" (click)="showPopup = true">
+          <img ngSrc="assets/img/icons/edit.svg" width="20" height="20" class="edit-icon" alt="edit">
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[7, 10, 20]"
+    [showFirstLastButtons]="true"
+  >
+  </mat-paginator>
+</div>
+<app-add-user-pop-up [isModalOpen]="ShowPopup" (closePopupEvent)="closePopup()"></app-add-user-pop-up>
+<app-update-user-pop-up [isModalOpen]="showPopup" (closePopupEvent)="closePopup1()"></app-update-user-pop-up>
+
+
+
+
+
+
+
+
+
+
+
+
+
