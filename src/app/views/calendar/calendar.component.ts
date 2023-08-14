@@ -1,5 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import { Component, OnInit, signal, ChangeDetectorRef } from '@angular/core';
+import { CalendarOptions, EventApi } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -27,7 +27,33 @@ export class CalendarComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     events: [
-      
+      {
+        title: 'Ouassima',
+        start: '2023-07-31',
+        end: '2023-08-02',
+        backgroundColor: '#673AB7',
+        borderColor: '#673AB7',
+        textColor: 'white',
+        fontColor: 'white'
+      },
+      {
+        title: 'Ouassima',
+        start: '2023-07-31',
+        end: '2023-08-04',
+        backgroundColor: '#4CAF50',
+        borderColor: '#4CAF50',
+        textColor: 'white',
+        fontColor: 'white'
+      },
+      {
+        title: 'Ouassima',
+        start: '2023-08-07',
+        end: '2023-08-09',
+        backgroundColor: '#FF9800',
+        borderColor: '#FF9800',
+        textColor: 'white',
+        fontColor: 'white'
+      }
     ],
     initialView: 'dayGridMonth',
     weekends: true,
@@ -39,5 +65,6 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
