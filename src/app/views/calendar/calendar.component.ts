@@ -1,5 +1,5 @@
-import { Component, OnInit, signal, ChangeDetectorRef } from '@angular/core';
 import { CalendarOptions, EventApi } from '@fullcalendar/core';
+import { Component, OnInit, signal } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -65,6 +65,5 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
+  
 }
