@@ -3,7 +3,7 @@ import {HashLocationStrategy, LocationStrategy, NgOptimizedImage, PathLocationSt
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 // Import routing module
@@ -71,6 +71,7 @@ import { AlertSuccessComponent } from './views/alert-success/alert-success.compo
 import { AlertInfoMessageComponent } from './views/alert-info-message/alert-info-message.component';
 import { WarningAlertComponent } from './views/warning-alert/warning-alert.component';
 import { ErrorAlertComponent } from './views/error-alert/error-alert.component';
+import { CalendarComponent } from './views/calendar/calendar.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -79,7 +80,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent, LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent, AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent, LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent, AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -129,6 +130,7 @@ const APP_CONTAINERS = [
     ModalTitleDirective,
     ButtonCloseDirective,
     ModalModule,
+    FullCalendarModule,
   ],
   providers: [
     {

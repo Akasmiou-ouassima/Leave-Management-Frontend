@@ -8,11 +8,11 @@ import {ProfileComponent} from "./views/profile/profile.component";
 import {TeamsComponent} from "./views/teams/teams.component";
 import {LeavesManagerComponent} from "./views/leaves-manager/leaves-manager.component";
 import {LeavesUserComponent} from "./views/leaves-user/leaves-user.component";
-import {AlertComponent} from "@coreui/angular";
 import {AlertSuccessComponent} from "./views/alert-success/alert-success.component";
 import {AlertInfoMessageComponent} from "./views/alert-info-message/alert-info-message.component";
 import {WarningAlertComponent} from "./views/warning-alert/warning-alert.component";
 import {ErrorAlertComponent} from "./views/error-alert/error-alert.component";
+import {CalendarComponent} from "./views/calendar/calendar.component";
 
 const routes: Routes = [
   {
@@ -68,6 +68,10 @@ const routes: Routes = [
       {
         path: 'error',
         component: ErrorAlertComponent,
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
       },
       {
         path: 'widgets',

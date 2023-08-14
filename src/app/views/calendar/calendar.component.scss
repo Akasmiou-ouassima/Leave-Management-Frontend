@@ -1,0 +1,60 @@
+.calendar-container{
+  padding-bottom: 80px;
+  padding-top: 20px;
+}
+/*::ng-deep full-calendar{
+  height: 550px;
+}*/
+::ng-deep .fc .fc-button-primary {
+  border-color: #2196F3;
+  background-color: #2196F3;
+}
+::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
+  border-color: #2196F3;
+  background-color: #2196F3;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+}
+
+::ng-deep button{
+  font-family: Poppins, sans-serif;
+}
+::ng-deep .fc-direction-ltr {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+}
+::ng-deep .fc-toolbar-title {
+  color: #192A3E;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+::ng-deep .fc .fc-daygrid-day-number {
+  color: var(--black-087, rgba(0, 0, 0, 0.87));
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+::ng-deep a {
+  text-decoration: none;
+}
+span {
+  color: #707683;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  margin-left: 10px;
+}
+
