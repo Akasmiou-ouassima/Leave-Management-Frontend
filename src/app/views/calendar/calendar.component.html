@@ -1,6 +1,6 @@
 <div class='calendar-container'>
   <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
-    <ng-template #eventContent let-arg>
+    <ng-template let-arg>
       <b>{{ arg.timeText }}</b>
       <i>{{ arg.event.title }}</i>
     </ng-template>
