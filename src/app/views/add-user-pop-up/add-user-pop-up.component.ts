@@ -18,22 +18,12 @@ export class AddUserPopUpComponent implements OnInit {
   errorMessage!: string;
   equipes$! : Observable<any[]>;
   equipesList: any[] = [];
-  selectedFileName: string | null = null;
+
   closePopup() {
     this.closePopupEvent.emit();
   }
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
-  }
-  onFileSelected(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    const file = inputElement.files?.[0];
-
-    if (file) {
-      this.selectedFileName = file.name;
-    } else {
-      this.selectedFileName = null;
-    }
   }
   ngOnInit(): void {
     this.equipes$=this.userService.listEquipe();
@@ -44,7 +34,7 @@ export class AddUserPopUpComponent implements OnInit {
       tel : this.fb.control(null, [Validators.required, Validators.maxLength(10)]),
       email : this.fb.control(null, [Validators.required,  Validators.required, Validators.pattern("[^ @]*@[^ @]*")]),
       adresse : this.fb.control(null, [Validators.required, Validators.minLength(5)]),
-      equipeId : this.fb.control(null, [Validators.required]),
+      equipeId : this.fb.control('Select a team...', [Validators.required]),
       image : this.fb.control(null, [Validators.required, Validators.pattern(/\.(png|jpe?g)$/i)]),
     });
     this.equipes$.subscribe((equipes: any[]) => {

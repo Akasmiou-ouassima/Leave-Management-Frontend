@@ -108,17 +108,14 @@
 
       <div class="row mt-3 ms-2">
         <div class="col-md-6 form-group">
-          <label class="label-input ms-1">Profile image</label>
-          <div class='file file--upload mt-2'>
-            <label for='input-file'>
-              <i class="material-icons">cloud_upload</i>Upload
-            </label>
-            <input type="file" id="input-file" name="image" class="custom-input form-control" formControlName="image" (change)="onFileSelected($event)"/>
-            <div *ngIf="newUserFormGroup.controls['image']?.touched && newUserFormGroup.controls['image']?.errors && newUserFormGroup.controls['image']?.errors!['required']" class="text-danger ms-4">
+          <label class="label-input ms-1">Profile image*</label>
+          <div class=" mt-1">
+            <input type="file" name="image" class="custom-input form-control" formControlName="image"/>
+            <div *ngIf="newUserFormGroup.controls['image']?.touched && newUserFormGroup.controls['image']?.errors && newUserFormGroup.controls['image']?.errors!['required']" class="text-danger">
               Image is required
             </div>
           </div>
-          <div *ngIf="selectedFileName" class="ms-3">{{ selectedFileName }}</div>
+
         </div>
         <div class="col-md-6 form-group">
           <label for="equipe" class="label-input">Select Employee's team*</label>
