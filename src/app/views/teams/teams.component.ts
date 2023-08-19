@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-teams',
@@ -6,7 +7,6 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
   styleUrls: ['./teams.component.scss']
 })
 export class TeamsComponent {
-
   showPopup = false;
   closePopup() {
     this.showPopup = false;

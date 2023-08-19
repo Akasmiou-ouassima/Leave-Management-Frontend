@@ -124,10 +124,9 @@ span {
   border: 1px solid #DFE2E9;
   background: #FFF;
   display: flex;
-  padding: 2px 12px;
+  padding: 2px 9px;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
 }
 .custom-type1{
   border-radius: 16px;
@@ -202,4 +201,67 @@ input::placeholder {
 .search-input{
   font-family: Poppins, sans-serif;
   color: #000000;
+}
+.mat-column-id {
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-name {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-email {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-solde {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-post {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-tel {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-status {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-type {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mat-column-action{
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.custom-sort-header ::ng-deep  .mat-sort-header-arrow.ng-star-inserted {
+  opacity: 1 !important;
+}
+::ng-deep .swal2-popup {
+  font-family: 'Poppins', sans-serif !important;
+}
+.swal-open-font-change .swal2-popup {
+  font-family: inherit !important;
 }

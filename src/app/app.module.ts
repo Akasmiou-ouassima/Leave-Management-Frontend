@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import {HashLocationStrategy, LocationStrategy, NgOptimizedImage, PathLocationStrategy} from '@angular/common';
+import { LocationStrategy, NgOptimizedImage, PathLocationStrategy} from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
@@ -48,7 +50,7 @@ import { UsersComponent } from './views/users/users.component';
 import { LoginComponent } from './views/login/login.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatInputModule} from "@angular/material/input";
 import {MatLineModule} from "@angular/material/core";
 import {MatBadgeModule} from "@angular/material/badge";
@@ -72,6 +74,8 @@ import { AlertInfoMessageComponent } from './views/alert-info-message/alert-info
 import { WarningAlertComponent } from './views/warning-alert/warning-alert.component';
 import { ErrorAlertComponent } from './views/error-alert/error-alert.component';
 import { CalendarComponent } from './views/calendar/calendar.component';
+import { MatSelectModule } from '@angular/material/select';
+import {HttpClientModule} from "@angular/common/http";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -131,6 +135,15 @@ const APP_CONTAINERS = [
     ButtonCloseDirective,
     ModalModule,
     FullCalendarModule,
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   providers: [
     {

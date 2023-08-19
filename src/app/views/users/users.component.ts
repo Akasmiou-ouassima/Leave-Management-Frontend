@@ -1,6 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {User} from "../model/user.model";
+import {UserService} from "../services/user.service";
+import { MatSort } from '@angular/material/sort';
+import Swal from "sweetalert2";
+
+
 
 
 @Component({
@@ -8,69 +14,117 @@ import {MatPaginator} from "@angular/material/paginator";
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent{
-  displayedColumns = ['id', 'name', 'email', 'role', 'type', 'phone', 'balance', 'status', 'action'];
-  dataSource: MatTableDataSource<UserData>;
-
+export class UsersComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'nom', 'email', 'poste', 'type', 'tel', 'solde', 'status', 'action'];
+  dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  users: User[] = [];
 
-  constructor() {
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) {
-      users.push(createNewUser(i));
+  constructor(private userService: UserService) {}
+
+  @ViewChild(MatSort) sort!: MatSort;
+  ngOnInit(): void {
+    this.fetchUsers();
+  }
+  fetchUsers(): void {
+    this.userService.listUtilisateurs().subscribe((users: User[]) => {
+      this.dataSource.data = users;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+  handleDeleteUser(user: User): void {
+    document.body.classList.add('swal-open-font-change');
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false
+    })
+    if (user.type === 'RESPONSABLE') {
+      Swal.fire({
+        title: 'Warning!',
+        text: 'Removing a team leader is not allowed. Please assign a new leader before proceeding with the deletion.',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteUser(user);
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'Are you sure to delete this user?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteUser(user);
+        }else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Cancelled successfully :)',
+            'error'
+          )
+        }
+      });
     }
-    this.dataSource = new MatTableDataSource(users);
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  deleteUser(user: User): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    this.userService.deleteUtilisateur(user.id).subscribe(
+      () => {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Deleted successfully!',
+          'success'
+        )
+        this.fetchUsers();
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  searchUsers(keyword: string) {
+    this.userService.searchUtilisateurs(keyword).subscribe((users: User[]) => {
+      this.dataSource.data = users;
+    });
+  }
+  onSearch(event: any) {
+    const keyword = event.target.value;
+    this.searchUsers(keyword);
   }
   ShowPopup = false;
   closePopup() {
     this.ShowPopup = false;
   }
 
-  showPopup = false;
+  selectedUser!: User;
+  showPopup=false;
+  openUpdatePopup(user: User) {
+    this.selectedUser = { ...user };
+    this.showPopup = true;
+  }
   closePopup1() {
     this.showPopup = false;
   }
+
 }
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  const randomStatus = Math.random() < 0.5 ? 'Active' : 'Disable';
-  const randomType = Math.random() < 0.5 ? 'Employee' : 'Manager';
-
-  return {
-    id:id,
-    name: name,
-    email: 'email@gmail.com',
-    role: 'Designer',
-    type: randomType,
-    phone: '092378948',
-    balance: 18,
-    status: randomStatus,
-    action: 'action'
-  };
-}
-
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
-export interface UserData {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  type: string;
-  phone: string;
-  balance: number;
-  status:string;
-  action:string;
-}
-
