@@ -19,37 +19,37 @@
     <c-sidebar-nav dropdownMode="close" class="mt-4">
       <li class="nav-item" (click)="setCurrentNavItem('Dashboard')">
         <a class="nav-link" routerLink="/dashboard">
-          <img ngSrc="assets/img/icons/dashboard.svg" alt="dashboard" width="20" height="20" class="ms-2" >
+          <img [src]="currentNavItem === 'Dashboard' ? 'assets/img/icons/dashboardBlue.svg' : 'assets/img/icons/dashboard.svg'"alt="dashboard" width="20" height="20" class="ms-2" >
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Dashboard' ? '#109CF1' : '#334D6E' }">Dashboard</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('Users')">
         <a class="nav-link" routerLink="/users">
-          <img ngSrc="assets/img/icons/users.svg" alt="users" width="20" height="20" class="ms-2">
+          <img [src]="currentNavItem === 'Users' ? 'assets/img/icons/usersBlue.svg' : 'assets/img/icons/users.svg'" alt="users" width="20" height="20" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Users' ? '#109CF1' : '#334D6E' }">Users</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('My Leaves')">
         <a class="nav-link" routerLink="/Myleaves">
-          <img ngSrc="assets/img/icons/myleaves.svg" alt="dashboard" width="24" height="24" class="ms-2">
+          <img [src]="currentNavItem === 'My Leaves' ? 'assets/img/icons/myleavesBlue.svg' : 'assets/img/icons/myleaves.svg'" alt="dashboard" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'My Leaves' ? '#109CF1' : '#334D6E' }">My Leaves</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('Leaves')" >
         <a class="nav-link" routerLink="/leaves" >
-          <img ngSrc="assets/img/icons/leaves.svg" alt="leaves" width="24" height="24" class="ms-2">
+          <img [src]="currentNavItem === 'Leaves' ? 'assets/img/icons/leavesBlue.svg' : 'assets/img/icons/leaves.svg'" alt="leaves" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Leaves' ? '#109CF1' : '#334D6E' }">All Leaves</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('Teams')">
         <a class="nav-link" routerLink="/teams" >
-          <img ngSrc="assets/img/icons/teams.svg" alt="teams" width="24" height="24" class="ms-2">
+          <img [src]="currentNavItem === 'Teams' ? 'assets/img/icons/teamsBlue.svg' : 'assets/img/icons/teams.svg'" alt="teams" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Teams' ? '#109CF1' : '#334D6E' }">Teams</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('Calendar')">
         <a class="nav-link" routerLink="/calendar" >
-          <img ngSrc="assets/img/icons/calendar.svg" alt="calendar" width="20" height="20" class="ms-2">
+          <img [src]="currentNavItem === 'Calendar' ? 'assets/img/icons/calendarBlue.svg' : 'assets/img/icons/calendar.svg'" alt="calendar" width="20" height="20" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Calendar' ? '#109CF1' : '#334D6E' }">Calendar</span>
         </a>
       </li>
