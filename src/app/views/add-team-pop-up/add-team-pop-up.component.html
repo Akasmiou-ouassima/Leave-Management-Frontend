@@ -8,40 +8,73 @@
     </div>
     <div>
       <hr>
-      <form class="mt-lg-4">
+      <form class="mt-lg-4" [formGroup]="equipeForm" (ngSubmit)="saveEquipe()">
         <div class="form-group ms-3">
           <label for="name" class="label-input">Name*</label>
-          <input type="text" class="form-control NameInput mt-1" id="name" name="name" placeholder="Enter team’s name">
+          <input type="text" class="form-control NameInput mt-1" id="name" name="nom" formControlName="nom" placeholder="Enter team’s name">
+          <div class="text-danger invalid-feedback" *ngIf="equipeForm.get('nom')?.touched">
+            <div *ngIf="equipeForm.get('nom')?.hasError('required')">
+              Champ requis.
+            </div>
+            <div *ngIf="equipeForm.get('nom')?.hasError('minlength')">
+              Le nom doit contenir au moins {{ equipeForm.get('nom')?.getError('minlength')?.requiredLength }} caractères.
+            </div>
+            <div *ngIf="equipeForm.get('nom')?.hasError('maxlength')">
+              Le nom doit contenir au plus {{ equipeForm.get('nom')?.getError('maxlength')?.requiredLength }} caractères.
+            </div>
+          </div>
         </div>
         <div class="form-group ms-3">
           <label for="description" class="label-input">Description*</label>
-          <textarea class="form-control DescriptionInput mt-1" id="description" name="description"
+          <textarea class="form-control DescriptionInput mt-1" formControlName="description" id="description" name="description"
                     placeholder="Enter a description"></textarea>
+          <div class="text-danger" *ngIf="equipeForm.get('description')?.touched">
+            <div *ngIf="equipeForm.get('description')?.hasError('required')">
+              Champ requis.
+            </div>
+            <div *ngIf="equipeForm.get('description')?.hasError('minlength')">
+              Le nom doit contenir au moins {{ equipeForm.get('description')?.getError('minlength')?.requiredLength }} caractères.
+            </div>
+            <div *ngIf="equipeForm.get('description')?.hasError('maxlength')">
+              Le nom doit contenir au plus {{ equipeForm.get('description')?.getError('maxlength')?.requiredLength }} caractères.
+            </div>
+          </div>
         </div>
 
         <div class="row align-items-center justify-content-between ms-1">
           <div class="col-7">
             <label for="manager" class="label-input">Select team's Manager*</label>
-            <select class="form-control ManagerInput mt-1" id="manager" name="manager">
+            <select class="form-control ManagerInput mt-1" id="manager" name="responsableId" formControlName="responsableId">
               <option disabled selected>Choose...</option>
-              <option value="manager1">Manager 1</option>
-              <option value="manager2">Manager 2</option>
-              <option value="manager2">Manager 2</option>
+              <option *ngFor="let manager of respos" [value]="manager.id">{{(manager.nom) | uppercase }} {{manager.prenom}}</option>
             </select>
+            <div class="text-danger" *ngIf="equipeForm.get('responsableId')?.touched">
+              <div *ngIf="equipeForm.get('responsableId')?.hasError('required')">
+                Le Champ est requis!!!
+              </div>
+            </div>
           </div>
           <div class="col-4 me-3 mt-3">
             <label for="photo" class="text-center label-input">Image*</label>
-            <div class="dropzone mt-1">
+            <div class="dropzone mt-1" [class]="selectedFile!=null ? 'uploadPhoto' : ''">
               <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="photo"/>
-              <input type="file" class="upload-input "/>
+              <span class="text-success" *ngIf="selectedFile" >{{selectedFile.name}}</span>
+              <input type="file" class="upload-input " name="image" formControlName="image" (change)="onFileSelected($event)"/>
+
+            </div>
+            <div class="text-danger" *ngIf="equipeForm.get('image')?.touched">
+              <div *ngIf="equipeForm.get('image')?.hasError('required')">
+                Champ requis.
+              </div>
             </div>
           </div>
         </div>
         <div class="row  justify-content-end" style="margin-top: 60px">
           <button type="reset" class="col-2 btn btn-reset me-3" (click)="closePopup()">Close</button>
-          <button type="submit" class="col-2 btn btn-save me-5">Save</button>
+          <button type="submit" [disabled]="equipeForm.invalid" class="col-2 btn btn-save me-5">Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<app-team-success [showAlert]="showSuccesAlert" [title]="title" [description]="description" (closePopupEvent)="closeSuccessAlert()"></app-team-success>

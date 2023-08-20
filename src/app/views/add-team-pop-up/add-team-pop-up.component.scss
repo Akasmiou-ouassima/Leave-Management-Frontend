@@ -53,6 +53,8 @@
   transform: translate(-50%, -50%);
   margin-top: 33px;
   margin-bottom: 0;
+  overflow-y: auto;
+  overflow-x : hidden;
 }
 .btn-close {
   position: absolute;
@@ -162,4 +164,6 @@ input,textarea,select{
   line-height: 24px;
   cursor: pointer;
 }
-
+.uploadPhoto{
+  border: 2px solid green;
+}

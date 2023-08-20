@@ -86,9 +86,9 @@ span {
   line-height: normal;
 }
 .card-text{
-  color: #768396;
+  color: #5d6c81;
   font-family: Poppins, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -100,4 +100,44 @@ span {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+.card-manager{
+  color: #055e94;
+  font-family: Poppins, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 0px;
+}
+.horizontal-bar{
+  flex-shrink: 0;
+  //background: var(--white, #FFF);
+}
+.tabs {
+  display: flex;
+  padding-bottom: 5px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  color: #109CF1;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.tab.active {
+  background: var(--white, #FFF);
+  //border-bottom: 2px solid #109CF1;
+  // color: #109CF1;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  padding: 15px;
 }

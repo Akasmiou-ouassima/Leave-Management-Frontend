@@ -12,20 +12,12 @@
       </div>
 
       <div *ngIf="activeTab === 'About'">
-        <div class="card-body ms-3 mt-5">
-          <p class="text-justify">Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
-            contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le contenu de
-            l'onglet "About"
-            Ceci est le contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le
-            contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le contenu de
-            l'onglet "About"
-            Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
-            contenu de l'onglet "About"Ceci est le contenu de l'onglet "About" Ceci est le contenu de
-            l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet
-            "About"
-            Ceci est le contenu de l'onglet "About" Ceci est le contenu de l'onglet "About" Ceci est le
-            contenu de l'onglet "About".
-          </p>
+        <div class="card">
+          <div class="card-body ms-3 mt-5">
+            <p class="text-justify">
+              {{team.description}}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -41,76 +33,22 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngFor="let membre of members">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
+                    <img src="./assets/img/avatars/{{membre.image}}" alt="user" width="30"
                          class="rounded-circle">
                     <div class="ms-3">
-                      <h5 class="mb-0 font-medium name">Malak</h5>
-                      <span class="text-muted email" >email@gmail.com</span>
+                      <h5 class="mb-0 font-medium name">{{membre.nom}} {{membre.prenom}}</h5>
+                      <span class="text-muted email" >{{membre.email}}</span>
                     </div>
                   </div>
                 </td>
                 <td class="post">
-                  Software Engineer
+                  {{membre.poste | uppercase}}
                 </td>
                 <td>
-                  <div class="custom-style-manager">Manager</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
-                         class="rounded-circle">
-                    <div class="ms-3">
-                      <h5 class="mb-0 font-medium name">Malak</h5>
-                      <span class="text-muted email">email@gmail.com</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="post">
-                  Software Engineer
-                </td>
-                <td>
-                  <div class="custom-style-emp">Employee</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
-                         class="rounded-circle">
-                    <div class="ms-3">
-                      <h5 class="mb-0 font-medium name">Malak</h5>
-                      <span class="text-muted email">email@gmail.com</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="post">
-                  Software Engineer
-                </td>
-                <td>
-                  <div class="custom-style-manager">Manager</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="./assets/img/avatars/image.png" alt="user" width="30"
-                         class="rounded-circle">
-                    <div class="ms-3">
-                      <h5 class="mb-0 font-medium name">Malak</h5>
-                      <span class="text-muted email">email@gmail.com</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="post">
-                  Software Engineer
-                </td>
-                <td>
-                  <div class="custom-style-emp">Employee</div>
+                  <div [class]="membre.type=='RESPONSABLE'?'custom-style-manager':'custom-style-emp'">{{membre.type}}</div>
                 </td>
               </tr>
               </tbody>

@@ -76,6 +76,9 @@ import { ErrorAlertComponent } from './views/error-alert/error-alert.component';
 import { CalendarComponent } from './views/calendar/calendar.component';
 import { MatSelectModule } from '@angular/material/select';
 import {HttpClientModule} from "@angular/common/http";
+import { TeamSuccessComponent } from './views/team-success/team-success.component';
+import { ErrorDeleteTeamComponent } from './views/error-delete-team/error-delete-team.component';
+import { ConfirmDeleteTeamComponent } from './views/confirm-delete-team/confirm-delete-team.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -84,7 +87,9 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent, LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent, AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent,
+    LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent,
+    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

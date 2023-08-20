@@ -1,5 +1,14 @@
+<div class="horizontal-bar mb-5 m-lg-2" *ngIf="roleUser!='ADMIN'">
+  <div class="tabs mt-2">
+    <div class="tab ms-4" [class.active]="activeTab === 'All'" (click)="setActiveTab('All')">All</div>
+    <div class="tab ms-4" [class.active]="activeTab === 'MyTeams'" (click)="setActiveTab('MyTeams')">
+      My Teams
+    </div>
+  </div>
+
+</div>
 <!-- Button Add Team-->
-<div class="row mb-5 justify-content-end me-1 mt-3">
+<div class="row mb-5 justify-content-end me-1 mt-3" *ngIf="roleUser=='ADMIN'">
   <button type="button" class="btn btn-right" (click)="showPopup = true">
     <img ngSrc="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
     <span>Add team</span>
@@ -9,269 +18,68 @@
 
 <!-- columns -->
 <div class="row">
-<!-- column 1-->
-<div class="col-lg-3 col-md-6 mb-3">
+  <div class="col-lg-4 col-md-6 mb-3" *ngFor="let equipe of pagedEquipes">
     <div class="card">
       <img
         class="card-img-top img-responsive img"
-        src="./assets/img/teams/t1.jpeg"
+        src="./assets/img/teams/{{equipe.image}}"
         alt="Card image cap"
       />
       <div class="card-body">
-        <h4 class="card-title">Testing</h4>
-        <p class="card-text">
-           &nbsp;Testing ...
-        </p>
+        <h4 class="card-title">{{equipe.nom}}</h4>
+        <!-- <p class="card-text">
+            &nbsp;{{equipe.nom}} ...
+         </p>-->
+
+        <div class="col-12 row justify-content-start align-items-center">
+          <p class="card-manager col-5">
+            Manager :
+          </p>
+          <div class="col-2">
+            <img ngSrc="assets/img/avatars/{{getRespo(equipe.id).image}}" alt="admin team"  height="30" width="30">
+          </div>
+          <div class="col-5 ps-2">
+            <p class="card-text ">
+              {{ (idUserAuth!=getRespo(equipe.id).id?getRespo(equipe.id).prenom : "YOU") | uppercase}}
+            </p>
+          </div>
+        </div>
         <div class="team-members row align-items-center mb-2">
           <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
+            <span class="number">{{getMembersCountForEquipe(equipe.id)}}<span class="member-count">Membres </span></span>
           </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
+          <div class=" col-2 member-stack" >
+            <img *ngFor="let img of getMembersImgsForEquipe(equipe.id)" ngSrc="./assets/img/avatars/{{img}}" alt="Membre 1" height="200" width="200">
           </div>
         </div>
         <div class="row align-items-center justify-content-between me-1">
           <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn">
+            <div class="col-4" *ngIf="roleUser=='ADMIN'">
+              <button type="button" class="btn" (click)="delete(equipe)">
               <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
                 </button>
             </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
+            <div class="col-2" *ngIf="roleUser=='ADMIN'">
+              <button type="button" class="btn" (click)="update(equipe)">
               <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
               </button>
             </div>
           </div>
           <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
+            <button cButton class="button-discover"  (click)="discover(equipe)">Discover</button>
           </div>
       </div>
     </div>
   </div>
 </div>
-<!-- column 2-->
-<div class="col-lg-3 col-md-6 mb-3">
-    <div class="card">
-      <img
-        class="card-img-top img-responsive img"
-        src="./assets/img/teams/t2.png"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h4 class="card-title">Securite</h4>
-        <p class="card-text">
-          &nbsp;Securite ...
-        </p>
-        <div class="team-members row align-items-center mb-2">
-          <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
-          </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
-          </div>
-        </div>
-        <div class="row align-items-center justify-content-between me-1">
-          <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn">
-                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
-                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
-              </button>
-            </div>
-          </div>
-          <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- column 3-->
-<div class="col-lg-3 col-md-6 mb-3">
-    <div class="card">
-      <img
-        class="card-img-top img-responsive img"
-        src="./assets/img/teams/t3.jpeg"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h4 class="card-title">Project Management</h4>
-        <p class="card-text">
-          &nbsp;Project management ...
-        </p>
-        <div class="team-members row align-items-center mb-2">
-          <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
-          </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
-          </div>
-        </div>
-        <div class="row align-items-center justify-content-between me-1">
-          <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn" >
-                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
-                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
-              </button>
-            </div>
-          </div>
-          <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- column 4-->
-<div class="col-lg-3 col-md-6 mb-3">
-    <div class="card">
-      <img
-        class="card-img-top img-responsive img"
-        src="./assets/img/teams/t4.png"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h4 class="card-title">Development</h4>
-        <p class="card-text">
-          &nbsp;Development ...
-        </p>
-        <div class="team-members row align-items-center mb-2">
-          <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
-          </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
-          </div>
-        </div>
-        <div class="row align-items-center justify-content-between me-1">
-          <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn" >
-                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
-                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
-              </button>
-            </div>
-          </div>
-          <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- column 5-->
-<div class="col-lg-3 col-md-6 mb-3">
-    <div class="card">
-      <img
-        class="card-img-top img-responsive img"
-        src="./assets/img/teams/t5.jpeg"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h4 class="card-title">Web Development</h4>
-        <p class="card-text">
-          &nbsp;Web development ...
-        </p>
-        <div class="team-members row align-items-center mb-2">
-          <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
-          </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
-          </div>
-        </div>
-        <div class="row align-items-center justify-content-between me-1">
-          <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn">
-                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
-                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
-              </button>
-            </div>
-          </div>
-          <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- column 6-->
-<div class="col-lg-3 col-md-6 mb-3">
-    <div class="card">
-      <img
-        class="card-img-top img-responsive img"
-        src="./assets/img/teams/t6.jpeg"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <h4 class="card-title">UI/UX Design</h4>
-        <p class="card-text">
-          &nbsp;UI/UX Design ...
-        </p>
-        <div class="team-members row align-items-center mb-2">
-          <div class="col-9">
-            <span class="member-count">Membres <span class="number">3</span></span>
-          </div>
-          <div class=" col-2 member-stack">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 1" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 2" height="200" width="200">
-            <img ngSrc="./assets/img/avatars/image.png" alt="Membre 3" height="200" width="200">
-          </div>
-        </div>
-        <div class="row align-items-center justify-content-between me-1">
-          <div class="col-6 row align-items-center">
-            <div class="col-4">
-              <button type="button" class="btn" >
-                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn" (click)="showPopup1 = true">
-                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
-              </button>
-            </div>
-          </div>
-          <div class="col-4 me-3">
-            <button cButton class="button-discover"  (click)="showPopup2 = true">Discover</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+<mat-paginator [length]="equipes.length" [pageSizeOptions]="pageSizeOptions" [pageSize]="currentPageSize"
+  [showFirstLastButtons]="true" (page)="onPageChange($event)"></mat-paginator>
 
-<app-add-team-pop-up [isModalOpen]="showPopup" (closePopupEvent)="closePopup()"></app-add-team-pop-up>
-<app-update-team-pop-up [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()"></app-update-team-pop-up>
-<app-discover-team  [isModalOpen]="showPopup2" (closePopupEvent)="closePopup2()"></app-discover-team>
+<app-add-team-pop-up *ngIf="roleUser=='ADMIN'" [isModalOpen]="showPopup" (closePopupEvent)="closePopup()" (addTeamEvent)="addTeam($event)"></app-add-team-pop-up>
+<app-update-team-pop-up *ngIf="roleUser=='ADMIN'"  [teamUpdated]="selectedTeam" [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()" (updateTeamEvent)="updateTeam($event)"></app-update-team-pop-up>
+<app-discover-team  [team]="selectedTeam" [isModalOpen]="showPopup2" (closePopupEvent)="closePopup2()"></app-discover-team>
+<app-confirm-delete-team *ngIf="roleUser=='ADMIN'" [teamDeleted]="selectedTeam" [showAlert]="showPopupDelete" (closePopupEvent)="closePopupDelete()" (deleteEvent)="deleteTeam($event)"></app-confirm-delete-team>
 
 
 
