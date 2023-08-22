@@ -7,7 +7,7 @@
       </div>
     </div>
     <hr>
-    <form class="mt-1" (ngSubmit)="handleUpdateUser()"  *ngIf="updateFormGroup" [formGroup]="updateFormGroup">
+    <form class="mt-1" (ngSubmit)="handleUpdateUser()" *ngIf="updateFormGroup" [formGroup]="updateFormGroup">
       <div class="mb-3">
         <input type="text" hidden formControlName="id" class="form-control" [(ngModel)]="selectedUser.id">
       </div>
@@ -20,7 +20,8 @@
       <div class="row mt-2 ms-2">
         <div class="col-md-6 form-group">
           <label for="name1" class="label-input">First Name</label>
-          <input type="text" id="name1" formControlName="prenom"  class="custom-input form-control"  [(ngModel)]="selectedUser.prenom">
+          <input type="text" id="name1" formControlName="prenom" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.prenom">
           <p
             *ngIf="updateFormGroup.controls['prenom']?.touched
                   && updateFormGroup.controls['prenom']?.errors
@@ -32,7 +33,8 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="name2" class="label-input">Last Name</label>
-          <input type="text" id="name2" formControlName="nom" class="custom-input form-control"  [(ngModel)]="selectedUser.nom">
+          <input type="text" id="name2" formControlName="nom" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.nom">
           <p
             *ngIf="updateFormGroup.controls['nom']?.touched
                   && updateFormGroup.controls['nom']?.errors
@@ -46,7 +48,8 @@
       <div class="row mt-2 ms-2">
         <div class="col-md-6 form-group">
           <label for="job1" class="label-input">Job</label>
-          <input type="text" id="job1" name="poste" formControlName="poste"  class="custom-input form-control"  [(ngModel)]="selectedUser.poste">
+          <input type="text" id="job1" name="poste" formControlName="poste" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.poste">
           <p
             *ngIf="updateFormGroup.controls['poste']?.touched
                   && updateFormGroup.controls['poste']?.errors
@@ -58,7 +61,8 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="phone1" class="label-input">Phone Number</label>
-          <input type="text" id="phone1" name="tel" formControlName="tel"  class="custom-input form-control"  [(ngModel)]="selectedUser.tel">
+          <input type="text" id="phone1" name="tel" formControlName="tel" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.tel">
           <p
             *ngIf="updateFormGroup.controls['tel']?.touched
                   && updateFormGroup.controls['tel']?.errors
@@ -73,7 +77,8 @@
       <div class="row mt-2 ms-2">
         <div class="col-md-12 form-group">
           <label for="email1" class="label-input">Email</label>
-          <input type="email" id="email1" name="email" formControlName="email" class="custom-input1 form-control"  [(ngModel)]="selectedUser.email">
+          <input type="email" id="email1" name="email" formControlName="email" class="custom-input1 form-control"
+                 [(ngModel)]="selectedUser.email">
           <p
             *ngIf="updateFormGroup.controls['email']?.touched
                   && updateFormGroup.controls['email']?.errors
@@ -86,7 +91,8 @@
       </div>
       <div class="row mt-2">
         <label for="address1" class="label-input ms-4">Address</label>
-        <textarea style="height: 60px" id="address1"  formControlName="adresse"  class="custom-input1 custom-input-address form-control"  [(ngModel)]="selectedUser.adresse">
+        <textarea style="height: 60px" id="address1" formControlName="adresse"
+                  class="custom-input1 custom-input-address form-control" [(ngModel)]="selectedUser.adresse">
          </textarea>
         <p
           *ngIf="updateFormGroup.controls['adresse']?.touched
@@ -97,13 +103,12 @@
           Address is required
         </p>
       </div>
-
       <div class="row mt-3 ms-2">
-       <div class="col-md-6 mt-2 form-group ">
+        <div class="col-md-6 mt-2 form-group ">
           <div class="form-check">
             <input class="form-check-input" type="radio" id="flexActive" formControlName="status"
                    [checked]="selectedUser.status === 'ACTIVE'"
-                 value="ACTIVE">
+                   value="ACTIVE">
             <label class="form-check-label" for="flexActive">
               Active
             </label>
@@ -111,12 +116,12 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" id="flexDisable" formControlName="status"
                    [checked]="selectedUser.status === 'DESACTIVE'"
-                   value="DESACTIVE" >
+                   value="DESACTIVE">
             <label class="form-check-label" for="flexDisable">
               Disable
             </label>
           </div>
-       </div>
+        </div>
 
         <div class="col-md-6 form-group">
           <label class="label-input ms-1">Profile image</label>
@@ -124,7 +129,8 @@
             <label for='input-file1'>
               <i class="material-icons">cloud_upload</i>Upload
             </label>
-            <input type="file" id="input-file1" formControlName="image" class="custom-input form-control" [(ngModel)]="selectedUser.image"/>
+            <input type="file" id="input-file1" formControlName="image" class="custom-input form-control"
+                   />
             <p
               *ngIf="updateFormGroup.controls['image']?.touched
                   && updateFormGroup.controls['image']?.errors
@@ -138,10 +144,9 @@
       </div>
 
       <div class="col-md-6  ms-4 ">
-        <label for="team1" class="label-input">Select Employee's team</label>
-        <select id="team1"  class="custom-input team" formControlName="equipeId">
-          <option disabled selected>Select a team...</option>
-          <option *ngFor="let equipe of equipesList" [value]="equipe.id" >{{ equipe.nom }}</option>
+        <label for="equipeId" class="label-input">Select Employee's team</label>
+        <select id="equipeId" class="custom-input team"  formControlName="equipeId">
+          <option *ngFor="let equipe of equipesList"  [class]="selectedUser.equipeId==equipe.id?'selected':''" [value]="equipe.id">{{ equipe.nom }}</option>
         </select>
         <p
           *ngIf="updateFormGroup.controls['equipeId']?.touched

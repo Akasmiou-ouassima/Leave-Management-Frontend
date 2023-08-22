@@ -79,6 +79,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { TeamSuccessComponent } from './views/team-success/team-success.component';
 import { ErrorDeleteTeamComponent } from './views/error-delete-team/error-delete-team.component';
 import { ConfirmDeleteTeamComponent } from './views/confirm-delete-team/confirm-delete-team.component';
+import { WarningDeleteLeaveComponent } from './views/warning-delete-leave/warning-delete-leave.component';
+import { SuccessSaveLeaveComponent } from './views/success-save-leave/success-save-leave.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -89,7 +91,7 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent,
     LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent,
-    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent],
+    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

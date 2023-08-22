@@ -89,6 +89,8 @@ button {
   margin-bottom: 0;
   padding-top: 20px;
   border: 1px solid #ccc;
+  overflow-y: auto;
+  overflow-x : hidden;
 }
 .title-label{
   color: #374254;

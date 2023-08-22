@@ -119,3 +119,7 @@ td {
 .input-group{
   height : 40px;
 }
+::ng-deep .swal2-popup {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px;
+}

@@ -44,7 +44,6 @@ export class UpdateTeamPopUpComponent{
           console.log("err :"+err);
         }
       });
-    ///
     if (this.isModalOpen === true) {
       console.log('isModalOpen changed to true!');
       this.equipeForm=this.fb.nonNullable.group({
@@ -64,13 +63,9 @@ export class UpdateTeamPopUpComponent{
       })
     }
   }
-
-
   closePopup() {
     this.closePopupEvent.emit();
   }
-
-
   updateEquipe() {
     if (this.equipeForm.valid) {
       const equipe: Equipe = this.equipeForm.value;

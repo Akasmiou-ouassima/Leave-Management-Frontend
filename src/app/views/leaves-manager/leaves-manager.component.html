@@ -1,6 +1,7 @@
 <div class="container mt-5 mb-4">
   <div class="input-group mb-2">
-    <input type="text" class="form-control search-input shadowed" placeholder="Search for leave">
+    <input type="text" class="form-control search-input shadowed" placeholder="Search for leave"
+           [(ngModel)]="searchQuery" (input)="updateSearchQuery(searchQuery)">
   </div>
   <br>
   <table id="paginated-table" class="table table-hover">
@@ -17,23 +18,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of displayedData; let i = index">
-      <th scope="row" >{{ i + 1 }}</th>
+    <tr *ngFor="let item of displayedData;">
+      <th scope="row" >{{ item.id }}</th>
       <td>
-        <img [src]="item.profileImageUrl" style="border-radius: 50%; width: 30px; height: 30px; margin-left: 80px;">
-       <span class="name ms-2">{{ item.name }}</span>
+        <img [src]="usersMap.get(item.utilisateurId)?.image" style="border-radius: 50%; width: 30px; height: 30px; margin-left: 80px;">
+        <span class="name ms-2">{{ usersMap.get(item.utilisateurId)?.nom }}&nbsp;{{ usersMap.get(item.utilisateurId)?.prenom }}</span>
       </td>
-      <td class="text-center" style="color:#707683">{{ item.startDate }}</td>
-      <td class="text-center" style="color:#707683">{{ item.endDate }}</td>
-      <td style="width: 250px; color:#707683;">{{ item.reason }}</td>
+      <td class="text-center" style="color:#707683">{{ item.dateDebut }}</td>
+      <td class="text-center" style="color:#707683">{{ item.dateFin }}</td>
+      <td style="width: 250px; color:#707683;">{{ item.motif }}</td>
       <td class="text-center" style="color:#707683">
         <a href="#!" class="file-link"><i class="fas fa-paperclip"></i></a>
       </td>
-      <td class="text-center" style="color:#707683">{{ item.type }}</td>
+      <td class="text-center" style="color:#707683">{{ getType(item.type) }}</td>
       <td class="text-center" style="color:#707683">
         <div class="d-flex justify-content-center">
-          <button class="btn btn-success circular-button" style="background-color: #2ED47A;"><i class="fas fa-check mt-1"></i></button>
-          <button class="btn btn-danger circular-button" style="background-color: #FF0101;"><i class="fas fa-times" ></i></button>
+          <button class="btn btn-success circular-button" style="background-color: #2ED47A;" (click)="accepterConge(item.id)"><i class="fas fa-check mt-1"></i></button>
+          <button class="btn btn-danger circular-button" style="background-color: #FF0101;" (click)="refuserConge(item.id)"><i class="fas fa-times" ></i></button>
         </div>
       </td>
     </tr>

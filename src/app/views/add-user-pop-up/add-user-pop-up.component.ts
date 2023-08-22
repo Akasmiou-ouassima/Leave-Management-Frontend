@@ -32,7 +32,7 @@ export class AddUserPopUpComponent implements OnInit {
       nom : this.fb.control(null, [Validators.required, Validators.minLength(3)]),
       poste : this.fb.control(null, [Validators.required, Validators.minLength(3)]),
       tel : this.fb.control(null, [Validators.required, Validators.maxLength(10)]),
-      email : this.fb.control(null, [Validators.required,  Validators.required, Validators.pattern("[^ @]*@[^ @]*")]),
+      email : this.fb.control(null, [Validators.required,  Validators.required]),
       adresse : this.fb.control(null, [Validators.required, Validators.minLength(5)]),
       equipeId : this.fb.control('Select a team...', [Validators.required]),
       image : this.fb.control(null, [Validators.required, Validators.pattern(/\.(png|jpe?g)$/i)]),

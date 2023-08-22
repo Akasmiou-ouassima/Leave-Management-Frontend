@@ -56,15 +56,17 @@
           </div>
           <div class="col-4 me-3 mt-3">
             <label for="photo" class="text-center label-input">Image*</label>
-            <div class="dropzone mt-1" [class]="selectedFile!=null ? 'uploadPhoto' : ''">
+            <div class="dropzone mt-1" [class]="selectedFile!=null ? 'uploadPhoto' : ''" [class.border-danger]="equipeForm.get('image')?.invalid && selectedFile!=null" >
               <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="photo"/>
-              <span class="text-success" *ngIf="selectedFile" >{{selectedFile.name}}</span>
+              <span class="text-success" [class.text-danger]="equipeForm.get('image')?.invalid" *ngIf="selectedFile" >{{selectedFile.name}}</span>
               <input type="file" class="upload-input " name="image" formControlName="image" (change)="onFileSelected($event)"/>
-
             </div>
             <div class="text-danger" *ngIf="equipeForm.get('image')?.touched">
               <div *ngIf="equipeForm.get('image')?.hasError('required')">
                 Champ requis.
+              </div>
+              <div *ngIf="equipeForm.get('image')?.hasError('pattern')">
+                Please upload a valid image(jpg, jpeg or png).
               </div>
             </div>
           </div>

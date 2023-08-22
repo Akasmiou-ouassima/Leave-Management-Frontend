@@ -1,7 +1,4 @@
-<button cButton (click)="showAlert=true">click</button>
-
-
-<div class="light-mode-info-message popup" *ngIf="showAlert" >
+<div class="light-mode-info-message popup" *ngIf="isModalOpen" >
   <div class="content popup-content">
     <div class="title">
       <p class="text-1 mt-4">Warning</p>
@@ -9,7 +6,8 @@
     <div class="icon mb-5 me-5">
       <img src="assets/img/icons/warning.png"/>
     </div>
-    <p class="text-3 mt-3">You can’t delete this request because its period already began !!!</p>
+    <p class="text-3 mt-3" *ngIf="check == 1">You can't cancel this request because its period already began !!!</p>
+    <p class="text-3 mt-3" *ngIf="check == 2">Leave can't be removed because it's not in the Pending state</p>
     <button class="button-light"  (click)="closeAlert()">
       <p class="text-4 mt-3" >Got it</p>
     </button>

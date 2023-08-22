@@ -87,8 +87,7 @@
           >
             Email is required
           </div>
-          <div *ngIf="newUserFormGroup.controls['email']?.errors!['pattern']" class="text-danger">The email address must contain at least the @ character</div>
-        </div>
+         </div>
       </div>
       <div class="row mt-3">
         <label for="address" class="label-input ms-4">Address*</label>
@@ -134,7 +133,7 @@
           </div>
         </div>
       </div>
-      <div class="row ms-3" style="margin-top: 35px;">
+      <div class="row ms-3" style="margin-top: 40px;">
         <div class="col-md-6 form-group">
           <button type="reset" class="btn btn-cancel" (click)="closePopup()">Cancel</button>
         </div>

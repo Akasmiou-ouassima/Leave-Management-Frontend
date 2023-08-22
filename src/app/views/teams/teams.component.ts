@@ -49,7 +49,6 @@ export class TeamsComponent implements OnInit{
     }
   }
   getAllEquipesAndMembers(){
-    console.log("getAllEquipesAndMembers()");
     this.getEquipes()
       .pipe(
         switchMap(() => this.calculateMembersCountsAndImages())

@@ -67,7 +67,6 @@ export class UsersComponent implements OnInit {
         if (result.isConfirmed) {
           this.deleteUser(user);
         }else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(

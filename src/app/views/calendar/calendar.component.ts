@@ -4,6 +4,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import {LeavesUserService} from "../services/leaves-user.service";
+import {Conge} from "../model/conge.model";
+import {UserService} from "../services/user.service";
+import {User} from "../model/user.model";
 
 const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
@@ -13,8 +17,8 @@ const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-  calendarVisible = signal(true);
-  calendarOptions = signal<CalendarOptions>({
+  calendarVisible = false;
+  calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
       dayGridPlugin,
@@ -26,44 +30,58 @@ export class CalendarComponent implements OnInit {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-    events: [
-      {
-        title: 'Ouassima',
-        start: '2023-07-31',
-        end: '2023-08-02',
-        backgroundColor: '#673AB7',
-        borderColor: '#673AB7',
-        textColor: 'white',
-        fontColor: 'white'
-      },
-      {
-        title: 'Ouassima',
-        start: '2023-07-31',
-        end: '2023-08-04',
-        backgroundColor: '#4CAF50',
-        borderColor: '#4CAF50',
-        textColor: 'white',
-        fontColor: 'white'
-      },
-      {
-        title: 'Ouassima',
-        start: '2023-08-07',
-        end: '2023-08-09',
-        backgroundColor: '#FF9800',
-        borderColor: '#FF9800',
-        textColor: 'white',
-        fontColor: 'white'
-      }
-    ],
+
+    events: [],
+
     initialView: 'dayGridMonth',
     weekends: true,
     selectMirror: true,
     dayMaxEvents: true,
-  });
-
-  constructor() { }
-
+  };
+  constructor(private leavesUserService: LeavesUserService,private userService:UserService) { }
   ngOnInit(): void {
+    this.leavesUserService.getCongesAccepted().subscribe((conges: Conge[]) => {
+      const events: any[] = [];
+
+      conges.forEach((conge: Conge) => {
+        this.userService.getUtilisateur(conge.utilisateurId).subscribe((user: User) => {
+          const title = `${user.nom} ${user.prenom}`;
+          events.push({
+            title: title,
+            start: conge.dateDebut,
+            end: conge.dateFin,
+            backgroundColor: this.getColorByLeaveType(conge.type),
+            borderColor: this.getColorByLeaveType(conge.type),
+            textColor: 'white',
+            fontColor: 'white',
+            fontFamily: 'Poppins, sans-serif',
+          });
+
+          if (events.length === conges.length) {
+            this.calendarOptions.events = events;
+            this.calendarVisible = true; // Show the calendar when the events are loaded
+          }
+        });
+      });
+    });
   }
-  
+
+
+  getColorByLeaveType(type: string): string {
+    switch (type) {
+      case 'PAYE':
+        return '#4CAF50';
+      case 'MALADIE':
+        return '#FF9800';
+      case 'PARENTAL':
+        return '#757575';
+      case 'FAMILIAL':
+        return '#673AB7';
+      case 'SPECIAL':
+        return '#2196F3';
+      default:
+        return '#000000';
+    }
+
+}
 }

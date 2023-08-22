@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef, NgZone} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../model/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import Swal from "sweetalert2";
 import {Observable} from "rxjs";
+import {EquipeService} from "../services/equipe.service";
 
 @Component({
   selector: 'app-update-user-pop-up',
@@ -23,16 +24,20 @@ export class UpdateUserPopUpComponent implements OnInit{
   equipesList: any[] = [];
   closePopup1() {
     this.closePopupEvent.emit();
+    this.updateFormGroup?.reset();
 
   }
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private fb: FormBuilder,
-              private router: Router) {
+             ) {
 
   }
   ngOnInit(): void {
     this.equipes$=this.userService.listEquipe();
+    this.equipes$.subscribe((equipes: any[]) => {
+      this.equipesList = equipes;
+    });
     this.userId = this.route.snapshot.params['id'];
     this.updateFormGroup = this.fb.group({
       id : this.fb.control(this.selectedUser?.id || '', [Validators.required, Validators.minLength(1)]),
@@ -44,58 +49,49 @@ export class UpdateUserPopUpComponent implements OnInit{
       tel : this.fb.control(this.selectedUser?.tel || '',[Validators.required, Validators.maxLength(10)]),
       email : this.fb.control(this.selectedUser?.email || '',[Validators.required, Validators.email]),
       adresse : this.fb.control(this.selectedUser?.adresse || '',[Validators.required, Validators.minLength(5)]),
-      equipeId : this.fb.control(this.selectedUser?.equipeId || '',[Validators.required]),
+      status: this.fb.control(this.selectedUser?.status || '',[Validators.required]),
       image : this.fb.control(this.selectedUser?.image || '',[Validators.required, Validators.pattern(/\.(png|jpe?g)$/i)]),
-      status: this.fb.control(this.selectedUser?.status,[Validators.required])
-    });
-
-    this.equipes$.subscribe((equipes: any[]) => {
-      this.equipesList = equipes;
+      equipeId : this.fb.control(this.selectedUser?.equipeId || '',[Validators.required]),
     });
   }
   users: User[] = [];
 
-
   handleUpdateUser() {
     let user: User = this.updateFormGroup?.value;
-    this.userService.updateUtilisateur(user).subscribe({
-      next: (res) => {
-          Swal.fire({
-            title: 'Do you want to save the changes?',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            denyButtonText: `Don't save`,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            }
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'User information updated successfully!',
-                showConfirmButton: false,
-                timer: 1500
-              });
-              this.updateFormGroup?.reset();
-              this.fetchUsers.emit();
-              this.closePopup1();
-            } else if (result.isDenied) {
-              Swal.fire('Changes are not saved', '', 'info');
-            }
-          });
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
       },
-      error: (err) => {
-        console.log(err);
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.updateUtilisateur(user).subscribe({
+          next: (updatedRes) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'User information updated successfully!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.updateFormGroup?.reset();
+            this.fetchUsers.emit();
+            this.closePopup1();
+          },
+          error: (updateErr) => {
+            console.log(updateErr);
+          }
+        });
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
       }
     });
   }
-
-
-
-
-  }
+}

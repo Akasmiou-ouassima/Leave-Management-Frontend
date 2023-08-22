@@ -9,54 +9,50 @@ import {EquipeService} from "../services/equipe.service";
   templateUrl: './add-team-pop-up.component.html',
   styleUrls: ['./add-team-pop-up.component.scss']
 })
-export class AddTeamPopUpComponent implements OnInit{
+export class AddTeamPopUpComponent implements OnInit {
   @Input() isModalOpen = false;
   @Output() closePopupEvent = new EventEmitter<void>()
   @Output() addTeamEvent = new EventEmitter<Equipe>();
-  public equipeForm! : FormGroup;
-  public respos! : Array<any>;
-  selectedFile!: File ;
-  showSuccesAlert : boolean = false;
-  title:string="ADD TEAM";
-  description : string="The team is created successfully ";
+  public equipeForm!: FormGroup;
+  public respos!: Array<any>;
+  selectedFile!: File;
+  showSuccesAlert: boolean = false;
+  title: string = "ADD TEAM";
+  description: string = "The team is created successfully ";
 
   closeSuccessAlert() {
-    this.showSuccesAlert=false;
-  }
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log("file "+this.selectedFile);
+    this.showSuccesAlert = false;
   }
 
-  constructor(private fb: FormBuilder,private equipeService: EquipeService) {
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log("file " + this.selectedFile);
   }
+
+  constructor(private fb: FormBuilder, private equipeService: EquipeService) {
+  }
+
   ngOnInit() {
-    this.equipeService.getUsers() .subscribe({
+    this.equipeService.getUsers().subscribe({
       next: data => {
-        this.respos=data;
+        this.respos = data;
         this.respos.forEach(re => {
-          console.log("respo : " +re);
+          console.log("respo : " + re);
         })
       },
       error: err => {
-        console.log("err :"+err);
+        console.log("err :" + err);
       }
     });
-    this.equipeForm=this.fb.nonNullable.group({
-      nom:this.fb.nonNullable.control('',
-        [Validators.required,
-          Validators.maxLength(50),
-          Validators.minLength(3)]),
-      description:this.fb.nonNullable.control('',[Validators.required,
-        Validators.maxLength(600),
-        Validators.minLength(3)]),
-      image:this.fb.nonNullable.control('',
-        [Validators.required,
-          Validators.pattern(/.(png|jpe?g)$/i)]),
-      responsableId : this.fb.nonNullable.control('',
-        Validators.required),
+    this.equipeForm = this.fb.nonNullable.group({
+      nom: this.fb.nonNullable.control('',
+        [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
+      description: this.fb.nonNullable.control('', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
+      image: this.fb.nonNullable.control('', [Validators.required, Validators.pattern(/.(png|jpe?g)$/i)]),
+      responsableId: this.fb.nonNullable.control('', Validators.required),
     })
   }
+
   closePopup() {
     this.closePopupEvent.emit();
   }
@@ -74,7 +70,7 @@ export class AddTeamPopUpComponent implements OnInit{
             map((updatedEquipe: Equipe) => {
               console.log('Image de l\'équipe mise à jour :', updatedEquipe);
               this.addTeamEvent.emit(updatedEquipe);
-              this.showSuccesAlert=true;
+              this.showSuccesAlert = true;
               this.closePopup();
               return updatedEquipe;
             }),

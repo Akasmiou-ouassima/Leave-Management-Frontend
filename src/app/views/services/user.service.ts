@@ -26,7 +26,7 @@ export class UserService {
     return this.http.post<User>(url, user);
   }
   getUtilisateur(userId : number):Observable<User>{
-    const url = `${this.backendHost}/utilisateur/`;
+    const url = `${this.backendHost}/utilisateurs/`;
     return this.http.get<User>(url+userId);
 
   }

@@ -1,10 +1,11 @@
 <div class="container mt-2 mb-4">
   <div class="d-flex justify-content-end">
-    <button class="btn btn-primary make-request-button" (click)="isPopupOpen=true">Make Request</button>
+    <button class="btn btn-primary make-request-button" (click)="isPopupOpen=true" >Make Request</button>
   </div>
   <br>
   <div class="input-group mb-2">
-    <input type="text" class="form-control search-input shadowed" placeholder="Search for leave">
+    <input type="text" class="form-control search-input shadowed" placeholder="Search for leave"
+           [(ngModel)]="searchQuery" (input)="updateSearchQuery(searchQuery)">
   </div>
   <div class="table-container mt-4">
     <table class="table table-hover">
@@ -21,22 +22,22 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of displayedData; let i = index">
-        <th scope="row" style="color:#707683; font-weight: 300;">{{ i + 1 }}</th>
+      <tr *ngFor="let item of displayedData;">
+        <th scope="row" style="color:#707683; font-weight: 300;">{{ item.id }}</th>
         <td class="text-center">
-          <span class="status-box mt-2" [ngClass]="getStatusClass(item.status)">{{ item.status }}</span>
+          <span class="status-box mt-2" [ngClass]="getStatusClass(item.etat)">{{ getStatus(item.etat) }}</span>
         </td>
-        <td class="text-center">{{ item.startDate }}</td>
-        <td class="text-center">{{ item.endDate }}</td>
-        <td style="width: 250px;">{{ item.reason }}</td>
+        <td class="text-center">{{ item.dateDebut }}</td>
+        <td class="text-center">{{ item.dateFin }}</td>
+        <td style="width: 250px;">{{ item.motif }}</td>
         <td class="text-center"><a href="#!" class="file-link"><i class="fas fa-paperclip"></i></a></td>
-        <td class="text-center">{{ item.type }}</td>
+        <td class="text-center">{{ getType(item.type) }}</td>
         <td class="text-center">
           <div class=" justify-content-center">
-            <button class="btn">
+            <button class="btn" (click)="deleteConge(item.id)">
               <img ngSrc="assets/img/icons/deleteIcon.svg" width="29" height="29" alt="delete">
             </button>
-            <button class="btn" (click)="isPopupOpen1=true">
+            <button class="btn" (click)="openUpdateModal(item)">
               <img ngSrc="assets/img/icons/edit.svg" width="20" height="20" alt="edit">
             </button>
           </div>
@@ -52,10 +53,11 @@
       (click)="setPage(page)"
       [class.active]="page === currentPage"
     >
-     <span style="font-family: Poppins, sans-serif;">{{ page }}</span>
+      <span style="font-family: Poppins, sans-serif;">{{ page }}</span>
     </button>
   </div>
 </div>
 
-<app-make-request-pop-up [isModalOpen]="isPopupOpen" (closePopupEvent)="closePopup()"></app-make-request-pop-up>
-<app-edit-request-pop-up [isModalOpen]="isPopupOpen1" (closePopupEvent)="closePopup1()"></app-edit-request-pop-up>
+<app-make-request-pop-up [isModalOpen]="isPopupOpen" (fetchLeaves)="getConges()" (closePopupEvent)="closePopup()"></app-make-request-pop-up>
+<app-warning-delete-leave  [isModalOpen]="showAlert" (closeAlertEvent)="closeAlert()" [check]="check"></app-warning-delete-leave>
+<app-edit-request-pop-up [isModalOpen]="showModal"  (fetchLeaves)="getConges()" [selectedLeave]="selectedLeave" (closeModalEvent)="closeModal()"></app-edit-request-pop-up>

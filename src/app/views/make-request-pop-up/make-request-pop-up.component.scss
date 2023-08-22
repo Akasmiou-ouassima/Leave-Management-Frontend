@@ -89,6 +89,8 @@ button {
   margin-bottom: 0;
   padding-top: 20px;
   border: 1px solid #ccc;
+  overflow-y: auto;
+  overflow-x : hidden;
 }
 .title-label{
   color: #374254;
@@ -190,3 +192,11 @@ button {
   height: 24px;
   cursor: pointer;
 }
+/*::ng-deep .swal2-popup {
+  max-width: 80%;
+  top: 8%;
+  left: 7.5%;
+}
+::ng-deep div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+  background: rgba(0,0,0,.4);
+}*/
