@@ -123,6 +123,8 @@ export class LeavesManagerComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.fetchConges();
+        this.preloadUsers();
       },
       error: err => {
       if (err && err.error) {
@@ -151,6 +153,8 @@ export class LeavesManagerComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
+        this.fetchConges();
+        this.preloadUsers();
     },
       error: err => {
       if (err && err.error) {

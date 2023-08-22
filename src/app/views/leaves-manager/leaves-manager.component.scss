@@ -123,3 +123,47 @@ td {
   font-family: 'Poppins', sans-serif !important;
   font-size: 14px;
 }
+.custom-padge1{
+  border-radius: 16px;
+  background: var(--success-50, #ECFDF3);
+  display: inline-flex;
+  padding: 3px 8px 3px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: #027A48;
+}
+.custom-padge2{
+  border-radius: 16px;
+  background: var(--error-50, #FEF3F2);
+  display: flex;
+  padding: 3px 8px 3px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: var(--error-700, #B42318);
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+.rejected{
+  color: var(--error-700, #B42318);
+  text-align: center;
+  font-family:Poppins,sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+.accepted{
+  color: var(--success-700, #027A48);
+  text-align: center;
+  font-family: Poppins,sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}

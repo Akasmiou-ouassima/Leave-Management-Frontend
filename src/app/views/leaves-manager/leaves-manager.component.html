@@ -33,8 +33,26 @@
       <td class="text-center" style="color:#707683">{{ getType(item.type) }}</td>
       <td class="text-center" style="color:#707683">
         <div class="d-flex justify-content-center">
-          <button class="btn btn-success circular-button" style="background-color: #2ED47A;" (click)="accepterConge(item.id)"><i class="fas fa-check mt-1"></i></button>
-          <button class="btn btn-danger circular-button" style="background-color: #FF0101;" (click)="refuserConge(item.id)"><i class="fas fa-times" ></i></button>
+          <div [ngClass]="{'custom-padge1': item.etat === 'ACCEPTE', 'custom-padge2': item.etat === 'REFUSE'}">
+            <ng-container *ngIf="item.etat === 'ACCEPTE'; else refuseBlock">
+              <span class="accepted">Accepted</span>
+            </ng-container>
+            <ng-template #refuseBlock>
+              <ng-container *ngIf="item.etat === 'REFUSE'; else waitBlock">
+               <span class="rejected">Rejected</span>
+              </ng-container>
+              <ng-template #waitBlock>
+                <div *ngIf="item.etat === 'EN_ATTENTE'" class="d-flex justify-content-center">
+                  <button class="btn btn-success circular-button" style="background-color: #2ED47A;" (click)="accepterConge(item.id)">
+                    <i class="fas fa-check mt-1"></i>
+                  </button>
+                  <button class="btn btn-danger circular-button" style="background-color: #FF0101;" (click)="refuserConge(item.id)">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </ng-template>
+            </ng-template>
+          </div>
         </div>
       </td>
     </tr>
