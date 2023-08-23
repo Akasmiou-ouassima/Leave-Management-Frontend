@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient,  HttpParams } from '@angular/common/http';
 import {Conge} from "../model/conge.model";
 import {User} from "../model/user.model";
-
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +46,22 @@ export class LeavesUserService {
   }
   getCongesAccepted():Observable<Conge[]>{
     const url = `${this.baseURL}/CongesAccepted`;
+    return this.httpClient.get<Conge[]>(url);
+  }
+  getNbCongesPending():Observable<number>{
+    const url = `${this.baseURL}/nbCongesPending`;
+    return this.httpClient.get<number>(url);
+  }
+  getNbCongesApproved():Observable<number>{
+    const url = `${this.baseURL}/nbCongesApproved`;
+    return this.httpClient.get<number>(url);
+  }
+  getNbCongesRefused():Observable<number>{
+    const url = `${this.baseURL}/nbCongesRefused`;
+    return this.httpClient.get<number>(url);
+  }
+  getCongesByManager(managerId: number): Observable<Conge[]> {
+    const url = `${this.baseURL}/conges/ByManager/${managerId}`;
     return this.httpClient.get<Conge[]>(url);
   }
 }

@@ -7,7 +7,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
@@ -81,6 +80,7 @@ import { ErrorDeleteTeamComponent } from './views/error-delete-team/error-delete
 import { ConfirmDeleteTeamComponent } from './views/confirm-delete-team/confirm-delete-team.component';
 import { WarningDeleteLeaveComponent } from './views/warning-delete-leave/warning-delete-leave.component';
 import { SuccessSaveLeaveComponent } from './views/success-save-leave/success-save-leave.component';
+import { LeavesAdminComponent } from './views/leaves-admin/leaves-admin.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -91,7 +91,7 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent,
     LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent,
-    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent],
+    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent, LeavesAdminComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

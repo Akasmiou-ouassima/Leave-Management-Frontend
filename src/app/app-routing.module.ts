@@ -13,6 +13,7 @@ import {AlertInfoMessageComponent} from "./views/alert-info-message/alert-info-m
 import {WarningAlertComponent} from "./views/warning-alert/warning-alert.component";
 import {ErrorAlertComponent} from "./views/error-alert/error-alert.component";
 import {CalendarComponent} from "./views/calendar/calendar.component";
+import { LeavesAdminComponent } from './views/leaves-admin/leaves-admin.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path: 'leaves',
         component: LeavesManagerComponent,
+      },
+      {
+        path: 'All-leaves',
+        component: LeavesAdminComponent,
       },
       {
         path: 'Myleaves',

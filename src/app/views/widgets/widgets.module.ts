@@ -15,13 +15,12 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
 
 
 import { WidgetsRoutingModule } from './widgets-routing.module';
-import { ChartSample, WidgetsDropdownComponent } from './widgets-dropdown/widgets-dropdown.component';
+import {WidgetsDropdownComponent} from "./widgets-dropdown/widgets-dropdown.component";
 
 
 @NgModule({
   declarations: [
     WidgetsDropdownComponent,
-    ChartSample,
   ],
   imports: [
     CommonModule,

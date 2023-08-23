@@ -44,4 +44,13 @@ export class UserService {
     const params = new HttpParams().set('keyword', keyword);
     return this.http.get<User[]>(url, { params });
   }
+  ResponsablesNb():Observable<number>{
+    const url = `${this.backendHost}/nbResponsables`;
+    return this.http.get<number>(url);
+  }
+  SalariesNb():Observable<number>{
+    const url = `${this.backendHost}/nbSalaries`;
+    return this.http.get<number>(url);
+  }
+
 }

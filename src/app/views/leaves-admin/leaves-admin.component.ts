@@ -6,27 +6,28 @@ import {User} from "../model/user.model";
 import {Observable} from "rxjs";
 import Swal from "sweetalert2";
 @Component({
-  selector: 'app-leaves-manager',
-  templateUrl: './leaves-manager.component.html',
-  styleUrls: ['./leaves-manager.component.scss']
+  selector: 'app-leaves-admin',
+  templateUrl: './leaves-admin.component.html',
+  styleUrls: ['./leaves-admin.component.scss']
 })
-export class LeavesManagerComponent implements OnInit {
+export class LeavesAdminComponent implements OnInit {
   data!: Conge[];
   rowsPerPage = 7;
   currentPage = 1;
   displayedData: Conge[] = [];
   usersMap: Map<number, User> = new Map<number, User>();
   searchQuery: string = '';
-
+  idUser! : number;
+  roleUser! :string;
   constructor(private LeavesUserService: LeavesUserService, private userService: UserService) {
- }
+  }
 
   getUser(userId: number): Observable<User> {
     return this.userService.getUtilisateur(userId);
   }
 
   preloadUsers() {
-    this.LeavesUserService.getCongesByManager(2).subscribe(
+    this.LeavesUserService.listConge().subscribe(
       data => {
         this.data = data;
         this.generateTable(this.currentPage);
@@ -48,21 +49,15 @@ export class LeavesManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchCongesByManager();
+    this.fetchConges();
     this.preloadUsers();
   }
-  fetchCongesByManager() {
-      this.LeavesUserService.getCongesByManager(2).subscribe(data => {
-        this.data = data;
-        this.sortData('id');
-        this.generateTable(this.currentPage);
-      });
-
-  }
-  sortData(criteria: string) {
-    this.displayedData.sort((a, b) => {
-      return (a.id - b.id);
+  fetchConges() {
+    this.LeavesUserService.listConge().subscribe(data => {
+      this.data = data;
+      this.generateTable(this.currentPage);
     });
+
   }
 
   generateTable(page: number): void {
@@ -129,55 +124,55 @@ export class LeavesManagerComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        this.fetchCongesByManager();
+        this.fetchConges();
         this.preloadUsers();
       },
       error: err => {
-      if (err && err.error) {
-        const errorMessage = err.error.message;
-        if (errorMessage.includes("The leave status must be")) {
-          Swal.fire('Warning', 'The leave status must be Pending', 'warning');
-        } else if (errorMessage.includes("Leave not found")) {
-          Swal.fire('Warning', 'Leave not found. Please provide a valid user ID.', 'warning');
-       } else {
-          Swal.fire('Warning', 'An error occurred while accepting request . Please try again later.', 'warning');
+        if (err && err.error) {
+          const errorMessage = err.error.message;
+          if (errorMessage.includes("The leave status must be")) {
+            Swal.fire('Warning', 'The leave status must be Pending', 'warning');
+          } else if (errorMessage.includes("Leave not found")) {
+            Swal.fire('Warning', 'Leave not found. Please provide a valid user ID.', 'warning');
+          } else {
+            Swal.fire('Warning', 'An error occurred while accepting request . Please try again later.', 'warning');
+          }
+        } else {
+          Swal.fire('Warning', 'An unexpected error occurred. Please try again later.', 'warning');
         }
-      } else {
-        Swal.fire('Warning', 'An unexpected error occurred. Please try again later.', 'warning');
+        console.error("Error while accepting request:", err);
       }
-      console.error("Error while accepting request:", err);
-    }
-  });
+    });
   }
   refuserConge(id: number): void {
     this.LeavesUserService.refuserConge(id).subscribe({
       next:() => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: "Leave successfully refused !",
-        showConfirmButton: false,
-        timer: 1500
-      });
-        this.fetchCongesByManager();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: "Leave successfully refused !",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.fetchConges();
         this.preloadUsers();
-    },
+      },
       error: err => {
-      if (err && err.error) {
-        const errorMessage = err.error.message;
-        if (errorMessage.includes("The leave status must be")) {
-          Swal.fire('Warning', 'The leave status must be Pending', 'warning');
-        } else if (errorMessage.includes("Leave not found")) {
-          Swal.fire('Warning', 'Leave not found. Please provide a valid user ID.', 'warning');
+        if (err && err.error) {
+          const errorMessage = err.error.message;
+          if (errorMessage.includes("The leave status must be")) {
+            Swal.fire('Warning', 'The leave status must be Pending', 'warning');
+          } else if (errorMessage.includes("Leave not found")) {
+            Swal.fire('Warning', 'Leave not found. Please provide a valid user ID.', 'warning');
+          } else {
+            Swal.fire('Warning', 'An error occurred while accepting request . Please try again later.', 'warning');
+          }
         } else {
-          Swal.fire('Warning', 'An error occurred while accepting request . Please try again later.', 'warning');
+          Swal.fire('Warning', 'An unexpected error occurred. Please try again later.', 'warning');
         }
-      } else {
-        Swal.fire('Warning', 'An unexpected error occurred. Please try again later.', 'warning');
+        console.error("Error while refusing request:", err);
       }
-      console.error("Error while refusing request:", err);
-    }
-  });
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 <c-row class="row mb-5 mt-4">
   <c-col sm="6" xl="3" class="custom-style1">
     <div class="ms-1 ">
-      <p class="num m-0"> 20 </p>
+      <p class="num m-0"> {{managers | async}} </p>
       <p class="att">Manager</p>
     </div>
     <div class="ms-5 ps-4 mb-3 svg">
@@ -11,7 +11,7 @@
 
   <c-col sm="6" xl="3" class="custom-style2">
     <div class="ms-1">
-      <p class="num m-0"> 100 </p>
+      <p class="num m-0"> {{employees | async}} </p>
       <p class="att">Employee</p>
     </div>
     <div class="ms-5 ps-5 mb-3 svg">
@@ -21,7 +21,7 @@
 
   <c-col sm="6" xl="3" class="custom-style3">
     <div class="ms-1">
-      <p class="num m-0"> 5 </p>
+      <p class="num m-0"> {{ leavesPending | async }} </p>
       <p class="att">Request Leave</p>
     </div>
     <div class="ms-4 pe-3 mb-2 svg">
@@ -31,7 +31,7 @@
 
   <c-col sm="6" xl="3" class="custom-style4">
     <div class="ms-1 ">
-      <p class="num m-0"> 10 </p>
+      <p class="num m-0"> {{ teams | async }} </p>
       <p class="att">Team</p>
     </div>
     <div class="ms-5 ps-5  mb-3 svg">

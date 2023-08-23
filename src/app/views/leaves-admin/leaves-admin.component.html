@@ -7,7 +7,7 @@
   <table id="paginated-table" class="table table-hover">
     <thead>
     <tr>
-      <th (click)="sortData('id')">#</th>
+      <th>#</th>
       <th class="text-center">Name</th>
       <th class="text-center">Start Date</th>
       <th class="text-center">End Date</th>
@@ -39,7 +39,7 @@
             </ng-container>
             <ng-template #refuseBlock>
               <ng-container *ngIf="item.etat === 'REFUSE'; else waitBlock">
-               <span class="rejected">Rejected</span>
+                <span class="rejected">Rejected</span>
               </ng-container>
               <ng-template #waitBlock>
                 <div *ngIf="item.etat === 'EN_ATTENTE'" class="d-flex justify-content-center">

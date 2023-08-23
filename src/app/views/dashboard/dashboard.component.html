@@ -1,10 +1,8 @@
 <app-widgets-dropdown></app-widgets-dropdown>
-<!--<c-card class="mb-4">
+<c-card class="mb-4 card">
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Traffic</h4>
-        <div class="small text-medium-emphasis">January - December 2021</div>
       </c-col>
       <c-col class="d-none d-md-block" sm="7">
         <form [formGroup]="trafficRadioGroup">
@@ -19,7 +17,6 @@
               (click)="setTrafficPeriod('Day')"
               cButton
               cFormCheckLabel
-              color="secondary"
               variant="outline"
             >Day</label>
 
@@ -33,7 +30,6 @@
               (click)="setTrafficPeriod('Month')"
               cButton
               cFormCheckLabel
-              color="secondary"
               variant="outline"
             >Month</label>
 
@@ -47,7 +43,6 @@
               (click)="setTrafficPeriod('Year')"
               cButton
               cFormCheckLabel
-              color="secondary"
               variant="outline"
             >Year</label>
           </c-button-group>
@@ -64,7 +59,15 @@
       Main chart
     </c-chart>
   </c-card-body>
-</c-card>-->
+  <div class="ms-4 mt-3">
+    <img src="assets/img/icons/eclipse1.svg" alt="" width="12" height="12">
+   <span class="custom-style ms-2">Approved leaves</span>
+  </div>
+  <div class="ms-4 mt-3 mb-3">
+    <img src="assets/img/icons/eclipse2.svg" alt="" width="12" height="12">
+    <span class="custom-style ms-2">Unapproved leaves</span>
+  </div>
+</c-card>
 
 
 

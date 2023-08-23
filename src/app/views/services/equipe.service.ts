@@ -61,7 +61,12 @@ export class EquipeService {
     );
   }
   public  getRoleUser(id:number):string{
-    let role:string="ADMIN"; // USER | ADMIN / RESPONSABLE
+    let role:string="ADMIN"; // USER | ADMIN | RESPONSABLE
     return role;
+  }
+
+  EquipesNb():Observable<number>{
+    const url = this.path+"nbequipes";
+    return this.http.get<number>(url);
   }
 }

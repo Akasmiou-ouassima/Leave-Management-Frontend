@@ -38,7 +38,13 @@
       <li class="nav-item" (click)="setCurrentNavItem('Leaves')" >
         <a class="nav-link" routerLink="/leaves" >
           <img [src]="currentNavItem === 'Leaves' ? 'assets/img/icons/leavesBlue.svg' : 'assets/img/icons/leaves.svg'" alt="leaves" width="24" height="24" class="ms-2">
-          <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Leaves' ? '#109CF1' : '#334D6E' }">All Leaves</span>
+          <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Leaves' ? '#109CF1' : '#334D6E' }">Leaves</span>
+        </a>
+      </li>
+      <li class="nav-item" (click)="setCurrentNavItem('All Leaves')" >
+        <a class="nav-link" routerLink="/All-leaves" >
+          <img [src]="currentNavItem === 'All Leaves' ? 'assets/img/icons/leavesBlue.svg' : 'assets/img/icons/leaves.svg'" alt="leaves" width="24" height="24" class="ms-2">
+          <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'All Leaves' ? '#109CF1' : '#334D6E' }">All Leaves</span>
         </a>
       </li>
       <li class="nav-item" (click)="setCurrentNavItem('Teams')">
