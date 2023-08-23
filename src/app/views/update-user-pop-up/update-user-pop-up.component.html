@@ -124,21 +124,18 @@
         </div>
 
         <div class="col-md-6 form-group">
-          <label class="label-input ms-1">Profile image</label>
-          <div class='file file&#45;&#45;upload mt-2'>
-            <label for='input-file1'>
-              <i class="material-icons">cloud_upload</i>Upload
-            </label>
-            <input type="file" id="input-file1" formControlName="image" class="custom-input form-control"
-                   />
-            <p
-              *ngIf="updateFormGroup.controls['image']?.touched
-                  && updateFormGroup.controls['image']?.errors
-                   && updateFormGroup.controls['image']?.errors!['required']"
-              class="text-danger ms-4"
-            >
-              Image is required
-            </p>
+          <label class="label-input ms-1">Profile image*</label>
+          <div class=" mt-1">
+            <span class="text-success" [class.text-danger]="updateFormGroup.get('image')?.invalid" *ngIf="selectedFile" >{{selectedFile.name}}</span>
+            <input type="file" class="custom-input form-control" name="image" formControlName="image" (change)="onFileSelected($event)" [class]="selectedFile!=null ? 'uploadPhoto' : ''" [class.border-danger]="updateFormGroup.get('image')?.invalid && selectedFile!=null"/>
+            <div class="text-danger" *ngIf="updateFormGroup.get('image')?.touched">
+              <div *ngIf="updateFormGroup.get('image')?.hasError('required')">
+                Image is required
+              </div>
+              <div *ngIf="updateFormGroup.get('image')?.hasError('pattern')">
+                Please upload a valid image(jpg, jpeg or png).
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -64,4 +64,9 @@ export class LeavesUserService {
     const url = `${this.baseURL}/conges/ByManager/${managerId}`;
     return this.httpClient.get<Conge[]>(url);
   }
+  uploadCongePdf(congeId: number, file: File ): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.httpClient.put(`${this.baseURL}/conges/${congeId}/uploadPdf`,formData);
+  }
 }

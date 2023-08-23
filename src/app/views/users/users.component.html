@@ -20,9 +20,9 @@
     <mat-cell *matCellDef="let row" class="mat-column-name">
       <div class="d-flex align-items-center">
         <img
-          src="assets/img/avatars/image.png"
+          src="./assets/img/users/{{row.image}}"
           alt=""
-          width="30" height="30"
+          width="35" height="35"
           class="rounded-circle "
         />
         <div class="ms-2">{{ row.nom + ' ' + row.prenom }}</div>

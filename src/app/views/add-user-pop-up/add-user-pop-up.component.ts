@@ -18,9 +18,12 @@ export class AddUserPopUpComponent implements OnInit {
   errorMessage!: string;
   equipes$! : Observable<any[]>;
   equipesList: any[] = [];
-
+  selectedFile!: File;
   closePopup() {
     this.closePopupEvent.emit();
+  }
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
@@ -43,25 +46,39 @@ export class AddUserPopUpComponent implements OnInit {
   }
 
   handleSaveNewUser() {
-    let user: User = this.newUserFormGroup?.value;
-    this.userService.saveUtilisateur(user).subscribe({
-      next: data => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: "New User has been successfully saved!",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.newUserFormGroup?.reset();
-        this.fetchUsers.emit();
-        this.closePopup();
-      },
-      error: err => {
-        this.errorMessage = err.message;
-        return throwError(err);
-      }
-    });
+    if (this.newUserFormGroup.valid && this.selectedFile) {
+      let user: User = this.newUserFormGroup?.value;
+
+      this.userService.saveUtilisateur(user).subscribe({
+        next: data => {
+          const userId = data.id;
+
+          this.userService.uploadUserPhoto(userId, this.selectedFile).subscribe({
+            next: uploadData => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "New User has been successfully saved!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              this.newUserFormGroup?.reset();
+              this.fetchUsers.emit();
+              this.closePopup();
+            },
+            error: uploadError => {
+              this.errorMessage = uploadError.message;
+              return throwError(uploadError);
+            }
+          });
+        },
+        error: saveError => {
+          this.errorMessage = saveError.message;
+          return throwError(saveError);
+        }
+      });
+    }
   }
+
 
 }

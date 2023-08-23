@@ -52,5 +52,9 @@ export class UserService {
     const url = `${this.backendHost}/nbSalaries`;
     return this.http.get<number>(url);
   }
-
+  uploadUserPhoto(userId: number, file: File ): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.put(`${this.backendHost}/utilisateurs/${userId}/uploadPhoto`,formData);
+  }
 }

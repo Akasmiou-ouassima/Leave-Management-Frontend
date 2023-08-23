@@ -26,7 +26,7 @@ export class AddTeamPopUpComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-    console.log("file " + this.selectedFile);
+    console.log("file " + this.selectedFile.name);
   }
 
   constructor(private fb: FormBuilder, private equipeService: EquipeService) {
@@ -64,8 +64,6 @@ export class AddTeamPopUpComponent implements OnInit {
 
       this.equipeService.addEquipe(equipe).pipe(
         switchMap((data: Equipe) => {
-          console.log('Équipe enregistrée :', data);
-
           return this.equipeService.uploadTeamPhoto(data.id, this.selectedFile).pipe(
             map((updatedEquipe: Equipe) => {
               console.log('Image de l\'équipe mise à jour :', updatedEquipe);

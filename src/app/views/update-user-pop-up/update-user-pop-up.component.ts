@@ -20,44 +20,55 @@ export class UpdateUserPopUpComponent implements OnInit{
   updateFormGroup: FormGroup | undefined;
   userId!: number;
   user!: User;
-  equipes$! : Observable<any[]>;
+  equipes$!: Observable<any[]>;
   equipesList: any[] = [];
+  selectedFile!: File;
+
   closePopup1() {
     this.closePopupEvent.emit();
     this.updateFormGroup?.reset();
 
   }
+
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private fb: FormBuilder,
-             ) {
+  ) {
 
   }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log("file " + this.selectedFile);
+  }
+
   ngOnInit(): void {
-    this.equipes$=this.userService.listEquipe();
+    this.equipes$ = this.userService.listEquipe();
     this.equipes$.subscribe((equipes: any[]) => {
       this.equipesList = equipes;
     });
     this.userId = this.route.snapshot.params['id'];
     this.updateFormGroup = this.fb.group({
-      id : this.fb.control(this.selectedUser?.id || '', [Validators.required, Validators.minLength(1)]),
-      solde : this.fb.control(this.selectedUser?.solde || '',[Validators.required]),
-      type : this.fb.control(this.selectedUser?.type || '',[Validators.required]),
-      prenom : this.fb.control(this.selectedUser?.prenom || '',[Validators.required, Validators.minLength(3)]),
-      nom : this.fb.control(this.selectedUser?.nom || '',[Validators.required, Validators.minLength(3)]),
-      poste : this.fb.control(this.selectedUser?.poste || '',[Validators.required, Validators.minLength(3)]),
-      tel : this.fb.control(this.selectedUser?.tel || '',[Validators.required, Validators.maxLength(10)]),
-      email : this.fb.control(this.selectedUser?.email || '',[Validators.required, Validators.email]),
-      adresse : this.fb.control(this.selectedUser?.adresse || '',[Validators.required, Validators.minLength(5)]),
-      status: this.fb.control(this.selectedUser?.status || '',[Validators.required]),
-      image : this.fb.control(this.selectedUser?.image || '',[Validators.required, Validators.pattern(/\.(png|jpe?g)$/i)]),
-      equipeId : this.fb.control(this.selectedUser?.equipeId || '',[Validators.required]),
+      id: this.fb.control(this.selectedUser?.id || '', [Validators.required, Validators.minLength(1)]),
+      solde: this.fb.control(this.selectedUser?.solde || '', [Validators.required]),
+      type: this.fb.control(this.selectedUser?.type || '', [Validators.required]),
+      prenom: this.fb.control(this.selectedUser?.prenom || '', [Validators.required, Validators.minLength(3)]),
+      nom: this.fb.control(this.selectedUser?.nom || '', [Validators.required, Validators.minLength(3)]),
+      poste: this.fb.control(this.selectedUser?.poste || '', [Validators.required, Validators.minLength(3)]),
+      tel: this.fb.control(this.selectedUser?.tel || '', [Validators.required, Validators.maxLength(10)]),
+      email: this.fb.control(this.selectedUser?.email || '', [Validators.required, Validators.email]),
+      adresse: this.fb.control(this.selectedUser?.adresse || '', [Validators.required, Validators.minLength(5)]),
+      status: this.fb.control(this.selectedUser?.status || '', [Validators.required]),
+      image: this.fb.control(this.selectedUser?.image || '', [Validators.pattern(/\.(png|jpe?g)$/i)]),
+      equipeId: this.fb.control(this.selectedUser?.equipeId || '', [Validators.required]),
     });
   }
+
   users: User[] = [];
 
   handleUpdateUser() {
     let user: User = this.updateFormGroup?.value;
+
     Swal.fire({
       title: 'Do you want to save the changes?',
       showDenyButton: true,
@@ -74,16 +85,39 @@ export class UpdateUserPopUpComponent implements OnInit{
       if (result.isConfirmed) {
         this.userService.updateUtilisateur(user).subscribe({
           next: (updatedRes) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'User information updated successfully!',
-              showConfirmButton: false,
-              timer: 1500
-            });
-            this.updateFormGroup?.reset();
-            this.fetchUsers.emit();
-            this.closePopup1();
+            const userId = updatedRes.id;
+
+            // Assuming this.selectedFile holds the updated image file
+            if (this.selectedFile) {
+              this.userService.uploadUserPhoto(userId, this.selectedFile).subscribe({
+                next: uploadData => {
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'User information updated successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  this.updateFormGroup?.reset();
+                  this.fetchUsers.emit();
+                  this.closePopup1();
+                },
+                error: (uploadErr) => {
+                  console.log(uploadErr);
+                }
+              });
+            } else {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'User information updated successfully!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+              this.updateFormGroup?.reset();
+              this.fetchUsers.emit();
+              this.closePopup1();
+            }
           },
           error: (updateErr) => {
             console.log(updateErr);

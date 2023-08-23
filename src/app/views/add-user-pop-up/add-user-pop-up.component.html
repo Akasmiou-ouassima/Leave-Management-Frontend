@@ -109,9 +109,15 @@
         <div class="col-md-6 form-group">
           <label class="label-input ms-1">Profile image*</label>
           <div class=" mt-1">
-            <input type="file" name="image" class="custom-input form-control" formControlName="image"/>
-            <div *ngIf="newUserFormGroup.controls['image']?.touched && newUserFormGroup.controls['image']?.errors && newUserFormGroup.controls['image']?.errors!['required']" class="text-danger">
-              Image is required
+            <span class="text-success" [class.text-danger]="newUserFormGroup.get('image')?.invalid" *ngIf="selectedFile" >{{selectedFile.name}}</span>
+            <input type="file" class="custom-input form-control" name="image" formControlName="image" (change)="onFileSelected($event)" [class]="selectedFile!=null ? 'uploadPhoto' : ''" [class.border-danger]="newUserFormGroup.get('image')?.invalid && selectedFile!=null"/>
+               <div class="text-danger" *ngIf="newUserFormGroup.get('image')?.touched">
+              <div *ngIf="newUserFormGroup.get('image')?.hasError('required')">
+                Image is required
+              </div>
+              <div *ngIf="newUserFormGroup.get('image')?.hasError('pattern')">
+                Please upload a valid image(jpg, jpeg or png).
+              </div>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ export class MakeRequestPopUpComponent {
   newLeaveFormGroup!: FormGroup;
   @Input() id!:number;
   formReady = false;
-  selectedPdfFileName: string = '';
+  selectedPdfFile!: File;
 
   closePopup() {
     this.closePopupEvent.emit();
@@ -64,13 +64,8 @@ export class MakeRequestPopUpComponent {
     this.newLeaveFormGroup.updateValueAndValidity();
     this.formReady = true;
   }
-  onPdfFileChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedPdfFileName = inputElement.files[0].name;
-    } else {
-      this.selectedPdfFileName = '';
-    }
+  onPdfFileChange(event: any) {
+    this.selectedPdfFile = event.target.files[0];
   }
   constructor(private fb: FormBuilder, private LeavesUserService : LeavesUserService) {
 
@@ -82,36 +77,42 @@ export class MakeRequestPopUpComponent {
   handleSaveConge() {
     let conge: Conge = this.newLeaveFormGroup?.value;
     conge.utilisateurId = 2;
-    this.LeavesUserService.saveConge(conge).subscribe({
-      next: data => {
-        this.newLeaveFormGroup?.reset();
-        this.showAlert=true;
-        this.closePopup();
-        this.fetchLeaves.emit();
-      },
-      error: err => {
-        if (err && err.error) {
-          const errorMessage = err.error.message;
-          if (errorMessage.includes("Solde insuffisant")) {
-            this.closePopup();
-            Swal.fire('Error', 'Insufficient leave balance. Please check your available leave days.', 'error');
-          } else if (errorMessage.includes("Utilisateur not found")) {
-            this.closePopup();
-            Swal.fire('Error', 'User not found. Please provide a valid user ID.', 'error');
-          } else if (errorMessage.includes("Conge already exists")) {
-            this.closePopup();
-            Swal.fire('Error', 'Leave request already exists for the specified dates.', 'error');
-          } else {
-            this.closePopup();
-            Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
-          }
-        } else {
-          this.closePopup();
-          Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+
+    if (this.selectedPdfFile) {
+      this.LeavesUserService.saveConge(conge).subscribe({
+        next: data => {
+          const congeId = data.id;
+
+          this.LeavesUserService.uploadCongePdf(congeId, this.selectedPdfFile).subscribe({
+            next: uploadData => {
+              this.newLeaveFormGroup?.reset();
+              this.showAlert = true;
+              this.closePopup();
+              this.fetchLeaves.emit();
+            },
+            error: uploadError => {
+              console.error("Error while uploading PDF:", uploadError);
+            }
+          });
+        },
+        error: err => {
+          console.error("Error while saving leave:", err);
         }
-        console.error("Error while saving leave:", err);
-      }
-    });
+      });
+    } else {
+      this.LeavesUserService.saveConge(conge).subscribe({
+        next: data => {
+          this.newLeaveFormGroup?.reset();
+          this.showAlert = true;
+          this.closePopup();
+          this.fetchLeaves.emit();
+        },
+        error: err => {
+          console.error("Error while saving leave:", err);
+        }
+      });
+    }
   }
+
 
 }
