@@ -21,17 +21,22 @@ export class MakeRequestPopUpComponent {
   closePopup() {
     this.closePopupEvent.emit();
   }
-
   startDateValidator(control: AbstractControl): ValidationErrors | null {
-    const startDate = control.value;
+    if (!control.value) {
+      return null;
+    }
+    const startDate = new Date(control.value);
     const today = new Date();
 
-    if (startDate && startDate <= today) {
+    startDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate < today) {
       return { startDatePast: true };
     }
-
     return null;
   }
+
 
   endDateValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!this.newLeaveFormGroup) {
@@ -54,12 +59,13 @@ export class MakeRequestPopUpComponent {
 
   ngOnInit(): void {
     this.newLeaveFormGroup = this.fb.group({
-      dateDebut: [null, [Validators.required, this.startDateValidator]],
+      dateDebut: [null, [Validators.required]],
       dateFin: [null, [Validators.required]],
       motif: this.fb.control(null, [Validators.required, Validators.minLength(3)]),
       type: this.fb.control(null, [Validators.required]),
       fichier: this.fb.control(null, [Validators.pattern(/\.(pdf)$/i)]),
     });
+    this.newLeaveFormGroup.get('dateDebut')?.setValidators([Validators.required, this.startDateValidator]);
     this.newLeaveFormGroup.get('dateFin')?.setValidators([Validators.required, this.endDateValidator]);
     this.newLeaveFormGroup.updateValueAndValidity();
     this.formReady = true;

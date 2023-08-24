@@ -15,14 +15,12 @@
               <label for="startDate" class="form-label label-input">Start Date*</label>
               <input id="startDate" type="date" class="form-control custom-input" formControlName="dateDebut"
                      [ngClass]="{'border-danger': newLeaveFormGroup.controls['dateDebut'].invalid && newLeaveFormGroup.controls['dateDebut'].touched}">
-              <div
-                *ngIf="newLeaveFormGroup.controls['dateDebut']?.touched
-                  && newLeaveFormGroup.controls['dateDebut']?.errors
-                   && newLeaveFormGroup.controls['dateDebut']?.errors!['required']"
-                class="text-danger"
-              >
-                Please enter a valid start Date
-              </div>
+                <div *ngIf="newLeaveFormGroup.get('dateDebut')?.touched && newLeaveFormGroup.get('dateDebut')?.hasError('required')" class="text-danger">
+                  Start date is required.
+                </div>
+                <div *ngIf="newLeaveFormGroup.get('dateDebut')?.hasError('startDatePast')" class="text-danger">
+                  Start date cannot be in the past.
+                </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -36,7 +34,10 @@
                    && newLeaveFormGroup.controls['dateFin']?.errors!['required']"
                 class="text-danger"
               >
-                Please enter a valid end Date
+                End Date is required.
+              </div>
+              <div *ngIf="newLeaveFormGroup.get('dateFin')?.hasError('endDateBeforeStart')"  class="text-danger">
+                End date must be after the start date.
               </div>
             </div>
           </div>
