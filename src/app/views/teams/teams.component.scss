@@ -161,3 +161,8 @@ span {
   line-height: normal;
   margin-bottom: 0px;
 }
+@media (min-width:  1200px ){
+  .member-stack {
+    width: 30px;
+  }
+}

@@ -1,11 +1,3 @@
-<div class="horizontal-bar mb-5 m-lg-2" *ngIf="!this.authService.isAdmin()">
-  <div class="tabs mt-2">
-    <div class="tab ms-4" [class.active]="activeTab === 'All'" (click)="setActiveTab('All')">All</div>
-    <div class="tab ms-4" [class.active]="activeTab === 'MyTeams'" (click)="setActiveTab('MyTeams')">
-      My Teams
-    </div>
-  </div>
-</div>
 <!-- Button Add Team-->
 <div class="row mb-5 justify-content-end me-1 mt-3" *ngIf="this.authService.isAdmin()">
   <button type="button" class="btn btn-right" (click)="showPopup = true">
@@ -14,10 +6,18 @@
   </button>
 </div>
 
+<div class="horizontal-bar mb-5 m-lg-2" *ngIf="!this.authService.isAdmin()">
+  <div class="tabs mt-2">
+    <div class="tab" [class.active]="activeTab === 'All'" (click)="setActiveTab('All')">All</div>
+    <div class="tab" [class.active]="activeTab === 'MyTeams'" (click)="setActiveTab('MyTeams')">
+      My Teams
+    </div>
+  </div>
+</div>
 
 <!-- columns -->
 <div class="row">
-  <div class="col-lg-4 col-md-6 mb-3" *ngFor="let equipe of equipes; let i = index"  >
+  <div class="col-lg-3 col-md-6 mb-3" *ngFor="let equipe of equipes; let i = index"  >
 
     <div class="card">
       <img
@@ -26,21 +26,19 @@
         alt="Card image cap"
       />
       <div class="card-body">
-        <h4 class="card-title">{{equipe.nom}}</h4>
-        <!-- <p class="card-text">
-            &nbsp;{{equipe.nom}} ...
-         </p>-->
-
-        <div class="col-12 row justify-content-start align-items-center">
-          <p class="card-manager col-5">
-            Manager :
-          </p>
+        <h4 class="card-title mb-4">{{equipe.nom}}</h4>
+        <div class="row align-items-center mb-3">
+          <div class="col-5">
+            <p class="card-manager">
+              Manager :
+            </p>
+          </div>
           <div class="col-2">
             <img ngSrc="assets/img/users/{{equipeMembersCountsAndImgs[i].admin?.image}}" alt="admin team"  height="30" width="30">
           </div>
           <div class="col-5 ps-2">
-            <p class="card-text ">
-              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU") | uppercase}}
+            <p class="card-text name">
+              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU") | lowercase}}
             </p>
           </div>
         </div>
@@ -48,13 +46,13 @@
           <div class="col-9">
             <span class="number">{{equipeMembersCountsAndImgs[i].membersCount}}<span class="member-count">Membres </span></span>
           </div>
-          <div class=" col-2 member-stack" >
-            <img *ngFor="let img of equipeMembersCountsAndImgs[i].images" ngSrc="./assets/img/users/{{img}}" alt="Membre 1" height="200" width="200">
+          <div class="col-2 member-stack" >
+            <img *ngFor="let img of equipeMembersCountsAndImgs[i].images" ngSrc="./assets/img/users/{{img}}" alt="Membre 1" height="200" width="200" >
           </div>
         </div>
         <div class="row align-items-center justify-content-between me-1">
           <div class="col-6 row align-items-center">
-            <div class="col-4" *ngIf="this.authService.isAdmin()">
+            <div class="col-3" *ngIf="this.authService.isAdmin()">
               <button type="button" class="btn" (click)="delete(equipe)">
                 <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
               </button>
@@ -73,11 +71,6 @@
     </div>
   </div>
 </div>
-<!--
-<mat-paginator [length]="equipes.length" [pageSizeOptions]="pageSizeOptions" [pageSize]="currentPageSize"
-               [showFirstLastButtons]="true" (page)="onPageChange($event)"></mat-paginator>
--->
-
 <app-add-team-pop-up *ngIf="this.authService.isAdmin()" [isModalOpen]="showPopup" (closePopupEvent)="closePopup()" (addTeamEvent)="addTeam($event)"></app-add-team-pop-up>
 <app-update-team-pop-up *ngIf="this.authService.isAdmin()"  [teamUpdated]="selectedTeam" [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()" (updateTeamEvent)="updateTeam($event)"></app-update-team-pop-up>
 <app-discover-team  [team]="selectedTeam" [isModalOpen]="showPopup2" (closePopupEvent)="closePopup2()"></app-discover-team>

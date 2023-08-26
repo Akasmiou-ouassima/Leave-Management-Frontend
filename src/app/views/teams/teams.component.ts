@@ -16,7 +16,7 @@ export class TeamsComponent implements OnInit{
   currentPage = 0;
   currentPageSize = this.pageSizeOptions[0];
   pagedEquipes: Equipe[] = [];
-  //-----------
+
   public equipes! : Array<Equipe>;
   public selectedTeam! : Equipe;
   equipeMembersCountsAndImgs: Array<{ id: number,admin:any, membersCount: number, images: string[] }> = [];
@@ -28,17 +28,7 @@ export class TeamsComponent implements OnInit{
     //get Role of user authenticated
 
   }
-  /*  loadPagedEquipes() {
-      const startIndex = this.currentPage * this.currentPageSize;
-      const endIndex = startIndex + this.currentPageSize;
-      this.pagedEquipes = this.equipes.slice(startIndex, endIndex);
-    }*/
-  /* onPageChange(event: PageEvent) {
-     this.currentPage = event.pageIndex;
-     this.currentPageSize = event.pageSize;
-     this.loadPagedEquipes();
-   }*/
-//--------------------
+
   activeTab: string = 'All';
   setActiveTab(tab: string) {
     this.activeTab = tab;
