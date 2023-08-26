@@ -13,7 +13,7 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label for="startDate" class="form-label label-input">Start Date*</label>
-              <input id="startDate" type="date" class="form-control custom-input" formControlName="dateDebut"
+              <input id="startDate" type="date" class="form-control custom-input " formControlName="dateDebut"
                      [ngClass]="{'border-danger': newLeaveFormGroup.controls['dateDebut'].invalid && newLeaveFormGroup.controls['dateDebut'].touched}">
                 <div *ngIf="newLeaveFormGroup.get('dateDebut')?.touched && newLeaveFormGroup.get('dateDebut')?.hasError('required')" class="text-danger">
                   Start date is required.
@@ -45,7 +45,7 @@
 
         <div class="form-group mt-2">
           <label for="description" class="label-input">Reason*</label>
-          <textarea class="form-control desc-input" id="description" name="description" required formControlName="motif"
+          <textarea class="form-control desc-input " id="description" name="description" required formControlName="motif"
                     [ngClass]="{'border-danger': newLeaveFormGroup.controls['motif'].invalid && newLeaveFormGroup.controls['motif'].touched}"></textarea>
           <div
             *ngIf="newLeaveFormGroup.controls['motif']?.touched

@@ -17,8 +17,7 @@ export class LeavesAdminComponent implements OnInit {
   displayedData: Conge[] = [];
   usersMap: Map<number, User> = new Map<number, User>();
   searchQuery: string = '';
-  idUser! : number;
-  roleUser! :string;
+
   constructor(private LeavesUserService: LeavesUserService, private userService: UserService) {
   }
 

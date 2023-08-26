@@ -34,16 +34,16 @@ export class AuthService {
     return admin;
   }
 
-  isUser() {
-    let user: boolean = false;
+  isSalarie() {
+    let salarie: boolean = false;
     if (Array.isArray(this.tokens.roles)) {
       this.tokens.roles.forEach((r: string) => {
-        if (r == "USER") {
-          user = true;
+        if (r == "SALARIE") {
+          salarie = true;
         }
       })
     }
-    return user;
+    return salarie;
 
   }
   isResponsable(){
@@ -59,7 +59,6 @@ export class AuthService {
   }
 
   loadProfile(reponse: any) {
-
     console.log("load profile ...");
     this.isAuthenticated=true;
     let accessToken = reponse['access-token'];
