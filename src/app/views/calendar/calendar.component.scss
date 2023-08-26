@@ -2,9 +2,11 @@
   padding-bottom: 80px;
   padding-top: 20px;
 }
-/*::ng-deep full-calendar{
-  height: 550px;
-}*/
+::ng-deep full-calendar{
+  height: 600px;
+  width:85%;
+  margin-left: 8%;
+}
 ::ng-deep .fc .fc-button-primary {
   border-color: #2196F3;
   background-color: #2196F3;
@@ -55,5 +57,8 @@ span {
   font-weight: 400;
   line-height: 24px;
   margin-left: 10px;
+}
+.row{
+  margin-left: 8%;
 }
 
