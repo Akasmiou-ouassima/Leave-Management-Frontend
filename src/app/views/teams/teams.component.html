@@ -1,4 +1,4 @@
-<div class="horizontal-bar mb-5 m-lg-2" *ngIf="roleUser!='ADMIN'">
+<div class="horizontal-bar mb-5 m-lg-2" *ngIf="!this.authService.isAdmin()">
   <div class="tabs mt-2">
     <div class="tab ms-4" [class.active]="activeTab === 'All'" (click)="setActiveTab('All')">All</div>
     <div class="tab ms-4" [class.active]="activeTab === 'MyTeams'" (click)="setActiveTab('MyTeams')">
@@ -7,7 +7,7 @@
   </div>
 </div>
 <!-- Button Add Team-->
-<div class="row mb-5 justify-content-end me-1 mt-3" *ngIf="roleUser=='ADMIN'">
+<div class="row mb-5 justify-content-end me-1 mt-3" *ngIf="this.authService.isAdmin()">
   <button type="button" class="btn btn-right" (click)="showPopup = true">
     <img ngSrc="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
     <span>Add team</span>
@@ -17,11 +17,12 @@
 
 <!-- columns -->
 <div class="row">
-  <div class="col-lg-4 col-md-6 mb-3" *ngFor="let equipe of pagedEquipes">
+  <div class="col-lg-4 col-md-6 mb-3" *ngFor="let equipe of equipes; let i = index"  >
+
     <div class="card">
       <img
         class="card-img-top img-responsive img"
-        src="./assets/img/teams/{{equipe.image}}"
+        src="assets/img/teams/{{equipe.image}}"
         alt="Card image cap"
       />
       <div class="card-body">
@@ -35,52 +36,49 @@
             Manager :
           </p>
           <div class="col-2">
-            <img ngSrc="assets/img/avatars/{{getRespo(equipe.id).image}}" alt="admin team"  height="30" width="30">
+            <img ngSrc="assets/img/users/{{equipeMembersCountsAndImgs[i].admin?.image}}" alt="admin team"  height="30" width="30">
           </div>
           <div class="col-5 ps-2">
             <p class="card-text ">
-              {{ (idUserAuth!=getRespo(equipe.id).id?getRespo(equipe.id).prenom : "YOU") | uppercase}}
+              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU") | uppercase}}
             </p>
           </div>
         </div>
         <div class="team-members row align-items-center mb-2">
           <div class="col-9">
-            <span class="number">{{getMembersCountForEquipe(equipe.id)}}<span class="member-count">Membres </span></span>
+            <span class="number">{{equipeMembersCountsAndImgs[i].membersCount}}<span class="member-count">Membres </span></span>
           </div>
           <div class=" col-2 member-stack" >
-            <img *ngFor="let img of getMembersImgsForEquipe(equipe.id)" ngSrc="./assets/img/avatars/{{img}}" alt="Membre 1" height="200" width="200">
+            <img *ngFor="let img of equipeMembersCountsAndImgs[i].images" ngSrc="./assets/img/users/{{img}}" alt="Membre 1" height="200" width="200">
           </div>
         </div>
         <div class="row align-items-center justify-content-between me-1">
           <div class="col-6 row align-items-center">
-            <div class="col-4" *ngIf="roleUser=='ADMIN'">
+            <div class="col-4" *ngIf="this.authService.isAdmin()">
               <button type="button" class="btn" (click)="delete(equipe)">
-              <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
-                </button>
+                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
+              </button>
             </div>
-            <div class="col-2" *ngIf="roleUser=='ADMIN'">
+            <div class="col-2" *ngIf="this.authService.isAdmin()">
               <button type="button" class="btn" (click)="update(equipe)">
-              <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
+                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
               </button>
             </div>
           </div>
           <div class="col-4 me-3">
             <button cButton class="button-discover"  (click)="discover(equipe)">Discover</button>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
+<!--
 <mat-paginator [length]="equipes.length" [pageSizeOptions]="pageSizeOptions" [pageSize]="currentPageSize"
-  [showFirstLastButtons]="true" (page)="onPageChange($event)"></mat-paginator>
+               [showFirstLastButtons]="true" (page)="onPageChange($event)"></mat-paginator>
+-->
 
-<app-add-team-pop-up *ngIf="roleUser=='ADMIN'" [isModalOpen]="showPopup" (closePopupEvent)="closePopup()" (addTeamEvent)="addTeam($event)"></app-add-team-pop-up>
-<app-update-team-pop-up *ngIf="roleUser=='ADMIN'"  [teamUpdated]="selectedTeam" [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()" (updateTeamEvent)="updateTeam($event)"></app-update-team-pop-up>
+<app-add-team-pop-up *ngIf="this.authService.isAdmin()" [isModalOpen]="showPopup" (closePopupEvent)="closePopup()" (addTeamEvent)="addTeam($event)"></app-add-team-pop-up>
+<app-update-team-pop-up *ngIf="this.authService.isAdmin()"  [teamUpdated]="selectedTeam" [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()" (updateTeamEvent)="updateTeam($event)"></app-update-team-pop-up>
 <app-discover-team  [team]="selectedTeam" [isModalOpen]="showPopup2" (closePopupEvent)="closePopup2()"></app-discover-team>
-<app-confirm-delete-team *ngIf="roleUser=='ADMIN'" [teamDeleted]="selectedTeam" [showAlert]="showPopupDelete" (closePopupEvent)="closePopupDelete()" (deleteEvent)="deleteTeam($event)"></app-confirm-delete-team>
-
-
-
-
-
+<app-confirm-delete-team *ngIf="this.authService.isAdmin()" [teamDeleted]="selectedTeam" [showAlert]="showPopupDelete" (closePopupEvent)="closePopupDelete()" (deleteEvent)="deleteTeam($event)"></app-confirm-delete-team>

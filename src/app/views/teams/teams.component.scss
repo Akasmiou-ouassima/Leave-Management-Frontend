@@ -1,6 +1,7 @@
-.img{
-  height:167px;
+.img {
+  height: 167px;
 }
+
 .team-members {
   margin-top: 10px;
   display: flex;
@@ -55,9 +56,11 @@
   box-sizing: border-box;
   cursor: pointer;
 }
+
 .btn-right:hover {
   background: var(--main-accent-blue, #109CF1);
 }
+
 span {
   color: var(--secondary-white, #FFF);
   text-align: center;
@@ -68,7 +71,8 @@ span {
   line-height: normal;
   letter-spacing: 0.13px;
 }
-.button-discover{
+
+.button-discover {
   background: #2C73EB;
   color: #FFF;
   font-family: Poppins, sans-serif;
@@ -77,15 +81,17 @@ span {
   font-weight: 700;
   line-height: normal;
 }
-.card-title{
+
+.card-title {
   color: #232360;
   font-family: Poppins, sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
 }
-.card-text{
+
+.card-text {
   color: #5d6c81;
   font-family: Poppins, sans-serif;
   font-size: 16px;
@@ -93,7 +99,8 @@ span {
   font-weight: 500;
   line-height: normal;
 }
-.number{
+
+.number {
   color: #768396;
   font-family: Poppins, sans-serif;
   font-size: 17px;
@@ -101,22 +108,25 @@ span {
   font-weight: 700;
   line-height: normal;
 }
-.card-manager{
-  color: #055e94;
+
+.card-manager {
+  color: #768396;
   font-family: Poppins, sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   margin-bottom: 0px;
 }
-.horizontal-bar{
+
+.horizontal-bar {
   flex-shrink: 0;
   //background: var(--white, #FFF);
 }
+
 .tabs {
   display: flex;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
 }
 
 .tab {
@@ -124,10 +134,11 @@ span {
   padding: 10px;
   color: #109CF1;
   font-family: Poppins, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 600;
   line-height: 28px;
+  margin-right: 10px;
 }
 
 .tab.active {
@@ -135,9 +146,18 @@ span {
   //border-bottom: 2px solid #109CF1;
   // color: #109CF1;
   font-family: Poppins, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 600;
   line-height: 28px;
-  padding: 15px;
+  padding: 10px;
+}
+.name{
+  color: #232360;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 0px;
 }

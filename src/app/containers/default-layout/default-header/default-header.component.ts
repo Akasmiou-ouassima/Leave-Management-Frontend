@@ -3,6 +3,7 @@ import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/views/model/user.model';
 import { UserService } from 'src/app/views/services/user.service';
+import {AuthService} from "../../../views/services/auth.service";
 
 @Component({
   selector: 'app-default-header',
@@ -12,14 +13,14 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   @Input() sidebarId: string = "sidebar";
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private authService : AuthService) {
     super();
-    this.getUser(2);
+    this.getUser(this.authService.tokens.id);
   }
   user!: User;
 
   getUser(userId: number) {
-    this.userService.getUtilisateur(2).subscribe(
+    this.userService.getUtilisateur(userId).subscribe(
       user => {
         this.user = user;
       },
@@ -27,6 +28,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
         console.error('Error preloading user data:', error);
       }
     );
+  }
+  hundleLogout() {
+    this.authService.logout();
+
   }
 }
 

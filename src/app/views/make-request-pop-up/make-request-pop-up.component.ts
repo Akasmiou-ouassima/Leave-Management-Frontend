@@ -1,15 +1,16 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {LeavesUserService} from "../services/leaves-user.service";
 import {Conge} from "../model/conge.model";
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-make-request-pop-up',
   templateUrl: './make-request-pop-up.component.html',
   styleUrls: ['./make-request-pop-up.component.scss']
 })
-export class MakeRequestPopUpComponent {
+export class MakeRequestPopUpComponent implements OnInit{
   @Input() isModalOpen = false;
   @Output() closePopupEvent = new EventEmitter<void>();
   @Output() fetchLeaves = new EventEmitter<void>();
@@ -73,7 +74,7 @@ export class MakeRequestPopUpComponent {
   onPdfFileChange(event: any) {
     this.selectedPdfFile = event.target.files[0];
   }
-  constructor(private fb: FormBuilder, private LeavesUserService : LeavesUserService) {
+  constructor(private fb: FormBuilder, private LeavesUserService : LeavesUserService,private userService: UserService) {
 
   }
   showAlert=false;
@@ -83,6 +84,9 @@ export class MakeRequestPopUpComponent {
   handleSaveConge() {
     let conge: Conge = this.newLeaveFormGroup?.value;
     conge.utilisateurId = 2;
+     this.userService.getUtilisateur(conge.utilisateurId).subscribe({
+      next: data => {
+        const solde = data.solde;
 
     if (this.selectedPdfFile) {
       this.LeavesUserService.saveConge(conge).subscribe({
@@ -102,6 +106,25 @@ export class MakeRequestPopUpComponent {
           });
         },
         error: err => {
+          if (err && err.error) {
+            const errorMessage = err.error.message;
+            if (errorMessage.includes("Solde insuffisant")) {
+              this.closePopup();
+              Swal.fire('Error', `Insufficient leave balance. Your available leave days: ${solde}`, 'error');
+            } else if (errorMessage.includes("Utilisateur not found")) {
+              this.closePopup();
+              Swal.fire('Error', 'User not found. Please provide a valid user ID.', 'error');
+            } else if (errorMessage.includes("Conge already exists")) {
+              this.closePopup();
+              Swal.fire('Error', 'Leave already exists. Please make new leave with a new start date and end date', 'error');
+           } else {
+              this.closePopup();
+              Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
+            }
+          } else {
+            this.closePopup();
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+          }
           console.error("Error while saving leave:", err);
         }
       });
@@ -114,10 +137,31 @@ export class MakeRequestPopUpComponent {
           this.fetchLeaves.emit();
         },
         error: err => {
+          if (err && err.error) {
+            const errorMessage = err.error.message;
+            if (errorMessage.includes("Solde insuffisant")) {
+              this.closePopup();
+              Swal.fire('Error', `Insufficient leave balance. Your available leave days: ${solde}`, 'error');
+            } else if (errorMessage.includes("Utilisateur not found")) {
+              this.closePopup();
+              Swal.fire('Error', 'User not found. Please provide a valid user ID.', 'error');
+            } else if (errorMessage.includes("Conge already exists")) {
+              this.closePopup();
+              Swal.fire('Error', 'Leave already exists. Please make new leave with a new start date and end date', 'error');
+            } else {
+              this.closePopup();
+              Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
+            }
+          } else {
+            this.closePopup();
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+          }
           console.error("Error while saving leave:", err);
         }
       });
     }
+      }
+     });
   }
 
 

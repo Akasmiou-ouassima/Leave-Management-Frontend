@@ -74,14 +74,17 @@ import { WarningAlertComponent } from './views/warning-alert/warning-alert.compo
 import { ErrorAlertComponent } from './views/error-alert/error-alert.component';
 import { CalendarComponent } from './views/calendar/calendar.component';
 import { MatSelectModule } from '@angular/material/select';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { TeamSuccessComponent } from './views/team-success/team-success.component';
 import { ErrorDeleteTeamComponent } from './views/error-delete-team/error-delete-team.component';
 import { ConfirmDeleteTeamComponent } from './views/confirm-delete-team/confirm-delete-team.component';
 import { WarningDeleteLeaveComponent } from './views/warning-delete-leave/warning-delete-leave.component';
 import { SuccessSaveLeaveComponent } from './views/success-save-leave/success-save-leave.component';
 import { LeavesAdminComponent } from './views/leaves-admin/leaves-admin.component';
-
+import { ForgetPasswordComponent } from './views/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
+import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
+import {AppHttpInterceptor} from "./views/interceptors/app-http.interceptor";
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -91,7 +94,7 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent,
     LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent,
-    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent, LeavesAdminComponent],
+    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent, LeavesAdminComponent, ForgetPasswordComponent, ResetPasswordComponent, NotAuthorizedComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -156,6 +159,10 @@ const APP_CONTAINERS = [
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptor,multi:true
     },
     IconSetService,
     Title

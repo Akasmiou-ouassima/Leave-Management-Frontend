@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {catchError, forkJoin, map, mergeMap, Observable, of, switchMap} from "rxjs";
+import {catchError, forkJoin, map, mergeMap, Observable, of, switchMap, tap} from "rxjs";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Equipe} from "../model/equipe.model";
 import {EquipeService} from "../services/equipe.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-teams',
@@ -19,25 +20,24 @@ export class TeamsComponent implements OnInit{
   public equipes! : Array<Equipe>;
   public selectedTeam! : Equipe;
   equipeMembersCountsAndImgs: Array<{ id: number,admin:any, membersCount: number, images: string[] }> = [];
-  public roleUser! :string;
-  public idUserAuth! : number;
-  constructor(private equipeService : EquipeService) {
+
+  constructor(private equipeService : EquipeService,public authService :AuthService) {
   }
   ngOnInit() {
     this.getAllEquipesAndMembers();
     //get Role of user authenticated
-    this.getRoleUser();
+
   }
-  loadPagedEquipes() {
-    const startIndex = this.currentPage * this.currentPageSize;
-    const endIndex = startIndex + this.currentPageSize;
-    this.pagedEquipes = this.equipes.slice(startIndex, endIndex);
-  }
-  onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex;
-    this.currentPageSize = event.pageSize;
-    this.loadPagedEquipes();
-  }
+  /*  loadPagedEquipes() {
+      const startIndex = this.currentPage * this.currentPageSize;
+      const endIndex = startIndex + this.currentPageSize;
+      this.pagedEquipes = this.equipes.slice(startIndex, endIndex);
+    }*/
+  /* onPageChange(event: PageEvent) {
+     this.currentPage = event.pageIndex;
+     this.currentPageSize = event.pageSize;
+     this.loadPagedEquipes();
+   }*/
 //--------------------
   activeTab: string = 'All';
   setActiveTab(tab: string) {
@@ -45,26 +45,17 @@ export class TeamsComponent implements OnInit{
     if( this.activeTab=="All"){
       this.getAllEquipesAndMembers();
     }else{
-      this.getMyEquipesAndMembers(9);
+      this.getMyEquipesAndMembers(this.authService.tokens.id);
     }
   }
-  getAllEquipesAndMembers(){
-    this.getEquipes()
-      .pipe(
-        switchMap(() => this.calculateMembersCountsAndImages())
-      )
-      .subscribe(() => {
-        this.loadPagedEquipes();
-      });
 
-  }
   getMyEquipesAndMembers(idUser:number){
+    console.log("id auth "+idUser);
     this.getMyEquipes(idUser)
       .pipe(
         switchMap(() => this.calculateMembersCountsAndImages())
       )
       .subscribe(() => {
-        this.loadPagedEquipes();
       });
   }
   //
@@ -96,20 +87,7 @@ export class TeamsComponent implements OnInit{
   closePopupDelete() {
     this.showPopupDelete = false;
   }
-  getEquipes() {
-    console.log("getequipes ....");
-    return this.equipeService.getEquipes()
-      .pipe(
-        map(data => {
-          this.equipes = data;
-          console.log("data " + data);
-        }),
-        catchError(error => {
-          console.error('Erreur lors de la récupération des équipes:', error);
-          return of(null);
-        })
-      );
-  }
+
   getMyEquipes(id:number) {
     console.log("getMyEquipes ....");
     return this.equipeService.getEquipesByUser(id)
@@ -124,37 +102,71 @@ export class TeamsComponent implements OnInit{
         })
       );
   }
+  getAllEquipesAndMembers() {
+    console.log(JSON.stringify("getAllEquipesAndMembers()"));
+
+    this.getEquipes()
+      .pipe(
+        switchMap(() => this.calculateMembersCountsAndImages())
+      )
+      .subscribe(
+        () => {
+          console.log("ok");
+          this.equipeMembersCountsAndImgs.forEach(val => {
+            console.log(JSON.stringify("equipeMembersCountsAndImgs" + val));
+          });
+        },
+        error => {
+          console.error("Erreur lors de l'exécution :", error);
+        }
+      );
+  }
+
+  getEquipes() {
+    console.log("getEquipes ...");
+
+    return this.equipeService.getEquipes().pipe(
+      tap(data => {
+        this.equipes = data;
+        console.log("data " + data);
+      }),
+      catchError(error => {
+        console.error("Erreur lors de la récupération des équipes:", error);
+        return of(null);
+      })
+    );
+  }
+
   calculateMembersCountsAndImages(): Observable<void> {
     const observables = this.equipes.map(equipe => {
       return this.equipeService.getMemebersEquipe(equipe.id).pipe(
         switchMap(members => {
           const limitedImages = members.slice(0, 3).map(member => member.image);
           return this.equipeService.getUser(equipe.responsableId).pipe(
-            switchMap(result => {
-              return of({
-                id: equipe.id,
-                admin: result,
-                membersCount: members.length,
-                images: limitedImages
-              });
-            })
+            map(result => ({
+              id: equipe.id,
+              admin: result,
+              membersCount: members.length,
+              images: limitedImages,
+            }))
           );
         })
       );
     });
 
     return forkJoin(observables).pipe(
-      map((results: Array<{
-        id: number,
-        admin: any,
-        membersCount: number,
-        images: string[]
+      tap((results: Array<{
+        id: number;
+        admin: any;
+        membersCount: number;
+        images: string[];
       }>) => {
         this.equipeMembersCountsAndImgs = results;
       }),
       switchMap(() => of())
     );
   }
+
 
 
   getMembersCountForEquipe(equipeId: number): number {
@@ -189,9 +201,5 @@ export class TeamsComponent implements OnInit{
     this.equipes=this.equipes.filter(e=>e.id!=equipe.id);
   }
   //
-  getRoleUser(){
-    this.idUserAuth=9;
-    this.roleUser=this.equipeService.getRoleUser(this.idUserAuth);
-  }
-
+  protected readonly of = of;
 }

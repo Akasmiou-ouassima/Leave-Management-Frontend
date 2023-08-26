@@ -32,6 +32,7 @@ export class EquipeService {
     return this.http.get<Array<any>>(this.path+"membersEquipe/"+id);
   }
   deleteEquipe(equipeId: number): Observable<boolean> {
+    console.log("delete equipe "+equipeId);
     return this.http.delete<boolean>(`${this.path}equipes/${equipeId}`);
   }
   public  addEquipe(equipe :Equipe):Observable<Equipe>{
@@ -60,9 +61,8 @@ export class EquipeService {
       })
     );
   }
-  public  getRoleUser(id:number):string{
-    let role:string="ADMIN"; // USER | ADMIN | RESPONSABLE
-    return role;
+  public  getRoleUser(id:number){
+    return this.http.get(`${this.path}roleUser/${id}`);
   }
 
   EquipesNb():Observable<number>{

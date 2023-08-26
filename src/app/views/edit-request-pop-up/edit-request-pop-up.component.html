@@ -83,9 +83,9 @@
           </div>
           <div class="col-4">
             <label for="pdfFile" class="text-center label-input">File</label>
-            <div class="dropzone" [class]="selectedPdfFileName!=null ? 'fileUploaded' : ''" [class.border-danger]="updateLeaveFormGroup.get('fichier')?.invalid && selectedPdfFileName!=null">
+            <div class="dropzone" [class]="selectedPdfFile!=null ? 'fileUploaded' : ''" [class.border-danger]="updateLeaveFormGroup.get('fichier')?.invalid && selectedPdfFile!=null">
               <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="pdfFile" />
-              <span class="text-success"  [class.text-danger]="updateLeaveFormGroup.get('fichier')?.invalid" *ngIf="selectedPdfFileName" >{{ selectedPdfFileName }}</span>
+              <span class="text-success"  [class.text-danger]="updateLeaveFormGroup.get('fichier')?.invalid" *ngIf="selectedPdfFile" >{{ selectedPdfFile.name }}</span>
               <input type="file" class="upload-input" formControlName="fichier" (change)="onPdfFileChange($event)" >
               <div *ngIf="updateLeaveFormGroup.controls['fichier']?.touched && updateLeaveFormGroup.controls['fichier']?.errors" class="text-danger">
                 Please upload a valid PDF file.

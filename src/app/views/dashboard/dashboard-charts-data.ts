@@ -27,10 +27,11 @@ export class DashboardChartsData {
     this.mainChart['elements'] = period === 'Month' ? 12 : 27;
     this.mainChart['Data1'] = [];
     this.mainChart['Data2'] = [];
-    /*for (let i = 0; i <= this.mainChart['elements']; i++) {
+    
+    for (let i = 0; i <= this.mainChart['elements']; i++) {
       this.mainChart['Data1'].push(this.random(50, 200));
       this.mainChart['Data2'].push(this.random(20, 160));
-    }*/
+    }
 
 
     this.leavesUserService.getNbCongesApproved().subscribe((nbCongesApproved: number) => {
