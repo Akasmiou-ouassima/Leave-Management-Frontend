@@ -75,10 +75,11 @@ export class ProfileComponent implements OnInit {
     let user: User = this.editFormGroup.value;
     let appUser: Appuser = this.editFormGroup.value;
     user.status = this.user.status;
-    let password=this.editFormGroup.value.password;
-    if (this.file) {
-      this.userService.editProfile(user, password).subscribe({
-        next: (data) => {
+    let password = this.editFormGroup.value.password;
+
+    this.userService.editProfile(user, password).subscribe({
+      next: (data) => {
+        if (this.file) {
           this.userService.uploadUserPhoto(this.userId, this.file).subscribe({
             next: (uploadData) => {
               if (this.isFormSubmitted) {
@@ -89,24 +90,25 @@ export class ProfileComponent implements OnInit {
               console.log(error);
             },
           });
-        },
-        error: (uploadErr) => {
-          console.log(uploadErr);
+        } else {
+          this.userService.editProfile(user, password).subscribe({
+            next: (data) => {
+              if (this.isFormSubmitted) {
+                this.showSuccessMessage();
+              }
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
         }
-      });
-    } else {
-      this.userService.editProfile(user, password).subscribe({
-        next: (data) => {
-          if (this.isFormSubmitted) {
-            this.showSuccessMessage();
-          }
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
-    }
+      },
+      error: (uploadErr) => {
+        console.log(uploadErr);
+      },
+    });
   }
+
 
   showSuccessMessage() {
     Swal.fire({

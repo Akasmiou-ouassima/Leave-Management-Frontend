@@ -7,7 +7,7 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="text-right">Edit profil</h4>
         <div class="col-md-3 ms-3 position-relative">
-          <input type="file" formControlName="image" #fileInput  hidden (change)="onImageChange($event)">
+          <input type="file" formControlName="image" class="form-control"  #fileInput  hidden (change)="onImageChange($event)">
           <div *ngIf="editFormGroup.controls['image']?.touched
                   && editFormGroup.controls['image']?.errors">
             Please upload a valid image(jpg, jpeg or png).

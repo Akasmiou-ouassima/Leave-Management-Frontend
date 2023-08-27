@@ -31,8 +31,8 @@
                      placeholder="Password"  formControlName="password" name="password"/>
             </div>
             <div class="form-check d-flex justify-content-start mb-4">
-              <input class="form-check-input me-2" type="checkbox" value="" id="form1Example3" />
-              <label class="form-check-label custom remember" for="form1Example3">Remember me</label>
+              <input class="form-check-input me-2" type="checkbox" id="rememberMeCheckbox" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}"/>
+              <label class="form-check-label custom remember" for="rememberMeCheckbox">Remember me</label>
             </div>
               <div class="d-flex justify-content-center mt-5">
                 <button class="btn btn-primary btn-lg btn-block custom continue" type="submit" [disabled]="loginFormGroup.invalid">Continue</button>
