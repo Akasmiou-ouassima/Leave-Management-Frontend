@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/user.model";
-
-
+import {Appuser} from "../model/appuser";
+import {EditProfileRequest} from "../model/edit-profile-request";
 @Injectable({
   providedIn: 'root'
 })
@@ -56,5 +56,14 @@ export class UserService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.put(`${this.backendHost}/utilisateurs/${userId}/uploadPhoto`,formData);
+  }
+  editProfile(user: User, newPassword: string): Observable<[User, Appuser]> {
+    const url = `${this.backendHost}/editProfil/${user.id}`;
+    const request: EditProfileRequest = { user, newPassword };
+    return this.http.put<[User, Appuser]>(url, request);
+  }
+  getAppUserById(id: number): Observable<Appuser> {
+    const url = `${this.backendHost}/users/${id}`;
+    return this.http.get<Appuser>(url);
   }
 }

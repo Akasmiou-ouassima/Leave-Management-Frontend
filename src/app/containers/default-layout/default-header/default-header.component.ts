@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/views/model/user.model';
@@ -12,8 +13,9 @@ import {AuthService} from "../../../views/services/auth.service";
 export class DefaultHeaderComponent extends HeaderComponent {
 
   @Input() sidebarId: string = "sidebar";
+  userId: any;
 
-  constructor(private userService: UserService,private authService : AuthService) {
+  constructor(private userService: UserService,private authService : AuthService,private router: Router) {
     super();
     this.getUser(this.authService.tokens.id);
   }
@@ -31,7 +33,13 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
   hundleLogout() {
     this.authService.logout();
-
   }
+  
+  ngOnInit(): void {
+    if (localStorage.getItem("id") != undefined) {
+      this.userId = localStorage.getItem("id");
+    }
+  }
+  
 }
 

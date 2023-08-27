@@ -39,7 +39,6 @@ export class UpdateUserPopUpComponent implements OnInit{
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-    console.log("file " + this.selectedFile);
   }
 
   ngOnInit(): void {
@@ -86,8 +85,7 @@ export class UpdateUserPopUpComponent implements OnInit{
         this.userService.updateUtilisateur(user).subscribe({
           next: (updatedRes) => {
             const userId = updatedRes.id;
-
-            // Assuming this.selectedFile holds the updated image file
+            
             if (this.selectedFile) {
               this.userService.uploadUserPhoto(userId, this.selectedFile).subscribe({
                 next: uploadData => {

@@ -75,7 +75,7 @@ const routes: Routes = [
         path: 'All-leaves',
         component: LeavesAdminComponent,
         canActivate: [AuthenticationGuard]
-     
+
       },
       {
         path: 'Myleaves',
