@@ -5,6 +5,7 @@ import {Status, User} from '../model/user.model';
 import {UserService} from '../services/user.service';
 import Swal from "sweetalert2";
 import { Appuser } from '../model/appuser';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,13 +18,16 @@ export class ProfileComponent implements OnInit {
   switchLabel: string = 'Disable';
   userId: any;
   file!: File;
+  roles!: string | null;
   protected readonly Status = Status;
-  constructor(private fb: FormBuilder, private userService: UserService, private router: ActivatedRoute, private routerNav: Router) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: ActivatedRoute,
+              private routerNav: Router, public authService :AuthService) {
   }
 
 
 
   ngOnInit(): void {
+    this.roles = localStorage.getItem("roles");
     if (localStorage.getItem("id") != undefined) {
       this.userId = localStorage.getItem("id");
     }
@@ -67,10 +71,17 @@ export class ProfileComponent implements OnInit {
   onImageChange(event: any) {
     this.file = event.target.files[0];
   }
-
+  onInputKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
 
   isFormSubmitted = false;
-
+  saveProfile() {
+    this.isFormSubmitted = true;
+    this.editProfil();
+  }
   editProfil() {
     let user: User = this.editFormGroup.value;
     let appUser: Appuser = this.editFormGroup.value;

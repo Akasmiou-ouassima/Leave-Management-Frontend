@@ -5,6 +5,7 @@ import {User} from "../model/user.model";
 import {UserService} from "../services/user.service";
 import { MatSort } from '@angular/material/sort';
 import Swal from "sweetalert2";
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -19,12 +20,13 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   users: User[] = [];
-
-  constructor(private userService: UserService) {}
+  admin:boolean=false;
+  constructor(private userService: UserService,private authService : AuthService) {}
 
   @ViewChild(MatSort) sort!: MatSort;
   ngOnInit(): void {
     this.fetchUsers();
+    this.admin=this.authService.isAdmin();
   }
   fetchUsers(): void {
     this.userService.listUtilisateurs().subscribe((users: User[]) => {

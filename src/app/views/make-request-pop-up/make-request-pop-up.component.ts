@@ -18,7 +18,7 @@ export class MakeRequestPopUpComponent implements OnInit{
   @Input() id!:number;
   formReady = false;
   selectedPdfFile!: File;
-
+  userId: any;
   closePopup() {
     this.closePopupEvent.emit();
   }
@@ -59,6 +59,9 @@ export class MakeRequestPopUpComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem("id") != undefined) {
+      this.userId = localStorage.getItem("id");
+    }
     this.newLeaveFormGroup = this.fb.group({
       dateDebut: [null, [Validators.required]],
       dateFin: [null, [Validators.required]],
@@ -83,7 +86,7 @@ export class MakeRequestPopUpComponent implements OnInit{
   }
   handleSaveConge() {
     let conge: Conge = this.newLeaveFormGroup?.value;
-    conge.utilisateurId = 2;
+    conge.utilisateurId = this.userId;
      this.userService.getUtilisateur(conge.utilisateurId).subscribe({
       next: data => {
         const solde = data.solde;

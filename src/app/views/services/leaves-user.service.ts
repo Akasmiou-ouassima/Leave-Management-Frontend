@@ -12,7 +12,7 @@ export class LeavesUserService {
   private baseURL= "http://localhost:8086";
   constructor(private httpClient: HttpClient) { }
   getCongesByUtilisateur(id:number):Observable<Conge[]>{
-    return this.httpClient.get<Conge[]>(this.baseURL+"/conges/ByUser/"+id); // need to change '1' to "id" when we do link the login page
+    return this.httpClient.get<Conge[]>(this.baseURL+"/conges/ByUser/"+id);
   }
   updateConge(conge:Conge){
     const url = `${this.baseURL}/conges/`;
@@ -68,5 +68,18 @@ export class LeavesUserService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     return this.httpClient.put(`${this.baseURL}/conges/${congeId}/uploadPdf`,formData);
+  }
+  getNbCongesByUserByEtat(userId: number,etat:string): Observable<number> {
+    const url = `${this.baseURL}/nbCongesByUser/${userId}/By/${etat}`;
+    return this.httpClient.get<number>(url);
+  }
+  getNbCongesByUser(id: number): Observable<number> {
+    const url = `${this.baseURL}/nbCongesBySalarie/${id}`;
+    return this.httpClient.get<number>(url);
+  }
+  getNbCongesByMoisAnnee(mois:number,annee:number,etat:string): Observable<number>{
+    console.log("mois "+mois+"annee "+annee);
+    const url = `${this.baseURL}/nbConges/${etat}/By/${mois}/${annee}`;
+    return this.httpClient.get<number>(url);
   }
 }

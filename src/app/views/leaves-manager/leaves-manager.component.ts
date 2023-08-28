@@ -17,7 +17,7 @@ export class LeavesManagerComponent implements OnInit {
   displayedData: Conge[] = [];
   usersMap: Map<number, User> = new Map<number, User>();
   searchQuery: string = '';
-
+  userId: any;
   constructor(private LeavesUserService: LeavesUserService, private userService: UserService) {
  }
 
@@ -26,7 +26,7 @@ export class LeavesManagerComponent implements OnInit {
   }
 
   preloadUsers() {
-    this.LeavesUserService.getCongesByManager(2).subscribe(
+    this.LeavesUserService.getCongesByManager(this.userId).subscribe(
       data => {
         this.data = data;
         this.generateTable(this.currentPage);
@@ -48,11 +48,14 @@ export class LeavesManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem("id") != undefined) {
+      this.userId = localStorage.getItem("id");
+    }
     this.fetchCongesByManager();
     this.preloadUsers();
   }
   fetchCongesByManager() {
-      this.LeavesUserService.getCongesByManager(2).subscribe(data => {
+      this.LeavesUserService.getCongesByManager(this.userId).subscribe(data => {
         this.data = data;
         this.sortData('id');
         this.generateTable(this.currentPage);
@@ -68,7 +71,6 @@ export class LeavesManagerComponent implements OnInit {
   generateTable(page: number): void {
     const startIndex = (page - 1) * this.rowsPerPage;
     const endIndex = Math.min(startIndex + this.rowsPerPage, this.data.length);
-
     this.displayedData = this.data.filter(conge =>
       this.isCongeMatchingSearch(conge, this.searchQuery)
     ).slice(startIndex, endIndex);

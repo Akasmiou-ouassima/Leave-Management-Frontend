@@ -54,12 +54,12 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
-          canActivate: [AuthenticationGuard]
+          canActivate: [AuthenticationGuard],
       },
       {
         path: 'users',
         component: UsersComponent,
-        canActivate: [AuthenticationGuard]
+        canActivate : [AuthenticationGuard],
       },
       {
         path: 'teams',
@@ -69,13 +69,12 @@ const routes: Routes = [
       {
         path: 'leaves',
         component: LeavesManagerComponent,
-        canActivate: [AuthenticationGuard]
+        canActivate : [AuthenticationGuard],
       },
       {
         path: 'All-leaves',
         component: LeavesAdminComponent,
-        canActivate: [AuthenticationGuard]
-
+        canActivate : [AuthenticationGuard],
       },
       {
         path: 'Myleaves',

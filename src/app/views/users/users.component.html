@@ -1,5 +1,5 @@
 <div class="button-container">
-  <button type="button" class="btn btn-right" (click)="ShowPopup = true">
+  <button type="button" class="btn btn-right" (click)="ShowPopup = true" *ngIf="admin">
     <img src="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
     <span>Add user</span>
   </button>
@@ -12,7 +12,7 @@
 <mat-table [dataSource]="dataSource"  matSort class="tab-content mat-table" >
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef mat-line mat-sort-header class="custom-sort-header">#</mat-header-cell>
-    <mat-cell *matCellDef="let row" class="mat-column-id">{{ row.id }}</mat-cell>
+    <mat-cell *matCellDef="let row; let rowIndex = index" class="mat-column-id">{{ rowIndex + 1 }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="nom">
@@ -75,7 +75,7 @@
       </div></mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="action">
+  <ng-container matColumnDef="action" *ngIf="admin">
     <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
     <mat-cell *matCellDef="let row" class="mat-column-action">
       <button class="btn" (click)="handleDeleteUser(row)" matTooltip="Supprimer">

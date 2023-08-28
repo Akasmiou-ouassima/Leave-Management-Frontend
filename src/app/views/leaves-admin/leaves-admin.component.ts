@@ -93,7 +93,7 @@ export class LeavesAdminComponent implements OnInit {
   }
 
   generatePaginationButtons(): number[] {
-    const totalPages = Math.ceil(this.data.length / this.rowsPerPage);
+    const totalPages = Math.ceil(this.data?.length / this.rowsPerPage);
     return Array.from({length: totalPages}, (_, i) => i + 1);
   }
 

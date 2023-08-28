@@ -15,6 +15,8 @@ export class LeavesUserComponent implements OnInit{
   displayedData: Conge[] = [];
   searchQuery: string = '';
   isPopupOpen = false;
+  userId: any;
+  
   closePopup() {
     this.isPopupOpen = false;
   }
@@ -27,7 +29,7 @@ export class LeavesUserComponent implements OnInit{
   constructor(private LeavesUserService : LeavesUserService) { }
 
   getConges(){
-    this.LeavesUserService.getCongesByUtilisateur(2).subscribe(data => {
+    this.LeavesUserService.getCongesByUtilisateur(this.userId).subscribe(data => {
       this.data = data;
       this.generateTable(this.currentPage);
     });
@@ -92,6 +94,9 @@ export class LeavesUserComponent implements OnInit{
 
 
   ngOnInit(): void {
+    if (localStorage.getItem("id") != undefined) {
+      this.userId = localStorage.getItem("id");
+    }
     this.getConges();
   }
   generateTable(page: number): void {

@@ -13,9 +13,9 @@ import {AuthService} from "../services/auth.service";
 export class TeamsComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pageSizeOptions = [3, 10, 20];
-  currentPage = 0;
-  currentPageSize = this.pageSizeOptions[0];
-  pagedEquipes: Equipe[] = [];
+  admin : boolean = false;
+  currentTimestamp: number = Date.now();
+
 
   public equipes! : Array<Equipe>;
   public selectedTeam! : Equipe;
@@ -25,7 +25,7 @@ export class TeamsComponent implements OnInit{
   }
   ngOnInit() {
     this.getAllEquipesAndMembers();
-    //get Role of user authenticated
+    this.admin=this.authService.isAdmin();
 
   }
 
@@ -156,9 +156,6 @@ export class TeamsComponent implements OnInit{
       switchMap(() => of())
     );
   }
-
-
-
   getMembersCountForEquipe(equipeId: number): number {
     const equipe =
       this.equipeMembersCountsAndImgs.find(item => item.id === equipeId);
@@ -175,7 +172,8 @@ export class TeamsComponent implements OnInit{
     return equipe ? equipe.admin :'';
   }
   addTeam(equipe : Equipe) {
-    this.equipes.push(equipe);
+    this.getAllEquipesAndMembers();
+    this.currentTimestamp = Date.now();
   }
   updateTeam(equipe : Equipe) {
     console.log("id "+equipe.id+" nom "+equipe.nom)

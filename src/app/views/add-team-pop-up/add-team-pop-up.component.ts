@@ -35,19 +35,16 @@ export class AddTeamPopUpComponent implements OnInit {
   ngOnInit() {
     this.equipeService.getUsers().subscribe({
       next: data => {
-        this.respos = data;
-        this.respos.forEach(re => {
-          console.log("respo : " + re);
-        })
+        this.respos =  data.filter( user => user.id!=1);
       },
       error: err => {
         console.log("err :" + err);
       }
     });
     this.equipeForm = this.fb.nonNullable.group({
-      nom: this.fb.nonNullable.control('',
+      nom: this.fb.nonNullable.control(null,
         [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
-      description: this.fb.nonNullable.control('', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
+      description: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
       image: this.fb.nonNullable.control('', [Validators.required, Validators.pattern(/.(png|jpe?g)$/i)]),
       responsableId: this.fb.nonNullable.control('', Validators.required),
     })
@@ -66,10 +63,10 @@ export class AddTeamPopUpComponent implements OnInit {
         switchMap((data: Equipe) => {
           return this.equipeService.uploadTeamPhoto(data.id, this.selectedFile).pipe(
             map((updatedEquipe: Equipe) => {
-              console.log('Image de l\'équipe mise à jour :', updatedEquipe);
-              this.addTeamEvent.emit(updatedEquipe);
               this.showSuccesAlert = true;
               this.closePopup();
+              console.log('Image de l\'équipe mise à jour :', updatedEquipe);
+              this.addTeamEvent.emit(updatedEquipe);
               return updatedEquipe;
             }),
             catchError(error => {

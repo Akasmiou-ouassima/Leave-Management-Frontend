@@ -30,11 +30,12 @@ export class AuthService {
         }
       });
     }
-
+    console.log("admin check..."+admin);
     return admin;
   }
 
   isSalarie() {
+    console.log("Salarie check...");
     let salarie: boolean = false;
     if (Array.isArray(this.tokens.roles)) {
       this.tokens.roles.forEach((r: string) => {
@@ -47,6 +48,7 @@ export class AuthService {
 
   }
   isResponsable(){
+    console.log("Responsable check...");
     let respo:boolean  = false;
     if (Array.isArray(this.tokens.roles)) {
       this.tokens.roles.forEach((r: string) => {
@@ -126,7 +128,8 @@ export class AuthService {
   getTokens() {
     this.tokens.jwt= localStorage.getItem("access-token");
     this.tokens.refreshToken=localStorage.getItem("refresh-token");
-    this.tokens.roles=localStorage.getItem("roles");
+    let jwtDecoder : any =jwtDecode(this.tokens.jwt);
+    this.tokens.roles= jwtDecoder.roles;
     this.tokens.email=localStorage.getItem("email");
     this.tokens.id=localStorage.getItem("id");
     console.log("get tokens ..."+JSON.stringify(this.tokens));

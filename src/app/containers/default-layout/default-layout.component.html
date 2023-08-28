@@ -19,29 +19,29 @@
     <c-sidebar-nav dropdownMode="close" class="mt-4">
       <li class="nav-item" (click)="setCurrentNavItem('Dashboard')">
         <a class="nav-link" routerLink="/dashboard">
-          <img [src]="currentNavItem === 'Dashboard' ? 'assets/img/icons/dashboardBlue.svg' : 'assets/img/icons/dashboard.svg'"alt="dashboard" width="20" height="20" class="ms-2" >
+          <img [src]="currentNavItem === 'Dashboard' ? 'assets/img/icons/dashboardBlue.svg' : 'assets/img/icons/dashboard.svg'" alt="dashboard" width="20" height="20" class="ms-2" >
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Dashboard' ? '#109CF1' : '#334D6E' }">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item" (click)="setCurrentNavItem('Users')">
+      <li class="nav-item" (click)="setCurrentNavItem('Users')" *ngIf="roles!=null && roles.includes('ADMIN')">
         <a class="nav-link" routerLink="/users">
           <img [src]="currentNavItem === 'Users' ? 'assets/img/icons/usersBlue.svg' : 'assets/img/icons/users.svg'" alt="users" width="20" height="20" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Users' ? '#109CF1' : '#334D6E' }">Users</span>
         </a>
       </li>
-      <li class="nav-item" (click)="setCurrentNavItem('My Leaves')">
+      <li class="nav-item" (click)="setCurrentNavItem('My Leaves')"   *ngIf="roles != null && (roles.includes('SALARIE') || roles.includes('RESPONSABLE'))">
         <a class="nav-link" routerLink="/Myleaves">
           <img [src]="currentNavItem === 'My Leaves' ? 'assets/img/icons/myleavesBlue.svg' : 'assets/img/icons/myleaves.svg'" alt="dashboard" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'My Leaves' ? '#109CF1' : '#334D6E' }">My Leaves</span>
         </a>
       </li>
-      <li class="nav-item" (click)="setCurrentNavItem('Leaves')" >
+      <li class="nav-item" (click)="setCurrentNavItem('Leaves')"  *ngIf="roles!=null && roles.includes('RESPONSABLE')">
         <a class="nav-link" routerLink="/leaves" >
           <img [src]="currentNavItem === 'Leaves' ? 'assets/img/icons/leavesBlue.svg' : 'assets/img/icons/leaves.svg'" alt="leaves" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'Leaves' ? '#109CF1' : '#334D6E' }">Leaves</span>
         </a>
       </li>
-      <li class="nav-item" (click)="setCurrentNavItem('All Leaves')" >
+      <li class="nav-item" (click)="setCurrentNavItem('All Leaves')"  *ngIf="roles!=null && roles.includes('ADMIN')">
         <a class="nav-link" routerLink="/All-leaves" >
           <img [src]="currentNavItem === 'All Leaves' ? 'assets/img/icons/leavesBlue.svg' : 'assets/img/icons/leaves.svg'" alt="leaves" width="24" height="24" class="ms-2">
           <span class="ms-4" [ngStyle]="{ 'color': currentNavItem === 'All Leaves' ? '#109CF1' : '#334D6E' }">All Leaves</span>

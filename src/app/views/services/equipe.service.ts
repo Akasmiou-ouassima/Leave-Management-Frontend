@@ -55,7 +55,8 @@ export class EquipeService {
           map(users => {
             const userIdsToRemove = new Set(members.map(member => member.id));
             const usersWithoutMembers = users.filter(user => !userIdsToRemove.has(user.id));
-            return usersWithoutMembers;
+            const usersWithoutAdmin = usersWithoutMembers.filter(user => user.id!=1);
+            return usersWithoutAdmin;
           })
         );
       })
