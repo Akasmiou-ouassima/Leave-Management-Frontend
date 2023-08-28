@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit{
   rememberMe: boolean = false;
   loginFormGroup!: FormGroup;
   constructor(private fb: FormBuilder, private authService : AuthService,private router:Router,
-              @Inject(CookieService) private cookieService: CookieService) {
+              @Inject(CookieService) private cookieService: CookieService,private toastr: ToastrService) {
 
   }
 
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit{
     let password = this.loginFormGroup.value.password;
     this.authService.login(email,password).subscribe({
       next : reponse => {
-
+        this.toastr.success("Login successful!", "Success", { positionClass: 'toast-top-right'
+          , progressBar: true,tapToDismiss: true,timeOut: 2000 , closeButton: true});
         this.authService.loadProfile(reponse);
         this.router.navigateByUrl("dashboard");
         console.log("response" +JSON.stringify(reponse));
@@ -58,17 +60,15 @@ export class LoginComponent implements OnInit{
           this.cookieService.delete('rememberedPassword');
         }
       },
-      error : err => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: "The information you have provided is not accurate." +
-            " Please make another attempt and provide correct information.",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        error: err => {
+        if (err.status === 401) {
+          this.toastr.error("Sorry, we could not find your account.", "Error", { positionClass: 'toast-top-right'
+          , progressBar: true,tapToDismiss: true,timeOut: 5000 });
+        } else {
+          this.toastr.error("An error occurred. Please try again later.", "Error", { positionClass: 'toast-top-right' });
+        }
 
-        console.log("error : "+err);
+        console.log("error: " + JSON.stringify(err));
       }
     })
   }

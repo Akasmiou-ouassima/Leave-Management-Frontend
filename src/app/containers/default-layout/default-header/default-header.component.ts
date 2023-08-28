@@ -40,6 +40,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
       this.userId = localStorage.getItem("id");
     }
   }
-  
+
 }
 

@@ -59,3 +59,11 @@ input::placeholder {
 p{
   cursor: pointer;
 }
+::ng-deep .toast-message{
+  font-family: Poppins, sans-serif;
+}
+::ng-deep .toast-title{
+  font-family: Poppins, sans-serif;
+  font-weight: bold;
+  font-size: medium;
+}

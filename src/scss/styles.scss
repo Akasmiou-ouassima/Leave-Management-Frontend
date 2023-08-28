@@ -22,3 +22,6 @@ $enable-rtl: true;
 @import "custom";
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
 
+// regular style toast
+@import 'ngx-toastr/toastr';
+

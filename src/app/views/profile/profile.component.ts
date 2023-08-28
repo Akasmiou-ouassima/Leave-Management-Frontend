@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
           email: [this.user.email],
           adresse: [this.user.adresse, [Validators.minLength(5)]],
           status: [this.user.status],
-          image: [this.user.image, [Validators.pattern(/\.(png|jpe?g)$/i)]],
+          image: [null, [Validators.pattern(/\.(png|jpe?g)$/i)]],
           equipeId: [this.user.equipeId],
           password: [null, [Validators.minLength(3)]]
         });
@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
     let appUser: Appuser = this.editFormGroup.value;
     user.status = this.user.status;
     let password = this.editFormGroup.value.password;
-
+    let status = this.editFormGroup.value.status;
     this.userService.editProfile(user, password).subscribe({
       next: (data) => {
         if (this.file) {

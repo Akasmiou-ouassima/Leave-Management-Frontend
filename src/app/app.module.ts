@@ -85,6 +85,7 @@ import { ForgetPasswordComponent } from './views/forget-password/forget-password
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
 import {AppHttpInterceptor} from "./views/interceptors/app-http.interceptor";
+import { ToastrModule } from 'ngx-toastr';
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -154,6 +155,7 @@ const APP_CONTAINERS = [
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    ToastrModule.forRoot(), 
   ],
   providers: [
     {
