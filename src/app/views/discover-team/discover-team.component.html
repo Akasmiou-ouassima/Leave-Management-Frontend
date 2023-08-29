@@ -36,7 +36,7 @@
               <tr *ngFor="let membre of members">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img src="./assets/img/avatars/{{membre.image}}" alt="user" width="30"
+                    <img src="./assets/img/users/{{membre.image}}" alt="user" width="30"
                          class="rounded-circle">
                     <div class="ms-3">
                       <h5 class="mb-0 font-medium name">{{membre.nom}} {{membre.prenom}}</h5>
@@ -48,7 +48,7 @@
                   {{membre.poste | uppercase}}
                 </td>
                 <td>
-                  <div [class]="membre.type=='RESPONSABLE'?'custom-style-manager':'custom-style-emp'">{{membre.type}}</div>
+                  <div [class]="membre.type=='RESPONSABLE'?'custom-style-manager':'custom-style-emp'">{{ getType(membre.type) }}</div>
                 </td>
               </tr>
               </tbody>

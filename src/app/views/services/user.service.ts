@@ -57,10 +57,10 @@ export class UserService {
     formData.append('file', file);
     return this.http.put(`${this.backendHost}/utilisateurs/${userId}/uploadPhoto`,formData);
   }
-  editProfile(user: User, newPassword: string): Observable<[User, Appuser]> {
+  editProfile(user: User, newPassword: string): Observable<[User, String]> {
     const url = `${this.backendHost}/editProfil/${user.id}`;
     const request: EditProfileRequest = { user, newPassword };
-    return this.http.put<[User, Appuser]>(url, request);
+    return this.http.put<[User, String]>(url, request);
   }
   getAppUserById(id: number): Observable<Appuser> {
     const url = `${this.backendHost}/users/${id}`;

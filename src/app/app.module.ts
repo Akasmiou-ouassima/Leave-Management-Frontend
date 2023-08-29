@@ -68,10 +68,6 @@ import { UpdateUserPopUpComponent } from './views/update-user-pop-up/update-user
 import { AddTeamPopUpComponent } from './views/add-team-pop-up/add-team-pop-up.component';
 import { UpdateTeamPopUpComponent } from './views/update-team-pop-up/update-team-pop-up.component';
 import { DiscoverTeamComponent } from './views/discover-team/discover-team.component';
-import { AlertSuccessComponent } from './views/alert-success/alert-success.component';
-import { AlertInfoMessageComponent } from './views/alert-info-message/alert-info-message.component';
-import { WarningAlertComponent } from './views/warning-alert/warning-alert.component';
-import { ErrorAlertComponent } from './views/error-alert/error-alert.component';
 import { CalendarComponent } from './views/calendar/calendar.component';
 import { MatSelectModule } from '@angular/material/select';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
@@ -95,7 +91,7 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS, UsersComponent, LoginComponent, ProfileComponent, TeamsComponent, LeavesUserComponent, MakeRequestPopUpComponent,
     LeavesManagerComponent, EditRequestPopUpComponent, AddUserPopUpComponent, UpdateUserPopUpComponent, AddTeamPopUpComponent, UpdateTeamPopUpComponent, DiscoverTeamComponent,
-    AlertSuccessComponent, AlertInfoMessageComponent, WarningAlertComponent, ErrorAlertComponent, CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent, LeavesAdminComponent, ForgetPasswordComponent, ResetPasswordComponent, NotAuthorizedComponent],
+    CalendarComponent, TeamSuccessComponent, ErrorDeleteTeamComponent, ConfirmDeleteTeamComponent, WarningDeleteLeaveComponent, SuccessSaveLeaveComponent, LeavesAdminComponent, ForgetPasswordComponent, ResetPasswordComponent, NotAuthorizedComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

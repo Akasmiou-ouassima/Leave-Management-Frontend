@@ -6,6 +6,7 @@ import {UserService} from '../services/user.service';
 import Swal from "sweetalert2";
 import { Appuser } from '../model/appuser';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
   roles!: string | null;
   protected readonly Status = Status;
   constructor(private fb: FormBuilder, private userService: UserService, private router: ActivatedRoute,
-              private routerNav: Router, public authService :AuthService) {
+              private routerNav: Router, public authService :AuthService,private toastr: ToastrService) {
   }
 
 
@@ -70,10 +71,15 @@ export class ProfileComponent implements OnInit {
 
   onImageChange(event: any) {
     this.file = event.target.files[0];
-  }
-  onInputKeydown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
+    console.log(this.file);
+    console.log(this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'jpg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'jpeg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'png')
+    if( this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'jpg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'jpeg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'png'){
+      this.toastr.warning("Please upload a valid image (jpg, jpeg, or png).", "Warning", {
+        positionClass: 'toast-center-center',
+        progressBar: true,
+        tapToDismiss: true,
+        timeOut: 5000
+      });
     }
   }
 
@@ -82,53 +88,98 @@ export class ProfileComponent implements OnInit {
     this.isFormSubmitted = true;
     this.editProfil();
   }
+
   editProfil() {
     let user: User = this.editFormGroup.value;
     let appUser: Appuser = this.editFormGroup.value;
     user.status = this.user.status;
     let password = this.editFormGroup.value.password;
     let status = this.editFormGroup.value.status;
-    this.userService.editProfile(user, password).subscribe({
-      next: (data) => {
-        if (this.file) {
+
+    if (this.file) {
+      this.userService.editProfile(user, password).subscribe({
+        next: (data) => {
           this.userService.uploadUserPhoto(this.userId, this.file).subscribe({
             next: (uploadData) => {
               if (this.isFormSubmitted) {
-                this.showSuccessMessage();
+                this.toastr.success("Your information updated successfully!", "", {
+                  positionClass: 'toast-center-center',
+                  tapToDismiss: true,
+                  timeOut: 5000,
+                  closeButton: true
+                });
               }
             },
-            error: (error) => {
-              console.log(error);
-            },
+            error: this.handlePhotoUploadError.bind(this)
           });
-        } else {
-          this.userService.editProfile(user, password).subscribe({
-            next: (data) => {
-              if (this.isFormSubmitted) {
-                this.showSuccessMessage();
-              }
-            },
-            error: (error) => {
-              console.log(error);
-            },
-          });
-        }
-      },
-      error: (uploadErr) => {
-        console.log(uploadErr);
-      },
-    });
+        },
+        error: this.handleProfileEditError.bind(this)
+      });
+    } else {
+      this.userService.editProfile(user, password).subscribe({
+        next: (data) => {
+          if (this.isFormSubmitted) {
+            this.toastr.success("Your information updated successfully!","", {
+              positionClass: 'toast-center-center',
+              tapToDismiss: true,
+              timeOut: 5000,
+              closeButton: true
+            });
+          }
+        },
+        error: this.handleProfileEditError.bind(this)
+      });
+    }
   }
 
+  private handlePhotoUploadError(err: any) {
+    if (err && err.error) {
+      const errorMessage = err.error.message;
+      if (errorMessage.includes("Unsupported file type")) {
+        this.toastr.warning("Unsupported file type. Only JPEG, JPG, and PNG images are allowed.", "Warning", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      } else if (errorMessage.includes("User not found")) {
+        this.toastr.warning("User not found. Please provide a valid user.", "Warning", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      } else if (errorMessage.includes("Failed to save the file")) {
+        this.toastr.warning("Failed to save the file. Please try again later.", "Warning", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      } else {
+        this.toastr.error("An unexpected error occurred. Please try again later.", "Error", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      }
+    }
+  }
 
-  showSuccessMessage() {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'User information updated successfully!',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+  private handleProfileEditError(err: any) {
+    if (err && err.error) {
+      const errorMessage = err.error.message;
+      if (errorMessage.includes("Equipe not found")) {
+        this.toastr.warning("User not found.", "Warning", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      } else {
+        this.toastr.error("Error while saving leave. Please try again later.", "Error", {
+          positionClass: 'toast-center-center',
+          tapToDismiss: true,
+          timeOut: 5000
+        });
+      }
+    }
   }
 
 }

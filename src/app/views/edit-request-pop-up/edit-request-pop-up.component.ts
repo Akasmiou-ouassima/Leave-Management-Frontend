@@ -37,13 +37,14 @@ export class EditRequestPopUpComponent {
     this.updateLeaveFormGroup = this.fb.group({
       id: this.fb.control(this.selectedLeave?.id || '', [Validators.required, Validators.minLength(1)]),
       etat: this.fb.control(this.selectedLeave?.etat || '', [Validators.required]),
-      dateDebut: [this.selectedLeave?.dateDebut, [Validators.required, this.startDateValidator]],
+      dateDebut: [this.selectedLeave?.dateDebut, [Validators.required]],
       dateFin: [this.selectedLeave?.dateFin, [Validators.required]],
       motif: this.fb.control(this.selectedLeave?.motif, [Validators.required, Validators.minLength(3)]),
       type: this.fb.control(this.selectedLeave?.type, [Validators.required]),
       fichier: this.fb.control(this.selectedLeave?.fichier, [Validators.pattern(/\.(pdf)$/i)]),
     });
-    this.updateLeaveFormGroup.get('dateFin')?.setValidators([this.endDateValidator]);
+    this.updateLeaveFormGroup.get('dateDebut')?.setValidators([Validators.required, this.startDateValidator]);
+    this.updateLeaveFormGroup.get('dateFin')?.setValidators([Validators.required, this.endDateValidator]);
     this.updateLeaveFormGroup.updateValueAndValidity();
     this.formReady = true;
   }
@@ -53,18 +54,25 @@ export class EditRequestPopUpComponent {
   }
 
   startDateValidator(control: AbstractControl): ValidationErrors | null {
-    const startDate = control.value;
+    if (!control.value) {
+      return null;
+    }
+    const startDate = new Date(control.value);
     const today = new Date();
-    if (startDate && startDate <= today) {
-      return {startDatePast: true};
+
+    startDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate <= today) {
+      return { startDatePast: true };
     }
     return null;
   }
-
   endDateValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!this.updateLeaveFormGroup) {
       return null;
     }
+
     const endDate = control.value;
     const startDateControl = this.updateLeaveFormGroup.get('dateDebut');
 
@@ -72,9 +80,10 @@ export class EditRequestPopUpComponent {
       const startDate = startDateControl.value;
 
       if (endDate && startDate && endDate <= startDate) {
-        return {endDateBeforeStart: true};
+        return { endDateBeforeStart: true };
       }
     }
+
     return null;
   }
 

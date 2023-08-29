@@ -1,5 +1,5 @@
 <app-default-header class="mb-2 d-print-none header header-sticky" position="sticky"/>
-<form [formGroup]="editFormGroup" *ngIf="editFormGroup" (ngSubmit)="editProfil()">
+<form [formGroup]="editFormGroup" *ngIf="editFormGroup" (ngSubmit)="saveProfile()">
 <div class="container rounded bg-white mt-3 mb-5">
   <div class="row justify-content-center">
     <div class="col-md-6 border-right">
@@ -7,7 +7,7 @@
         <h4 class="text-right">Edit profil</h4>
         <div class="col-md-3 ms-3 position-relative">
           <input type="file" formControlName="image" class="form-control"  #fileInput  hidden (change)="onImageChange($event)"
-                 (keydown)="onInputKeydown($event)">
+                 >
           <img class="rounded-circle" width="135px" height="135" [src]="'/assets/img/users/' + user?.image" alt="image">
           <div class="btn btn-primary rounded-circle position-absolute bottom-0  start-50 translate-middle-x ms-4" (click)="fileInput.click()">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
@@ -134,7 +134,7 @@
           <button class="btn profile-button1" type="reset" routerLink="/dashboard">Cancel</button>
         </div>
         <div class="col-md-2">
-          <button class="btn profile-button2" type="submit" [disabled]="!editFormGroup.valid" (click)="saveProfile()">Save</button>
+          <button class="btn profile-button2" type="submit" [disabled]="!editFormGroup.valid" >Save</button>
         </div>
       </div>
     </div>

@@ -17,8 +17,7 @@ export class UpdateTeamPopUpComponent{
   public respos! : Array<any>;
   selectedFile!: File ;
   showSuccesAlert : boolean = false;
-  title:string="UPDATE TEAM";
-  description : string="The team is updated successfully ";
+  check=2;
   closeSuccessAlert() {
     this.showSuccesAlert=false;
   }

@@ -43,4 +43,12 @@ export class DiscoverTeamComponent{
       }
     });
   }
+
+  getType(type : string){
+    switch (type){
+      case "RESPONSABLE" : return "Manager";
+      case "SALARIE" : return "Employee";
+      default : return "";
+    }
+  }
 }

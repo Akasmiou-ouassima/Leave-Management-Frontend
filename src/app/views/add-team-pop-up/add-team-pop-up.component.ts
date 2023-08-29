@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { ToastrService } from 'ngx-toastr';
 import {catchError, map, Observable, switchMap} from "rxjs";
 import {Equipe} from "../model/equipe.model";
 import {EquipeService} from "../services/equipe.service";
@@ -17,8 +18,7 @@ export class AddTeamPopUpComponent implements OnInit {
   public respos!: Array<any>;
   selectedFile!: File;
   showSuccesAlert: boolean = false;
-  title: string = "ADD TEAM";
-  description: string = "The team is created successfully ";
+  check=1;
 
   closeSuccessAlert() {
     this.showSuccesAlert = false;
@@ -29,7 +29,7 @@ export class AddTeamPopUpComponent implements OnInit {
     console.log("file " + this.selectedFile.name);
   }
 
-  constructor(private fb: FormBuilder, private equipeService: EquipeService) {
+  constructor(private fb: FormBuilder, private equipeService: EquipeService,private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -42,8 +42,7 @@ export class AddTeamPopUpComponent implements OnInit {
       }
     });
     this.equipeForm = this.fb.nonNullable.group({
-      nom: this.fb.nonNullable.control(null,
-        [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
+      nom: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
       description: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
       image: this.fb.nonNullable.control('', [Validators.required, Validators.pattern(/.(png|jpe?g)$/i)]),
       responsableId: this.fb.nonNullable.control('', Validators.required),
@@ -52,6 +51,7 @@ export class AddTeamPopUpComponent implements OnInit {
 
   closePopup() {
     this.closePopupEvent.emit();
+    this.equipeForm.reset();
   }
 
 
@@ -64,6 +64,7 @@ export class AddTeamPopUpComponent implements OnInit {
           return this.equipeService.uploadTeamPhoto(data.id, this.selectedFile).pipe(
             map((updatedEquipe: Equipe) => {
               this.showSuccesAlert = true;
+              this.equipeForm.reset();
               this.closePopup();
               console.log('Image de l\'équipe mise à jour :', updatedEquipe);
               this.addTeamEvent.emit(updatedEquipe);

@@ -124,8 +124,9 @@
         <div class="col-md-6 form-group">
           <label for="equipe" class="label-input">Select Employee's team*</label>
           <select id="equipe" class="custom-input " formControlName="equipeId"
-                  [ngClass]="{'border-danger': newUserFormGroup.controls['equipeId'].invalid && newUserFormGroup.controls['eauipeId'].touched}">
-            <option disabled selected>Select a team...</option>
+                  [class.is-valid]="newUserFormGroup.controls['equipeId'].valid && newUserFormGroup.controls['equipeId'].touched"
+                  [class.is-invalid]="newUserFormGroup.controls['equipeId'].invalid && newUserFormGroup.controls['equipeId'].touched">
+              <option disabled selected>Select a team...</option>
             <option *ngFor="let equipe of equipesList" [value]="equipe.id" >{{ equipe.nom }}</option>
           </select>
           <div

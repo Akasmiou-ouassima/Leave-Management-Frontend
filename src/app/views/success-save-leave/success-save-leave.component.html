@@ -1,13 +1,13 @@
-<div class="light-mode-info-message popup" *ngIf="isModalOpen" >
+<div class="light-mode-info-message popup" *ngIf="isModalOpen" [@fade]  >
   <div class="content popup-content">
     <div class="title">
-      <p class="text-1 mt-4">Request successful</p>
+      <p class="text-1 mt-5">Request successful</p>
     </div>
     <div class="icon mb-5 me-5">
       <img src="assets/img/icons/success.png"/>
     </div>
-    <p class="text-3 mt-3">Your request is sent to your supervisor that will soon give you his decision</p>
-    <button class="button-light"  (click)="closeAlert()">
+    <p class="text-3 mt-1">Your request is sent to your supervisor that will soon give you his decision</p>
+    <button class="button-light mb-4"  (click)="closeAlert()">
       <p class="text-4 mt-3" >Got it</p>
     </button>
   </div>

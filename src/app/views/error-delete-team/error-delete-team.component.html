@@ -1,4 +1,4 @@
-<div class="light-mode-info-message popup" *ngIf="showAlert" >
+<div class="light-mode-info-message popup" *ngIf="showAlert" [@fade]  >
   <div class="content popup-content">
     <div class="title">
       <p class="text-1 mt-5">Unable to Delete Team</p>
@@ -6,11 +6,9 @@
     <div class="icon mb-5 me-5">
       <img src="assets/img/icons/error.png"/>
     </div>
-    <p class="text-3 mt-3">This team cannot be deleted as it contains members.
-      <br>Since a member cannot exist without a team
-      <br> you need to reassign or remove the members from this team before attempting to delete it.</p>
-    <button class="button-light"  (click)="closeAlert()">
-      <p class="text-4 " >Got it</p>
+    <p class="text-3 mt-2">This team cannot be deleted as it contains members!!</p>
+    <button class="button-light mb-4"  (click)="closeAlert()">
+      <p class="text-4 mt-3" >OK</p>
     </button>
   </div>
 </div>

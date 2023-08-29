@@ -32,7 +32,7 @@ export class MakeRequestPopUpComponent implements OnInit{
     startDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    if (startDate < today) {
+    if (startDate <= today) {
       return { startDatePast: true };
     }
     return null;

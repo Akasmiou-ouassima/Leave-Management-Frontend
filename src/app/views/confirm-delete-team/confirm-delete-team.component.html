@@ -1,19 +1,19 @@
-<div class="light-mode-info-message popup" *ngIf="showAlert" >
+<div class="light-mode-info-message popup" *ngIf="showAlert" [@fade]>
   <div class="content popup-content">
     <div class="title">
-      <p class="text-1 mt-2">DELETE TEAM</p>
+      <p class="text-1 mt-2">Delete Team</p>
     </div>
     <div class="icon mb-2 me-5">
       <img src="assets/img/icons/warning.png" class="mb-4"/>
     </div>
-    <p class="text-info text-3 mt-5">By Deleteing this team you will lose all information related to it!!!</p>
-    <p class="text-3 fw-bolder">Are you sure you want to delete the team ?</p>
+    <p class="text-3 mt-5">By Deleteing this team you will lose all information related to it!!!</p>
+    <p class="text-4 fw-bolder">Are you sure you want to delete the team ?</p>
 
-    <div class="row  justify-content-around" >
-      <button type="button" class="col-4 btn btn-annuler me-3" (click)="closeAlert()" >Annuler</button>
-      <button type="submit" class="col-4 btn btn-delete me-5" (click)="delete(teamDeleted)">Delete</button>
+    <div class="row  justify-content-around mt-2" >
+      <button type="reset" class="col-4 btn btn-annuler me-3" (click)="closeAlert()">Cancel</button>
+      <button type="submit" class="col-4 btn btn-delete me-3" (click)="delete(teamDeleted)">Delete</button>
     </div>
   </div>
 </div>
 <app-error-delete-team [showAlert]="showPopupError" (closePopupEvent)="closePopupError()"> </app-error-delete-team>
-<app-team-success [showAlert]="showSuccesAlert" [title]="title" [description]="description" (closePopupEvent)="closeSuccessAlert()"></app-team-success>
+<app-team-success [showAlert]="showSuccesAlert" [check]="check"  (closePopupEvent)="closeSuccessAlert()"></app-team-success>
