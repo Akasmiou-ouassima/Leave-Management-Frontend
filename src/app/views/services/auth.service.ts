@@ -136,9 +136,8 @@ export class AuthService {
     this.tokens.id=localStorage.getItem("id");
     console.log("get tokens ..."+JSON.stringify(this.tokens));
 
-    if(this.tokens.jwt!=undefined){
+   if(this.tokens.jwt!=undefined){
       this.isAuthenticated=true;
-     this.router.navigateByUrl("/dashboard");
     }
 
 
