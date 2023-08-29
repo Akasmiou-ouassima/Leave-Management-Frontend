@@ -122,12 +122,26 @@ export class LeavesManagerComponent implements OnInit {
     }
   }
   accepterConge(id: number): void {
+    Swal.fire({
+      title: 'Are you sure you want to approve this leave?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Approve',
+      denyButtonText: `Don't Approve`,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.LeavesUserService.accepterConge(id).subscribe({
       next:() => {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: "Leave successfully accepted !",
+          title: "Leave successfully accepted!",
           showConfirmButton: false,
           timer: 1500
         });
@@ -150,14 +164,32 @@ export class LeavesManagerComponent implements OnInit {
       console.error("Error while accepting request:", err);
     }
   });
+      } else if (result.isDenied) {
+        Swal.fire('The leave request has not been approved', '', 'info')
+      }
+    })
   }
   refuserConge(id: number): void {
+    Swal.fire({
+      title: 'Are you sure you want to refuse this leave?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Refuse',
+      denyButtonText: `Don't refuse`,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.LeavesUserService.refuserConge(id).subscribe({
       next:() => {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: "Leave successfully refused !",
+        title: "Leave successfully refused!",
         showConfirmButton: false,
         timer: 1500
       });
@@ -180,6 +212,9 @@ export class LeavesManagerComponent implements OnInit {
       console.error("Error while refusing request:", err);
     }
   });
+      } else if (result.isDenied) {
+        Swal.fire('The leave request has not been denied', '', 'info')
+      }
+    })
   }
-
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import jwtDecode from "jwt-decode";
 import {Tokens} from "../model/tokens";
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class AuthService {
   private readonly path: string = "http://localhost:8086";
   isAuthenticated : boolean=false;
   tokens : Tokens = new Tokens();
+  routeStateService: any;
   constructor(private http:HttpClient,private router : Router) { }
   public login(email:string,password:string){
     this.logout();
@@ -125,6 +126,7 @@ export class AuthService {
     localStorage.setItem("refresh-token", this.tokens.refreshToken);
 
   }
+
   getTokens() {
     this.tokens.jwt= localStorage.getItem("access-token");
     this.tokens.refreshToken=localStorage.getItem("refresh-token");
@@ -136,7 +138,7 @@ export class AuthService {
 
     if(this.tokens.jwt!=undefined){
       this.isAuthenticated=true;
-      this.router.navigateByUrl("/dashboard");
+     this.router.navigateByUrl("/dashboard");
     }
 
 

@@ -10,11 +10,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import {Tokens} from "../model/tokens";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private route:Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (request.url.includes('/login') || request.url.includes('/refreshToken')

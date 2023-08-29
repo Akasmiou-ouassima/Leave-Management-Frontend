@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit{
 
   }
   ngOnInit(){
+    console.log("url "+this.router.url)
     this.authService.logout();
     this.loginFormGroup = this.fb.group({
       email : this.fb.control(null, [Validators.required, Validators.email]),
