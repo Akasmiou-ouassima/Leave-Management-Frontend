@@ -71,9 +71,11 @@ export class ProfileComponent implements OnInit {
 
   onImageChange(event: any) {
     this.file = event.target.files[0];
-    console.log(this.file);
+    console.log(this.file.name);
     console.log(this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'jpg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'jpeg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() == 'png')
-    if( this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'jpg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'jpeg' || this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase() != 'png'){
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    const fileExtension = this.file.name.slice(this.file.name.lastIndexOf('.') + 1).toLowerCase();
+    if( !allowedExtensions.includes(fileExtension)){
       this.toastr.warning("Please upload a valid image (jpg, jpeg, or png).", "Warning", {
         positionClass: 'toast-center-center',
         progressBar: true,

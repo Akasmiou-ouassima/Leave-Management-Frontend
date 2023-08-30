@@ -77,9 +77,14 @@ export class LeavesUserService {
     const url = `${this.baseURL}/nbCongesBySalarie/${id}`;
     return this.httpClient.get<number>(url);
   }
-  getNbCongesByMoisAnnee(mois:number,annee:number,etat:string): Observable<number>{
-    console.log("mois "+mois+"annee "+annee);
-    const url = `${this.baseURL}/nbConges/${etat}/By/${mois}/${annee}`;
-    return this.httpClient.get<number>(url);
+  getNbCongesByMoisAnnee(annee:number): Observable<number[]>{
+    console.log("annee "+annee);
+    const url = `${this.baseURL}/nbConges/By/${annee}`;
+    return this.httpClient.get<number[]>(url);
+  }
+  getNbCongesByMoisUser(id : number): Observable<number[]>{
+    console.log("id "+id);
+    const url = `${this.baseURL}/nbCongesByMoisByUser/By/${id}`;
+    return this.httpClient.get<number[]>(url);
   }
 }

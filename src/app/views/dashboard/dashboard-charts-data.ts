@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import {LeavesUserService} from "../services/leaves-user.service";
 
 export interface IChartProps {
   data?: any;
+  data1?: any;
   labels?: any;
   options?: any;
   colors?: any;
@@ -16,65 +18,71 @@ export interface IChartProps {
   providedIn: 'any'
 })
 export class DashboardChartsData {
-  constructor(private leavesUserService:LeavesUserService) {
+  constructor(private leavesUserService:LeavesUserService,private authService:AuthService) {
     this.initMainChart();
   }
   public mainChart: IChartProps = {};
-  public random(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  initMainChart(period: string = 'Month') {
-    this.mainChart['elements'] = period === 'Month' ? 12 : 27;
+  public mainChart1: IChartProps = {};
+
+  currentYear = new Date().getFullYear();
+  initMainChart() {
+    console.log("initMainChart .....");
+    this.mainChart['elements'] = 12 ;
     this.mainChart['Data1'] = [];
     this.mainChart['Data2'] = [];
 
-    for (let i = 0; i <= this.mainChart['elements']; i++) {
-      this.mainChart['Data1'].push(this.random(50, 200));
-      this.mainChart['Data2'].push(this.random(20, 160));
-    }
 
 
-    this.leavesUserService.getNbCongesApproved().subscribe((nbCongesApproved: number) => {
-      this.mainChart['Data1'] = [];
-      for (let i = 0; i <= this.mainChart['elements']; i++) {
-        this.mainChart['Data1'].push(nbCongesApproved);
+    this.leavesUserService.getNbCongesByMoisAnnee(this.currentYear).subscribe((nbConges: number[]) => {
+      console.log("nbConges => "+JSON.stringify(nbConges));
+      //  this.mainChart['Data1'] = nbConges.slice(0, 12);
+      //  this.mainChart['Data2'] = nbConges.slice(12);
+      for (let i = 0; i <12; i += 1) {
+        this.mainChart['Data1'].push(nbConges[i]);
+      }
+      for (let j = 12; j <24; j+= 1) {
+        this.mainChart['Data2'].push(nbConges[j]);
       }
     });
 
-    this.leavesUserService.getNbCongesRefused().subscribe((nbCongesRefused: number) => {
-      this.mainChart['Data2'] = [];
-      for (let i = 0; i <= this.mainChart['elements']; i++) {
-        this.mainChart['Data2'].push(nbCongesRefused);
+    console.log("initMainChartUser .....");
+    this.mainChart1['elements'] = 12 ;
+    this.mainChart1['Data1'] = [];
+    this.mainChart1['Data2'] = [];
+
+    this.leavesUserService.getNbCongesByMoisUser(this.authService.tokens.id).subscribe((nbCongesUser: number[]) => {
+      console.log("nbCongesUser => "+JSON.stringify(nbCongesUser));
+      //this.mainChart['Data1'] = nbCongesUser.slice(0, 12);
+      for (let i = 0; i <12; i += 1) {
+        this.mainChart1['Data1'].push(nbCongesUser[i]);
       }
+      for (let j = 12; j <24; j+= 1) {
+        this.mainChart1['Data2'].push(nbCongesUser[j]);
+      }
+      //  this.mainChart['Data2'] = nbCongesUser.slice(12);
+      console.log("this.mainChart1['Data1'] => "+JSON.stringify(this.mainChart1['Data1']));
+      console.log("this.mainChart1['Data2'] => "+JSON.stringify(this.mainChart1['Data2']));
+
     });
+
+    //
     let labels: string[] = [];
-    if (period === 'Month') {
-      labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];
-    } else {
-      const week = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-      ];
-      labels = week.concat(week, week, week);
-    }
+
+    labels = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
 
     const colors = [
       {
@@ -99,6 +107,18 @@ export class DashboardChartsData {
       },
       {
         data: this.mainChart['Data2'],
+        label: 'Unapproved',
+        ...colors[1]
+      },
+    ];
+    const datasets1 = [
+      {
+        data1: this.mainChart1['Data1'],
+        label: 'Approved',
+        ...colors[0]
+      },
+      {
+        data1: this.mainChart1['Data2'],
         label: 'Unapproved',
         ...colors[1]
       },
@@ -129,10 +149,10 @@ export class DashboardChartsData {
         },
         y: {
           beginAtZero: true,
-          max: 200,
+          max: 25,
           ticks: {
             maxTicksLimit: 5,
-            stepSize: Math.ceil(250 / 5)
+            stepSize: Math.ceil(25 / 5)
           }
         }
       },
@@ -151,11 +171,16 @@ export class DashboardChartsData {
 
     this.mainChart.type = 'line';
     this.mainChart.options = options;
+    this.mainChart1.type = 'line';
+    this.mainChart1.options = options;
     this.mainChart.data = {
       datasets,
+      labels
+    };
+    this.mainChart1.data1 = {
+      datasets1,
       labels
     };
   }
 
 }
-
