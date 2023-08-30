@@ -80,7 +80,12 @@ export class UsersComponent implements OnInit {
       });
     }
   }
+  currentPage = 0;
+  itemsPerPage = 7;
 
+  getRowIndex(rowIndex: number): number {
+    return rowIndex + this.currentPage * this.itemsPerPage + 1;
+  }
   deleteUser(user: User): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {

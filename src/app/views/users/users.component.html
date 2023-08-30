@@ -12,7 +12,7 @@
 <mat-table [dataSource]="dataSource"  matSort class="tab-content mat-table" >
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef mat-line mat-sort-header class="custom-sort-header">#</mat-header-cell>
-    <mat-cell *matCellDef="let row; let rowIndex = index" class="mat-column-id">{{ rowIndex + 1 }}</mat-cell>
+    <mat-cell *matCellDef="let row; let rowIndex = index" class="mat-column-id"> {{ getRowIndex(rowIndex) }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="nom">
@@ -91,7 +91,7 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"  class="hover-animation"></mat-row>
 </mat-table>
 
-<mat-paginator [pageSizeOptions]="[7, 10, 20]" [showFirstLastButtons]="true"
+<mat-paginator [pageSizeOptions]="[7, 10, 20]" [showFirstLastButtons]="true"  (page)="currentPage = $event.pageIndex"
 ></mat-paginator>
 </div>
 <app-add-user-pop-up [isModalOpen]="ShowPopup" (fetchUsers)="fetchUsers()" (closePopupEvent)="closePopup()"></app-add-user-pop-up>
