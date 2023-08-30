@@ -72,9 +72,21 @@ export class AddUserPopUpComponent implements OnInit {
             }
           });
         },
-        error: saveError => {
-          this.errorMessage = saveError.message;
-          return throwError(saveError);
+        error: err => {
+          if (err && err.error) {
+            const errorMessage = err.error.message;
+            if (errorMessage.includes("Equipe not found")) {
+              this.closePopup();
+              Swal.fire('Error', 'Team not found. Please provide a valid team ID.', 'error');
+            } else if (errorMessage.includes("Utilisateur already exists")) {
+              this.closePopup();
+              Swal.fire('Error', 'User already exists. Please provide a new email.', 'error');
+            } else {
+              this.closePopup();
+              Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+            }
+            console.error("Error while saving user:", err);
+          }
         }
       });
     }
