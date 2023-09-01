@@ -46,9 +46,9 @@ export class ProfileComponent implements OnInit {
           email: [this.user.email],
           adresse: [this.user.adresse, [Validators.minLength(5)]],
           status: [this.user.status],
-          image: [null, [Validators.pattern(/\.(png|jpe?g)$/i)]],
+          image: [this.user.image, [Validators.pattern(/\.(png|jpe?g)$/i)]],
           equipeId: [this.user.equipeId],
-          password: [null, [Validators.minLength(3)]]
+          password: [null, [Validators.minLength(3),Validators.pattern(/^\S*$/)]]
         });
         this.switchLabel = (this.user.status === 'ACTIVE') ? 'Active' : 'Disable';
       }

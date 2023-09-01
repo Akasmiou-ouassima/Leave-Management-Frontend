@@ -121,11 +121,17 @@
           </div>
           <p
             *ngIf="editFormGroup.controls['password']?.touched
-                  && editFormGroup.controls['password']?.errors
-              "
+                  && editFormGroup.controls['password']?.errors"
             class="text-danger"
           >
             The password must have at least 3 characters.
+          </p>
+          <p
+            *ngIf="editFormGroup.controls['password']?.touched
+                  && editFormGroup.get('password')?.hasError('pattern')
+             "
+            class="text-danger">
+            Password must not contain spaces.
           </p>
         </div>
       </div>
