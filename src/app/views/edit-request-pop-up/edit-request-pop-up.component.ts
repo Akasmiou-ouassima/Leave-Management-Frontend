@@ -21,7 +21,7 @@ export class EditRequestPopUpComponent {
   formReady = false;
   selectedPdfFile!: File;
   leaveId!: number;
-
+  userId: any;
   constructor(private fb: FormBuilder, private LeavesUserService: LeavesUserService, private route: ActivatedRoute
   ,private userService:UserService) {
   }
@@ -33,6 +33,9 @@ export class EditRequestPopUpComponent {
 
 
   ngOnInit(): void {
+    if (localStorage.getItem("id") != undefined) {
+      this.userId = localStorage.getItem("id");
+    }
     this.leaveId = this.route.snapshot.params['id'];
     this.updateLeaveFormGroup = this.fb.group({
       id: this.fb.control(this.selectedLeave?.id || '', [Validators.required, Validators.minLength(1)]),
@@ -94,7 +97,7 @@ export class EditRequestPopUpComponent {
 
   handleUpdateLeave() {
     const conge: Conge = this.updateLeaveFormGroup?.value;
-    conge.utilisateurId = 2;
+    conge.utilisateurId = this.userId;
 
     this.userService.getUtilisateur(conge.utilisateurId).subscribe({
       next: userData => {
@@ -141,17 +144,23 @@ export class EditRequestPopUpComponent {
                   if (updateError && updateError.error) {
                     const errorMessage = updateError.error.message;
                     if (errorMessage.includes("Solde insuffisant")) {
+                      this.closePopup();
                       Swal.fire('Error', `Insufficient leave balance. Your available leave days: ${solde}`, 'error');
                     } else if (errorMessage.includes("Utilisateur not found")) {
+                      this.closePopup();
                       Swal.fire('Error', 'User not found. Please provide a valid user ID.', 'error');
                     } else if (errorMessage.includes("Leave not found")) {
+                      this.closePopup();
                       Swal.fire('Error', 'Leave not found. Please provide a valid leave ID.', 'error');
-                    } else if (errorMessage.includes("The leave status must be")) {
-                      Swal.fire('Error', 'The leave status must be \'Pending\'.', 'error');
+                    } else if (errorMessage.includes("The leave status must be Pending")) {
+                      this.closePopup();
+                      Swal.fire('Error', 'The leave status must be in the Pending state.', 'error');
                     } else {
+                      this.closePopup();
                       Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
                     }
                   } else {
+                    this.closePopup();
                     Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
                   }
                   console.error("Error while saving leave:", updateError);
@@ -184,6 +193,9 @@ export class EditRequestPopUpComponent {
                   } else if (errorMessage.includes("Conge already exists")) {
                     this.closePopup();
                     Swal.fire('Error', 'Leave already exists. Please make new leave with a new start date and end date', 'error');
+                  } else if (errorMessage.includes("The leave status must be Pending")) {
+                    this.closePopup();
+                    Swal.fire('Error', 'The leave status must be in the Pending state.', 'error');
                   } else {
                     this.closePopup();
                     Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
