@@ -2,55 +2,28 @@
 <c-card class="mb-4 card">
   <c-card-body>
     <c-row>
-      <c-col sm="5">
-      </c-col>
-      <!-- <c-col class="d-none d-md-block" sm="7">
-         <form [formGroup]="trafficRadioGroup">
-           <c-button-group class="float-end me-3" role="group">
-             <input
-               class="btn-check"
-               formControlName="trafficRadio"
-               type="radio"
-               value="Day"
-             />
-             <label
-               (click)="setTrafficPeriod('Day')"
-               cButton
-               cFormCheckLabel
-               variant="outline"
-             >Day</label>
-
-             <input
-               class="btn-check"
-               formControlName="trafficRadio"
-               type="radio"
-               value="Month"
-             />
-             <label
-               (click)="setTrafficPeriod('Month')"
-               cButton
-               cFormCheckLabel
-               variant="outline"
-             >Month</label>
-
-            &lt;!&ndash; <input
-               class="btn-check"
-               formControlName="trafficRadio"
-               type="radio"
-               value="Year"
-             />
-             <label
-               (click)="setTrafficPeriod('Year')"
-               cButton
-               cFormCheckLabel
-               variant="outline"
-             >Year</label>&ndash;&gt;
-           </c-button-group>
-         </form>
-       </c-col>-->
-
+    <c-col sm="5">
+    </c-col>
+    <c-col class="d-none d-md-block" sm="7">
+      <c-button-group class="float-end me-3" role="group">
+        <label
+          cButton
+          cFormCheckLabel
+          variant="outline"
+        >Day</label>
+      <label
+        cButton
+        cFormCheckLabel
+        variant="outline"
+      >Month</label>
+        <label
+          cButton
+          cFormCheckLabel
+          variant="outline"
+        >Year</label>
+      </c-button-group>
+    </c-col>
     </c-row>
-
     <c-chart *ngIf="roles != null && (roles.includes('ADMIN'))"
       [data]="mainChart.data"
       [height]="300"
