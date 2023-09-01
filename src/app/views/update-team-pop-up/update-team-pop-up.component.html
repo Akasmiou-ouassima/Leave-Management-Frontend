@@ -45,8 +45,9 @@
         <div class="row align-items-center justify-content-between ms-1">
           <div class="col-7">
             <label for="manager" class="label-input">Select team's Manager*</label>
-            <select class="form-control ManagerInput mt-1" id="manager" name="responsableId" formControlName="responsableId">
-              <option *ngFor="let manager of respos" [class]="teamUpdated.responsableId==manager.id?'selected':''" [value]="manager.id">{{(manager.nom) | uppercase }} {{manager.prenom}}</option>
+            <select class="form-control ManagerInput mt-1" id="manager" name="responsableId" formControlName="responsableId"
+                    [(ngModel)]="teamUpdated.responsableId">
+              <option *ngFor="let manager of respos" [value]="manager.id">{{(manager.nom) | uppercase }} {{manager.prenom}}</option>
             </select>
             <div class="text-danger" *ngIf="equipeForm.get('responsableId')?.touched">
               <div *ngIf="equipeForm.get('responsableId')?.hasError('required')">

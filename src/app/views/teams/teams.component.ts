@@ -84,7 +84,7 @@ export class TeamsComponent implements OnInit{
       .pipe(
         map(data => {
           this.equipes = data;
-          console.log("data " + data);
+          console.log("data " + JSON.stringify(data));
         }),
         catchError(error => {
           console.error('Erreur lors de la récupération des équipes:', error);
@@ -128,6 +128,7 @@ export class TeamsComponent implements OnInit{
   }
 
   calculateMembersCountsAndImages(): Observable<void> {
+    console.error("calculateMembersCountsAndImages");
     const observables = this.equipes.map(equipe => {
       return this.equipeService.getMemebersEquipe(equipe.id).pipe(
         switchMap(members => {
@@ -177,8 +178,16 @@ export class TeamsComponent implements OnInit{
   }
   updateTeam(equipe : Equipe) {
     console.log("id "+equipe.id+" nom "+equipe.nom)
-    this.equipes=  this.equipes.map(e=>e.id==equipe.id?equipe:e);
+    if(this.admin ){
+      this.getAllEquipesAndMembers();
+    }else{
+      if(this.activeTab=="All"){
+        this.getAllEquipesAndMembers();
 
+      }else{
+        this.getMyEquipesAndMembers(this.authService.tokens.id);
+      }
+    }
   }
 
   delete(equipe: Equipe) {

@@ -73,7 +73,6 @@ export class UpdateTeamPopUpComponent{
         switchMap((data: Equipe) => {
           this.teamUpdated=data;
           console.log('Équipe modifiée :', data);
-          this.updateTeamEvent.emit(data);
           this.showSuccesAlert = true;
           this.closePopup();
           if (this.selectedFile) {
@@ -81,6 +80,7 @@ export class UpdateTeamPopUpComponent{
               map((updatedEquipe: Equipe) => {
                 console.log('Image de l\'équipe mise à jour :', updatedEquipe);
                 this.teamUpdated=updatedEquipe;
+                this.updateTeamEvent.emit(updatedEquipe);
                 return updatedEquipe;
               }),
               catchError(error => {

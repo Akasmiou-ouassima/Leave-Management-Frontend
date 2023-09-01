@@ -168,11 +168,40 @@ export class DashboardChartsData {
         }
       }
     };
-
+    const options1 = {
+      maintainAspectRatio: false,
+      plugins,
+      scales: {
+        x: {
+          grid: {
+            drawOnChartArea: false
+          }
+        },
+        y: {
+          beginAtZero: true,
+          max: 1,
+          ticks: {
+            maxTicksLimit: 1,
+            stepSize:1
+          }
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4
+        },
+        point: {
+          radius: 0,
+          hitRadius: 10,
+          hoverRadius: 4,
+          hoverBorderWidth: 3
+        }
+      }
+    };
     this.mainChart.type = 'line';
     this.mainChart.options = options;
     this.mainChart1.type = 'line';
-    this.mainChart1.options = options;
+    this.mainChart1.options = options1;
     this.mainChart.data = {
       datasets,
       labels

@@ -21,7 +21,7 @@
     <tr *ngFor="let item of displayedData;">
       <th scope="row" >{{ item.id }}</th>
       <td>
-        <img [src]="usersMap.get(item.utilisateurId)?.image" style="border-radius: 50%; width: 30px; height: 30px; margin-left: 80px;">
+        <img [src]="'./assets/img/users/'+usersMap.get(item.utilisateurId)?.image" style="border-radius: 50%; width: 30px; height: 30px; margin-left: 80px;">
         <span class="name ms-2">{{ usersMap.get(item.utilisateurId)?.nom }}&nbsp;{{ usersMap.get(item.utilisateurId)?.prenom }}</span>
       </td>
       <td class="text-center" style="color:#707683">{{ item.dateDebut }}</td>

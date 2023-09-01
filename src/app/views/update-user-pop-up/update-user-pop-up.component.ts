@@ -4,7 +4,7 @@ import {User} from "../model/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import Swal from "sweetalert2";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {EquipeService} from "../services/equipe.service";
 
 @Component({
@@ -85,7 +85,7 @@ export class UpdateUserPopUpComponent implements OnInit{
         this.userService.updateUtilisateur(user).subscribe({
           next: (updatedRes) => {
             const userId = updatedRes.id;
-            
+
             if (this.selectedFile) {
               this.userService.uploadUserPhoto(userId, this.selectedFile).subscribe({
                 next: uploadData => {
@@ -102,6 +102,7 @@ export class UpdateUserPopUpComponent implements OnInit{
                 },
                 error: (uploadErr) => {
                   console.log(uploadErr);
+                  return throwError(uploadErr);
                 }
               });
             } else {
@@ -117,8 +118,21 @@ export class UpdateUserPopUpComponent implements OnInit{
               this.closePopup1();
             }
           },
-          error: (updateErr) => {
-            console.log(updateErr);
+          error: err => {
+            if (err && err.error) {
+              const errorMessage = err.error.message;
+              if (errorMessage.includes("Equipe not found")) {
+                this.closePopup1();
+                Swal.fire('Error', 'Team not found. Please provide a valid team ID.', 'error');
+              } else if (errorMessage.includes("email already exists")) {
+                this.closePopup1();
+                Swal.fire('Error', 'Email already exists. Please provide a new email.', 'error');
+              } else {
+                this.closePopup1();
+                Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+              }
+              console.error("Error while updating user:", err);
+            }
           }
         });
       } else if (result.isDenied) {

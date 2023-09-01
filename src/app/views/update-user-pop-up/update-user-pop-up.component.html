@@ -107,16 +107,14 @@
         <div class="col-md-6 mt-2 form-group ">
           <div class="form-check">
             <input class="form-check-input" type="radio" id="flexActive" formControlName="status"
-                   [ngModel]="selectedUser.status === 'ACTIVE'"
-                   value="ACTIVE">
+                   value="ACTIVE" [(ngModel)]="selectedUser.status">
             <label class="form-check-label" for="flexActive">
               Active
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" id="flexDisable" formControlName="status"
-                   [ngModel]="selectedUser.status === 'DESACTIVE'"
-                   value="DESACTIVE">
+                   value="DESACTIVE" [(ngModel)]="selectedUser.status">
             <label class="form-check-label" for="flexDisable">
               Disable
             </label>
@@ -143,10 +141,8 @@
       <div class="col-md-6  ms-4 ">
         <label for="equipeId" class="label-input">Select Employee's team</label>
         <select id="equipeId" class="custom-input team"  formControlName="equipeId"
-                [class.is-valid]="updateFormGroup.controls['equipeId'].valid && updateFormGroup.controls['equipeId'].touched"
-                [class.is-invalid]="updateFormGroup.controls['equipeId'].invalid && updateFormGroup.controls['equipeId'].touched">
-          >
-          <option *ngFor="let equipe of equipesList"  [class]="selectedUser.equipeId==equipe.id?'selected':''" [value]="equipe.id">{{ equipe.nom }}</option>
+                [(ngModel)]="selectedUser.equipeId" >
+          <option *ngFor="let equipe of equipesList" [value]="equipe.id">{{ equipe.nom }}</option>
         </select>
         <p
           *ngIf="updateFormGroup.controls['equipeId']?.touched
