@@ -1,0 +1,167 @@
+<div class="popup" *ngIf="isModalOpen">
+  <div class="popup-content">
+    <div class="mt-4 ms-3">
+      <h2>Update User</h2>
+      <div class="close-button-container modal-header">
+        <button class="btn btn-close" (click)="closePopup1()"></button>
+      </div>
+    </div>
+    <hr>
+    <form class="mt-1" (ngSubmit)="handleUpdateUser()" *ngIf="updateFormGroup" [formGroup]="updateFormGroup">
+      <div class="mb-3">
+        <input type="text" hidden formControlName="id" class="form-control" [(ngModel)]="selectedUser.id">
+      </div>
+      <div class="mb-3">
+        <input type="text" hidden formControlName="solde" class="form-control" [(ngModel)]="selectedUser.solde">
+      </div>
+      <div class="mb-3">
+        <input type="text" hidden formControlName="type" class="form-control" [(ngModel)]="selectedUser.type">
+      </div>
+      <div class="row mt-2 ms-2">
+        <div class="col-md-6 form-group">
+          <label for="name1" class="label-input">First Name</label>
+          <input type="text" id="name1" formControlName="prenom" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.prenom">
+          <p
+            *ngIf="updateFormGroup.controls['prenom']?.touched
+                  && updateFormGroup.controls['prenom']?.errors
+                   && updateFormGroup.controls['prenom']?.errors!['required']"
+            class="text-danger"
+          >
+            First Name is required
+          </p>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="name2" class="label-input">Last Name</label>
+          <input type="text" id="name2" formControlName="nom" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.nom">
+          <p
+            *ngIf="updateFormGroup.controls['nom']?.touched
+                  && updateFormGroup.controls['nom']?.errors
+                   && updateFormGroup.controls['nom']?.errors!['required']"
+            class="text-danger"
+          >
+            Last Name is required
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2 ms-2">
+        <div class="col-md-6 form-group">
+          <label for="job1" class="label-input">Job</label>
+          <input type="text" id="job1" name="poste" formControlName="poste" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.poste">
+          <p
+            *ngIf="updateFormGroup.controls['poste']?.touched
+                  && updateFormGroup.controls['poste']?.errors
+                   && updateFormGroup.controls['poste']?.errors!['required']"
+            class="text-danger"
+          >
+            Job is required
+          </p>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="phone1" class="label-input">Phone Number</label>
+          <input type="text" id="phone1" name="tel" formControlName="tel" class="custom-input form-control"
+                 [(ngModel)]="selectedUser.tel">
+          <p
+            *ngIf="updateFormGroup.controls['tel']?.touched
+                  && updateFormGroup.controls['tel']?.errors
+                   && updateFormGroup.controls['tel']?.errors!['required']"
+            class="text-danger"
+          >
+            Phone is required
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-2 ms-2">
+        <div class="col-md-12 form-group">
+          <label for="email1" class="label-input">Email</label>
+          <input type="email" id="email1" name="email" formControlName="email" class="custom-input1 form-control"
+                 [(ngModel)]="selectedUser.email">
+          <p
+            *ngIf="updateFormGroup.controls['email']?.touched
+                  && updateFormGroup.controls['email']?.errors
+                   && updateFormGroup.controls['email']?.errors!['required']"
+            class="text-danger"
+          >
+            Email is required
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label for="address1" class="label-input ms-4">Address</label>
+        <textarea style="height: 60px" id="address1" formControlName="adresse"
+                  class="custom-input1 custom-input-address form-control" [(ngModel)]="selectedUser.adresse">
+         </textarea>
+        <p
+          *ngIf="updateFormGroup.controls['adresse']?.touched
+                  && updateFormGroup.controls['adresse']?.errors
+                   && updateFormGroup.controls['adresse']?.errors!['required']"
+          class="text-danger ms-4"
+        >
+          Address is required
+        </p>
+      </div>
+      <div class="row mt-3 ms-2">
+        <div class="col-md-6 mt-2 form-group ">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flexActive" formControlName="status"
+                   value="ACTIVE" [(ngModel)]="selectedUser.status">
+            <label class="form-check-label" for="flexActive">
+              Active
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flexDisable" formControlName="status"
+                   value="DESACTIVE" [(ngModel)]="selectedUser.status">
+            <label class="form-check-label" for="flexDisable">
+              Disable
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label class="label-input ms-1">Profile image*</label>
+          <div class=" mt-1">
+            <span class="text-success" [class.text-danger]="updateFormGroup.get('image')?.invalid" *ngIf="selectedFile" >{{selectedFile.name}}</span>
+            <input type="file" class="custom-input form-control" name="image" formControlName="image" (change)="onFileSelected($event)" [class]="selectedFile!=null ? 'uploadPhoto' : ''" [class.border-danger]="updateFormGroup.get('image')?.invalid && selectedFile!=null"/>
+            <div class="text-danger" *ngIf="updateFormGroup.get('image')?.touched">
+              <div *ngIf="updateFormGroup.get('image')?.hasError('required')">
+                Image is required
+              </div>
+              <div *ngIf="updateFormGroup.get('image')?.hasError('pattern')">
+                Please upload a valid image(jpg, jpeg or png).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6  ms-4 ">
+        <label for="equipeId" class="label-input">Select Employee's team</label>
+        <select id="equipeId" class="custom-input team"  formControlName="equipeId"
+                [(ngModel)]="selectedUser.equipeId" >
+          <option *ngFor="let equipe of equipesList" [value]="equipe.id">{{ equipe.nom }}</option>
+        </select>
+        <p
+          *ngIf="updateFormGroup.controls['equipeId']?.touched
+                  && updateFormGroup.controls['equipeId']?.errors
+                   && updateFormGroup.controls['equipeId']?.errors!['required']"
+          class="text-danger"
+        >
+          Team is required
+        </p>
+      </div>
+
+      <div class="row ms-3" style="margin-top: 30px;">
+        <div class="col-md-6 form-group">
+          <button type="reset" class="btn btn-cancel" (click)="closePopup1()">Cancel</button>
+        </div>
+        <div class="col-md-6 form-group">
+          <button type="submit" class="btn btn-confirm" [disabled]="!updateFormGroup.valid">Confirm</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

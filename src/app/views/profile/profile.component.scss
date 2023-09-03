@@ -1,0 +1,171 @@
+.form-control:focus {
+  box-shadow: none;
+  border-color: #109CF1;
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  line-height: normal;
+}
+.form-control{
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  line-height: normal;
+}
+.fa{
+  color: #707683;
+  font-size: 20px;
+}
+.profile-button1{
+  border-radius: 5px;
+  border: 2px solid #109CF1;
+  background: #FFF;
+  width: 120px;
+  height: 45px;
+  flex-shrink: 0;
+  color: #109CF1;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.profile-button2{
+  border-radius: 5px;
+  background: #109CF1;
+  width: 120px;
+  height: 45px;
+  flex-shrink: 0;
+  color: #FFF;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile-button2:hover {
+  background: #109CF1;
+}
+
+.profile-button2:focus {
+  border: #109CF1;
+  box-shadow: none
+}
+
+.profile-button2:active {
+  background: #109CF1;
+  box-shadow: none
+}
+.profile-button1:hover {
+  border: #FFF;
+}
+.labels {
+  font-size: 11px
+}
+.text-right{
+  color: #192A3E;
+  font-family: Poppins, sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.labels{
+  color: #192A3E;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+}
+
+input{
+  border-radius: 5px;
+  border: 2px solid #D0D5DD;
+  background: #FFF;
+}
+
+/* Le style de base du bouton switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Ajustez la largeur ici */
+  height: 28px; /* Ajustez la hauteur ici */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Style du bouton */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px; /* Ajustez le rayon du bouton ici */
+}
+
+/* Style du bouton rond à l'intérieur */
+.slider.round {
+  border-radius: 28px; /* Ajustez le rayon du bouton ici */
+}
+
+/* Style du bouton en position "checked" */
+.slider.round:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* Style du bouton en position "checked" */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+/* Style du bouton rond à l'intérieur en position "checked" */
+input:checked + .slider:before {
+  transform: translateX(22px); /* Ajustez la position du bouton rond ici */
+}
+
+/* Style du contenu du label */
+#switchLabelContent {
+  position: absolute;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+  color: #192A3E;
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.text-danger{
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+::ng-deep .toast-message{
+  font-family: Poppins, sans-serif;
+}
+::ng-deep .toast-title{
+  font-family: Poppins, sans-serif;
+  font-weight: bold;
+  font-size: medium;
+}
+

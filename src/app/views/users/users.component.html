@@ -1,0 +1,98 @@
+<div class="button-container">
+  <button type="button" class="btn btn-right" (click)="ShowPopup = true" *ngIf="admin">
+    <img src="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
+    <span>Add user</span>
+  </button>
+</div>
+<div class="form-group has-search">
+  <img src="assets/img/icons/search.svg" width="20" height="20" class="search-icon" alt="search">
+  <input type="text" class="form-control search-input input" placeholder="Search user" (keyup)="onSearch($event)">
+</div>
+<div class="example-container mat-elevation-z8 mt-4" >
+<mat-table [dataSource]="dataSource"  matSort class="tab-content mat-table" >
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header class="custom-sort-header">#</mat-header-cell>
+    <mat-cell *matCellDef="let row; let rowIndex = index" class="mat-column-id"> {{ getRowIndex(rowIndex) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nom">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-name">
+      <div class="d-flex align-items-center">
+        <img
+          src="./assets/img/users/{{row.image}}"
+          alt=""
+          width="35" height="35"
+          class="rounded-circle "
+        />
+        <div class="ms-2">{{ row.nom + ' ' + row.prenom }}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email" class="custom-email-column">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Email</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-email">{{ row.email }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="poste">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Post</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-post">{{ row.poste }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Type</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-type">
+      <div [ngClass]="{'custom-type1': row.type === 'SALARIE', 'custom-type2': row.type === 'RESPONSABLE'}">
+        {{ row.type === 'SALARIE' ? 'Employee' : (row.type === 'RESPONSABLE' ? 'Manager' : row.type) }}
+      </div>
+     </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tel">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Phone</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-tel">{{ row.tel }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="solde">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Solde</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-solde">
+      <div class="custom-tag">{{ row.solde }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef mat-line mat-sort-header>Status</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-status">
+      <div [ngClass]="{'custom-padge1': row.status === 'ACTIVE', 'custom-padge2': row.status === 'DESACTIVE'}">
+        <ng-container *ngIf="row.status === 'DESACTIVE'; else inactiveSvg">
+          <img ngSrc="assets/img/icons/disable.svg" width="9" height="8" alt="disable">
+        </ng-container>
+        <ng-template #inactiveSvg>
+          <img ngSrc="assets/img/icons/active.svg" width="9" height="8" alt="active">
+        </ng-template>
+        {{ row.status == 'ACTIVE'? 'Active' : ( row.status == 'DESACTIVE'? 'Disable' : row.status) }}
+      </div></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action" *ngIf="admin">
+    <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+    <mat-cell *matCellDef="let row" class="mat-column-action">
+      <button class="btn" (click)="handleDeleteUser(row)" matTooltip="Supprimer">
+        <img ngSrc="assets/img/icons/delete.svg" width="20" height="20" class="delete-icon" alt="delete">
+      </button>
+      <button class="btn" (click)="openUpdatePopup(row)">
+        <img ngSrc="assets/img/icons/edit.svg" width="20" height="20" class="edit-icon" alt="edit">
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"  class="hover-animation"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[7, 10, 20]" [showFirstLastButtons]="true"  (page)="currentPage = $event.pageIndex"
+></mat-paginator>
+</div>
+<app-add-user-pop-up [isModalOpen]="ShowPopup" (fetchUsers)="fetchUsers()" (closePopupEvent)="closePopup()"></app-add-user-pop-up>
+<app-update-user-pop-up [isModalOpen]="showPopup"  (fetchUsers)="fetchUsers()" [selectedUser]="selectedUser" (closePopupEvent)="closePopup1()"></app-update-user-pop-up>

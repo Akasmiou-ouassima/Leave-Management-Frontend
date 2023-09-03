@@ -1,0 +1,17 @@
+.custom-shadow {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.text-1 {
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  font-family: Poppins, sans-serif;
+  line-height: 32%;
+  color: var(--color-light-mode-orange-orange, #F80);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-style: normal;
+  font-weight: 500;
+}
+.card {
+  flex-shrink: 0;
+}

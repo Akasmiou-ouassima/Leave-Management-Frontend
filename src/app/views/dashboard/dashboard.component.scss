@@ -1,0 +1,46 @@
+:host {
+  .legend {
+    small {
+      font-size: x-small;
+    }
+  }
+}
+.card{
+  margin-left: 35px;
+  margin-right: 18px;
+}
+
+::ng-deep .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  color: #fff;
+  background-color:#109CF1;
+  border-color: #109CF1;
+}
+::ng-deep .btn {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+}
+::ng-deep .btn-check:hover+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  color: #109CF1;
+  border-color: #109CF1;
+  background-color:#fff;
+}
+::ng-deep .btn-outline-primary {
+  --bs-btn-color: #109CF1;
+  --bs-btn-border-color: #109CF1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #109CF1;
+  --bs-btn-hover-border-color: #109CF1;
+}
+::ng-deep label{
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+}
+.custom-style{
+  color: var(--secondary-black, #192A3E);
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.1px;
+}

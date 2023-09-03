@@ -1,0 +1,104 @@
+<div class="popup" *ngIf="isModalOpen">
+  <div class="popup-content">
+    <div>
+      <label class="title-label ms-3">Make Request</label>
+      <div class="close-button-container modal-header">
+        <button class="btn btn-close" (click)="closePopup()"></button>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <form [formGroup]="newLeaveFormGroup" class="ms-3" *ngIf="formReady">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="startDate" class="form-label label-input">Start Date*</label>
+              <input id="startDate" type="date" class="form-control custom-input " formControlName="dateDebut"
+                     [ngClass]="{'border-danger': newLeaveFormGroup.controls['dateDebut'].invalid && newLeaveFormGroup.controls['dateDebut'].touched}">
+                <div *ngIf="newLeaveFormGroup.get('dateDebut')?.touched && newLeaveFormGroup.get('dateDebut')?.hasError('required')" class="text-danger">
+                  Start date is required.
+                </div>
+                <div *ngIf="newLeaveFormGroup.get('dateDebut')?.hasError('startDatePast')" class="text-danger">
+                  Start date cannot be in the past.
+                </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="endDate" class="form-label label-input">End Date*</label>
+              <input id="endDate" type="date" class="form-control custom-input" formControlName="dateFin"
+                     [ngClass]="{'border-danger': newLeaveFormGroup.controls['dateFin'].invalid && newLeaveFormGroup.controls['dateFin'].touched}">
+              <div
+                *ngIf="newLeaveFormGroup.controls['dateFin']?.touched
+                  && newLeaveFormGroup.controls['dateFin']?.errors
+                   && newLeaveFormGroup.controls['dateFin']?.errors!['required']"
+                class="text-danger"
+              >
+                End Date is required.
+              </div>
+              <div *ngIf="newLeaveFormGroup.get('dateFin')?.hasError('endDateBeforeStart')"  class="text-danger">
+                End date must be after the start date.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="description" class="label-input">Reason*</label>
+          <textarea class="form-control desc-input " id="description" name="description" required formControlName="motif"
+                    [ngClass]="{'border-danger': newLeaveFormGroup.controls['motif'].invalid && newLeaveFormGroup.controls['motif'].touched}"></textarea>
+          <div
+            *ngIf="newLeaveFormGroup.controls['motif']?.touched
+                  && newLeaveFormGroup.controls['motif']?.errors
+                   && newLeaveFormGroup.controls['motif']?.errors!['required']"
+            class="text-danger"
+          >
+            Reason is required
+          </div>
+        </div>
+
+        <div class="form-group row align-items-center justify-content-between mb-2">
+          <div class="col-6">
+            <label for="type" class="label-input">Type*</label>
+            <select class="custom-input" id="type" name="type" required formControlName="type"
+                    [ngClass]="{'border-danger': newLeaveFormGroup.controls['type'].invalid && newLeaveFormGroup.controls['type'].touched}">
+              <option value="PAYE">Paid</option>
+              <option value="MALADIE">Illness</option>
+              <option value="PARENTAL">Parental</option>
+              <option value="FAMILIAL">Family</option>
+              <option value="SPECIAL">Special</option>
+            </select>
+            <div
+              *ngIf="newLeaveFormGroup.controls['type']?.touched
+                  && newLeaveFormGroup.controls['type']?.errors
+                   && newLeaveFormGroup.controls['type']?.errors!['required']"
+              class="text-danger"
+            >
+              Type is required
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="pdfFile" class="text-center label-input">File</label>
+            <div class="dropzone" [class]="selectedPdfFile!=null ? 'fileUploaded' : ''" [class.border-danger]="newLeaveFormGroup.get('fichier')?.invalid && selectedPdfFile!=null">
+              <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="pdfFile" />
+              <span class="text-success"  [class.text-danger]="newLeaveFormGroup.get('fichier')?.invalid" *ngIf="selectedPdfFile" >{{ selectedPdfFile.name }}</span>
+              <input type="file" class="upload-input" formControlName="fichier" (change)="onPdfFileChange($event)" >
+              <div *ngIf="newLeaveFormGroup.controls['fichier']?.touched && newLeaveFormGroup.controls['fichier']?.errors" class="text-danger">
+                Please upload a valid PDF file.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row ms-4" style="margin-top: 40px;">
+          <div class="col-md-6 form-group">
+            <button type="reset" class="btn btn-cancel" (click)="closePopup()">Cancel</button>
+          </div>
+          <div class="col-md-6 form-group">
+            <button type="submit" class="btn btn-confirm" [disabled]="!newLeaveFormGroup.valid" (click)="handleSaveConge()">Confirm</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-success-save-leave  [isModalOpen]="showAlert" (closeAlertEvent)="closeAlert()" ></app-success-save-leave>

@@ -1,0 +1,72 @@
+<c-row class="row mb-5 mt-4 " *ngIf="admin">
+  <c-col sm="6" xl="3" class="custom-style1">
+    <div >
+      <p class="num m-0"> {{managers | async}} </p>
+      <p class="att">Manager</p>
+    </div>
+    <div class="ms-5 ps-4 mb-3 svg">
+      <img ngSrc="assets/img/icons/manager.svg" alt="manager" width="87" height="86">
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3" class="custom-style2">
+    <div >
+      <p class="num m-0"> {{employees | async}} </p>
+      <p class="att">Employee</p>
+    </div>
+    <div class="ms-5 ps-5 mb-3 svg">
+      <img ngSrc="assets/img/icons/employee.svg" alt="employee" width="45" height="82">
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3" class="custom-style3">
+    <div>
+      <p class="num m-0"> {{ leavesPending | async }} </p>
+      <p class="att">Request Leave</p>
+    </div>
+    <div class="ms-4 pe-3 mb-2 svg">
+      <img ngSrc="assets/img/icons/leave.svg" alt="leave" width="73" height="80">
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3"  class="custom-style4">
+    <div >
+      <p class="num m-0"> {{ teams | async }} </p>
+      <p class="att">Team</p>
+    </div>
+    <div class="ms-5 ps-5  mb-3 svg">
+      <img ngSrc="assets/img/icons/team.svg" alt="team" width="87" height="86">
+    </div>
+  </c-col>
+</c-row>
+
+
+<c-row class="row mb-5 mt-4" *ngIf="!admin">
+  <c-col sm="6" xl="3" class="custom-style1">
+    <div class="ms-1 ">
+      <p class="num m-0"> {{leaves | async}} </p>
+      <p class="att">Available leaves</p>
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3" class="custom-style2">
+    <div class="ms-1">
+      <p class="num m-0"> {{leavesPending1 | async}} </p>
+      <p class="att">Pending leaves</p>
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3" class="custom-style3">
+    <div class="ms-1">
+      <p class="num m-0"> {{ acceptedLeaves | async }} </p>
+      <p class="att">Approved leaves</p>
+    </div>
+  </c-col>
+
+  <c-col sm="6" xl="3" class="custom-style4">
+    <div class="ms-1 ">
+      <p class="num m-0"> {{ refusedLeaves | async }} </p>
+      <p class="att">Unapproved leaves</p>
+    </div>
+  </c-col>
+</c-row>

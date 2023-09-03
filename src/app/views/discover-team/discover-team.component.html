@@ -1,0 +1,61 @@
+<div alignment="center" class="popup"  size="lg" *ngIf="isModalOpen">
+  <div>
+    <div class="popup-content">
+      <div class="ms-auto mb-3">
+        <button cButtonClose (click)="closePopup()"></button>
+      </div>
+      <div class="tabs mt-2">
+        <div class="tab ms-4" [class.active]="activeTab === 'About'" (click)="setActiveTab('About')">About</div>
+        <div class="tab ms-4" [class.active]="activeTab === 'Members'" (click)="setActiveTab('Members')">
+          Members
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'About'">
+        <div>
+          <div class="card-body ms-3 mt-5">
+            <p class="text-justify">
+              {{team.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'Members'">
+        <div class="card-body">
+          <div class="table-responsive me-4  ms-4">
+            <table class="table align-middle">
+              <thead>
+              <tr>
+                <th class="fw-bolder font-medium ">Name</th>
+                <th class="fw-bolder font-medium">Post</th>
+                <th class="fw-bolder font-medium">Type</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let membre of members">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="./assets/img/users/{{membre.image}}" alt="user" width="30"
+                         class="rounded-circle">
+                    <div class="ms-3">
+                      <h5 class="mb-0 font-medium name">{{membre.nom}} {{membre.prenom}}</h5>
+                      <span class="text-muted email" >{{membre.email}}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="post">
+                  {{membre.poste | uppercase}}
+                </td>
+                <td>
+                  <div [class]="membre.type=='RESPONSABLE'?'custom-style-manager':'custom-style-emp'">{{ getType(membre.type) }}</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

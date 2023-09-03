@@ -1,0 +1,77 @@
+<!-- Button Add Team-->
+<div class="row mb-5 justify-content-end me-1 mt-3" *ngIf="admin">
+  <button type="button" class="btn btn-right" (click)="showPopup = true">
+    <img ngSrc="assets/img/icons/plus.svg" width="24" height="24" class="add-icon" alt="plus">
+    <span>Add team</span>
+  </button>
+</div>
+
+<div class="horizontal-bar mb-5 m-lg-2" *ngIf="!admin">
+  <div class="tabs mt-2">
+    <div class="tab" [class.active]="activeTab === 'All'" (click)="setActiveTab('All')">All</div>
+    <div class="tab" [class.active]="activeTab === 'MyTeams'" (click)="setActiveTab('MyTeams')">
+      My Teams
+    </div>
+  </div>
+</div>
+
+<!-- columns -->
+<div class="row">
+  <div class="col-lg-3 col-md-6 mb-3" *ngFor="let equipe of equipes; let i = index"  >
+
+    <div class="card">
+      <img
+        class="card-img-top img-responsive img"
+        src="assets/img/teams/{{equipe.image}}"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h4 class="card-title mb-4">{{equipe.nom}}</h4>
+        <div class="row align-items-center mb-3">
+          <div class="col-5">
+            <p class="card-manager">
+              Manager :
+            </p>
+          </div>
+          <div class="col-2">
+            <img ngSrc="assets/img/users/{{equipeMembersCountsAndImgs[i].admin?.image}}" alt="admin team"  height="30" width="30">
+          </div>
+          <div class="col-5 ps-2">
+            <p class="card-text name">
+              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU") | lowercase}}
+            </p>
+          </div>
+        </div>
+        <div class="team-members row align-items-center mb-2">
+          <div class="col-9">
+            <span class="number">{{equipeMembersCountsAndImgs[i].membersCount}}<span class="member-count">Membres </span></span>
+          </div>
+          <div class="col-2 member-stack" >
+            <img *ngFor="let img of equipeMembersCountsAndImgs[i].images" ngSrc="./assets/img/users/{{img}}" alt="Membre 1" height="200" width="200" >
+          </div>
+        </div>
+        <div class="row align-items-center justify-content-between me-1">
+          <div class="col-6 row align-items-center">
+            <div class="col-4" *ngIf="admin" >
+              <button type="button" class="btn" (click)="delete(equipe)">
+                <img ngSrc="assets/img/icons/delete-team.svg" alt="delete team" height="24" width="24">
+              </button>
+            </div>
+            <div class="col-3" *ngIf="admin">
+              <button type="button" class="btn" (click)="update(equipe)">
+                <img ngSrc="assets/img/icons/edit-team.svg" alt="edit team" height="24" width="23">
+              </button>
+            </div>
+          </div>
+          <div class="col-4 me-3">
+            <button cButton class="button-discover"  (click)="discover(equipe)">Discover</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-team-pop-up *ngIf="admin" [isModalOpen]="showPopup" (closePopupEvent)="closePopup()" (addTeamEvent)="addTeam($event)"></app-add-team-pop-up>
+<app-update-team-pop-up *ngIf="admin"  [teamUpdated]="selectedTeam" [isModalOpen]="showPopup1" (closePopupEvent)="closePopup1()" (updateTeamEvent)="updateTeam($event)"></app-update-team-pop-up>
+<app-discover-team  [team]="selectedTeam" [isModalOpen]="showPopup2" (closePopupEvent)="closePopup2()"></app-discover-team>
+<app-confirm-delete-team *ngIf="admin" [teamDeleted]="selectedTeam" [showAlert]="showPopupDelete" (closePopupEvent)="closePopupDelete()" (deleteEvent)="deleteTeam($event)"></app-confirm-delete-team>

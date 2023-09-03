@@ -1,0 +1,16 @@
+<div class="light-mode-info-message popup" *ngIf="isModalOpen" [@fade]  >
+  <div class="content popup-content">
+    <div class="title">
+      <p class="text-1 mt-5">Warning</p>
+    </div>
+    <div class="icon mb-5 me-5">
+      <img src="assets/img/icons/warning.png"/>
+    </div>
+    <p class="text-3 mt-1" *ngIf="check == 1">You can't cancel this request because its period already began !!!</p>
+    <p class="text-3 mt-1" *ngIf="check == 2">Leave can't be removed because it's not in the Pending state</p>
+   <button class="button-light mb-4"  (click)="closeAlert()">
+      <p class="text-4 mt-3" >Got it</p>
+    </button>
+  </div>
+</div>
+

@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+@import "@coreui/coreui/scss/coreui";
+
+
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+@import "layout";
+
+
+@import "fixes";
+
+
+@import "examples";
+
+@import "custom";
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+

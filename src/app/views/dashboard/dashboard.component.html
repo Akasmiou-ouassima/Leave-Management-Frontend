@@ -1,0 +1,54 @@
+<app-widgets-dropdown></app-widgets-dropdown>
+<c-card class="mb-4 card">
+  <c-card-body>
+    <c-row>
+    <c-col sm="5">
+    </c-col>
+    <c-col class="d-none d-md-block" sm="7">
+      <c-button-group class="float-end me-3" role="group">
+        <label
+          cButton
+          cFormCheckLabel
+          variant="outline"
+        >Day</label>
+      <label
+        cButton
+        cFormCheckLabel
+        variant="outline"
+      >Month</label>
+        <label
+          cButton
+          cFormCheckLabel
+          variant="outline"
+        >Year</label>
+      </c-button-group>
+    </c-col>
+    </c-row>
+    <c-chart *ngIf="roles != null && (roles.includes('ADMIN'))"
+      [data]="mainChart.data"
+      [height]="300"
+      [ngStyle]="{ 'marginTop.px': 40 }"
+      [options]="mainChart.options"
+      [type]="mainChart.type"
+    >
+      Main chart
+    </c-chart>
+   <c-chart  *ngIf="roles != null && (roles.includes('SALARIE') || roles.includes('RESPONSABLE'))"
+      [data]="mainChart1.data1"
+      [height]="300"
+      [ngStyle]="{ 'marginTop.px': 40 }"
+      [options]="mainChart1.options"
+      [type]="mainChart1.type"
+    >
+      Main chart
+    </c-chart>
+  </c-card-body>
+  <div class="ms-4 mt-3">
+    <img src="assets/img/icons/eclipse1.svg" alt="" width="12" height="12">
+    <span class="custom-style ms-2">Approved leaves</span>
+  </div>
+  <div class="ms-4 mt-3 mb-3">
+    <img src="assets/img/icons/eclipse2.svg" alt="" width="12" height="12">
+    <span class="custom-style ms-2">Unapproved leaves</span>
+  </div>
+</c-card>
