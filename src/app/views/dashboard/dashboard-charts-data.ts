@@ -166,10 +166,10 @@ export class DashboardChartsData {
         },
         y: {
           beginAtZero: true,
-          max: 1,
+          max: 25,
           ticks: {
-            maxTicksLimit: 1,
-            stepSize: 1
+            maxTicksLimit: 5,
+            stepSize: Math.ceil(10 / 5)
           }
         }
       },

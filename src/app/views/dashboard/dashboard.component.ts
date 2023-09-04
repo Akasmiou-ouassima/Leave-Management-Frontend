@@ -13,9 +13,9 @@ import {AuthService} from "../services/auth.service";
 export class DashboardComponent implements OnInit {
   constructor(private chartsData: DashboardChartsData,private authService:AuthService) {
   }
+
   admin : boolean=false;
   public mainChart: IChartProps = [];
-
   /* public trafficRadioGroup = new UntypedFormGroup({
      trafficRadio: new UntypedFormControl('Month')
    });*/

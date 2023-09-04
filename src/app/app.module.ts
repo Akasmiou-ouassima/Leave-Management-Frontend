@@ -82,7 +82,9 @@ import { ResetPasswordComponent } from './views/reset-password/reset-password.co
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
 import {AppHttpInterceptor} from "./views/interceptors/app-http.interceptor";
 import { ToastrModule } from 'ngx-toastr';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -158,7 +160,7 @@ const APP_CONTAINERS = [
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    }), 
+    }),
   ],
   providers: [
     {
