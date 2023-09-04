@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
+import {AuthService} from "../services/auth.service";
 
 
 
@@ -10,11 +11,11 @@ import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData) {
+  constructor(private chartsData: DashboardChartsData,private authService:AuthService) {
   }
-  roles!: string | null;
+  admin : boolean=false;
   public mainChart: IChartProps = [];
-  public mainChart1: IChartProps = [];
+
   /* public trafficRadioGroup = new UntypedFormGroup({
      trafficRadio: new UntypedFormControl('Month')
    });*/
@@ -22,14 +23,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     console.log("dashboard ...");
     this.initCharts();
-    this.roles = localStorage.getItem("roles");
+    this.admin=this.authService.isAdmin();
   }
 
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
-    this.mainChart1 = this.chartsData.mainChart1;
     console.log("this.mainChart  "+JSON.stringify(this.mainChart ));
-    console.log("this.mainChart1  "+JSON.stringify(this.mainChart1 ));
   }
   /*
     setTrafficPeriod(value: string): void {

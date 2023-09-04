@@ -24,21 +24,12 @@
       </c-button-group>
     </c-col>
     </c-row>
-    <c-chart *ngIf="roles != null && (roles.includes('ADMIN'))"
+    <c-chart
       [data]="mainChart.data"
       [height]="300"
       [ngStyle]="{ 'marginTop.px': 40 }"
       [options]="mainChart.options"
       [type]="mainChart.type"
-    >
-      Main chart
-    </c-chart>
-   <c-chart  *ngIf="roles != null && (roles.includes('SALARIE') || roles.includes('RESPONSABLE'))"
-      [data]="mainChart1.data1"
-      [height]="300"
-      [ngStyle]="{ 'marginTop.px': 40 }"
-      [options]="mainChart1.options"
-      [type]="mainChart1.type"
     >
       Main chart
     </c-chart>
