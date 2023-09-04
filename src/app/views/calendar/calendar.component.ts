@@ -46,10 +46,14 @@ export class CalendarComponent implements OnInit {
       conges.forEach((conge: Conge) => {
         this.userService.getUtilisateur(conge.utilisateurId).subscribe((user: User) => {
           const title = `${user.nom} ${user.prenom}`;
+          const endDate = new Date(conge.dateFin);
+          endDate.setDate(endDate.getDate() + 1);
+          const formattedEndDate = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getDate().toString().padStart(2, '0')}`;
+          console.log(formattedEndDate);
           events.push({
             title: title,
             start: conge.dateDebut,
-            end: conge.dateFin,
+            end: formattedEndDate,
             backgroundColor: this.getColorByLeaveType(conge.type),
             borderColor: this.getColorByLeaveType(conge.type),
             textColor: 'white',
