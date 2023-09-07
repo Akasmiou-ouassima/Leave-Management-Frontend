@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Status, User} from '../model/user.model';
 import {UserService} from '../services/user.service';
-import Swal from "sweetalert2";
 import { Appuser } from '../model/appuser';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -32,6 +31,10 @@ export class ProfileComponent implements OnInit {
     if (localStorage.getItem("id") != undefined) {
       this.userId = localStorage.getItem("id");
     }
+    this.getUser();
+
+  }
+  getUser(){
     this.userService.getUtilisateur(this.userId).subscribe(
       (data) => {
         this.user = data;
@@ -53,9 +56,7 @@ export class ProfileComponent implements OnInit {
         this.switchLabel = (this.user.status === 'ACTIVE') ? 'Active' : 'Disable';
       }
     );
-
   }
-
 
   onToggleSwitchChange(event: any) {
     this.user.status = event.target.checked ? Status.ACTIVE : Status.DESACTIVE;

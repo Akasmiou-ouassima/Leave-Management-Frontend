@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {User} from "../model/user.model";
 import {Appuser} from "../model/appuser";
 import {EditProfileRequest} from "../model/edit-profile-request";
+import {Equipe} from "../model/equipe.model";
+import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
@@ -65,5 +67,17 @@ export class UserService {
   getAppUserById(id: number): Observable<Appuser> {
     const url = `${this.backendHost}/users/${id}`;
     return this.http.get<Appuser>(url);
+  }
+
+  listEquipesWithoutMyEquipes(idUser:number){
+    console.log("idUser "+idUser);
+    return this.listEquipe().pipe(
+      map((equipes :Equipe[]) => {
+        console.log("Equipes "+JSON.stringify(equipes));
+        const notMyEquipes= equipes.filter(e=> e.responsableId!=idUser);
+        console.log("notMyEquipes "+JSON.stringify(notMyEquipes));
+        return notMyEquipes;
+      })
+    );
   }
 }

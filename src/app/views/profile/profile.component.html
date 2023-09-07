@@ -1,150 +1,151 @@
 <app-default-header class="mb-2 d-print-none header header-sticky" position="sticky"/>
 <form [formGroup]="editFormGroup" *ngIf="editFormGroup" (ngSubmit)="saveProfile()">
-<div class="container rounded bg-white mt-3 mb-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6 border-right">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="text-right">Edit profil</h4>
-        <div class="col-md-3 ms-3 position-relative">
-          <input type="file" formControlName="image" class="form-control"  #fileInput  hidden (change)="onImageChange($event)"
-                 >
-          <img class="rounded-circle" width="135px" height="135" [src]="'/assets/img/users/' + user?.image" alt="image">
-          <div class="btn btn-primary rounded-circle position-absolute bottom-0  start-50 translate-middle-x ms-4 mb-4" (click)="fileInput.click()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-              <path d="M11.3016 1.45717C11.4847 1.28814 11.701 1.1553 11.9379 1.06623C12.1749 0.977163 12.4279 0.933608 12.6827 0.938054C12.9374 0.9425 13.1888 0.99486 13.4225 1.09215C13.6562 1.18943 13.8676 1.32974 14.0447 1.50505C14.2219 1.68036 14.3612 1.88725 14.4547 2.1139C14.5483 2.34055 14.5942 2.58253 14.59 2.82601C14.5857 3.0695 14.5314 3.30972 14.4299 3.53297C14.3285 3.75622 14.1821 3.95812 13.999 4.12715L4.58648 12.8151L0.797533 13.7326L1.88913 10.1451L11.3016 1.45717Z" fill="white" fill-opacity="0.9"/>
-            </svg>
-          </div>
-          <div class="mt-4">
-            <div *ngIf="editFormGroup.controls['image']?.touched && editFormGroup.controls['image']?.errors" class="text-danger">
-              Please upload a valid image (jpg, jpeg, or png).
+  <div class="container rounded bg-white mt-3 mb-5">
+    <div class="row justify-content-center ">
+      <div class="col-md-6 border-right">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Edit profil</h4>
+          <div class="col-md-3 ms-3 position-relative">
+            <input type="file" formControlName="image" class="form-control"  #fileInput  hidden (change)="onImageChange($event)"
+            >
+            <img class="rounded-circle" width="135px" height="135" [src]="'/assets/img/users/' + user?.image" alt="image">
+            <div class="btn btn-success rounded-circle position-absolute bottom-0  start-50 translate-middle-x ms-4 mb-4" (click)="fileInput.click()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                <path d="M11.3016 1.45717C11.4847 1.28814 11.701 1.1553 11.9379 1.06623C12.1749 0.977163 12.4279 0.933608 12.6827 0.938054C12.9374 0.9425 13.1888 0.99486 13.4225 1.09215C13.6562 1.18943 13.8676 1.32974 14.0447 1.50505C14.2219 1.68036 14.3612 1.88725 14.4547 2.1139C14.5483 2.34055 14.5942 2.58253 14.59 2.82601C14.5857 3.0695 14.5314 3.30972 14.4299 3.53297C14.3285 3.75622 14.1821 3.95812 13.999 4.12715L4.58648 12.8151L0.797533 13.7326L1.88913 10.1451L11.3016 1.45717Z" fill="white" fill-opacity="0.9"/>
+              </svg>
+            </div>
+            <div class="mt-4">
+              <div *ngIf="editFormGroup.controls['image']?.touched && editFormGroup.controls['image']?.errors" class="text-danger">
+                Please upload a valid image (jpg, jpeg, or png).
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <input type="text" hidden formControlName="id" class="form-control" >
-      </div>
-      <div class="mb-3">
-        <input type="text" hidden formControlName="solde" class="form-control">
-      </div>
-      <div class="mb-3">
-        <input type="text" hidden formControlName="type" class="form-control" >
-      </div>
-      <div class="mb-3">
-        <input type="text" hidden formControlName="equipeId" class="form-control" >
-      </div>
-      <div class="row mt-2">
-        <div class="col-md-6"><label class="labels"> First Name </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span>
-            <input type="text" class="form-control" formControlName="prenom" readonly>
+        <div class="mb-3">
+          <input type="text" hidden formControlName="id" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <input type="text" hidden formControlName="solde" class="form-control">
+        </div>
+        <div class="mb-3">
+          <input type="text" hidden formControlName="type" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <input type="text" hidden formControlName="equipeId" class="form-control" >
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6"><label class="labels"> First Name </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input type="text" class="form-control" formControlName="prenom" readonly>
+            </div>
+          </div>
+          <div class="col-md-6"><label class="labels"> Last Name </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input type="text" class="form-control" formControlName="nom" readonly>
+            </div>
           </div>
         </div>
-        <div class="col-md-6"><label class="labels"> Last Name </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-user"></i></span>
-            <input type="text" class="form-control" formControlName="nom" readonly>
+        <div class="row mt-2">
+          <div class="col-md-12"><label class="labels"> Email </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span> <input
+              type="email" class="form-control" formControlName="email" readonly>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-md-12"><label class="labels"> Email </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span> <input
-            type="email" class="form-control" formControlName="email" readonly>
+          <div class="col-md-12 mt-2"><label class="labels"> Address </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-home"></i></span>
+              <input type="text"
+                     [class.is-valid]="editFormGroup.controls['adresse'].valid && editFormGroup.controls['adresse'].touched"
+                     [class.is-invalid]="editFormGroup.controls['adresse'].invalid && editFormGroup.controls['adresse'].touched"
+                     class="form-control" formControlName="adresse">
+            </div>
+            <p
+              *ngIf="editFormGroup.controls['adresse']?.errors && editFormGroup.controls['adresse']?.touched"
+              class="text-danger"
+            >
+              The address must have at least 5 characters.
+            </p>
           </div>
-        </div>
-        <div class="col-md-12 mt-2"><label class="labels"> Address </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-home"></i></span>
-            <input type="text"
-                   [class.is-valid]="editFormGroup.controls['adresse'].valid && editFormGroup.controls['adresse'].touched"
-                   [class.is-invalid]="editFormGroup.controls['adresse'].invalid && editFormGroup.controls['adresse'].touched"
-                   class="form-control" formControlName="adresse">
-          </div>
-          <p
-            *ngIf="editFormGroup.controls['adresse']?.errors && editFormGroup.controls['adresse']?.touched"
-            class="text-danger"
-          >
-            The address must have at least 5 characters.
-          </p>
-        </div>
-        <div class="col-md-12 mt-2"><label class="labels"> Contact Number </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-phone"></i></span>
-            <input type="text" class="form-control"
-                   [class.is-valid]="editFormGroup.controls['tel'].valid && editFormGroup.controls['tel'].touched"
-                   [class.is-invalid]="editFormGroup.controls['tel'].invalid && editFormGroup.controls['tel'].touched"
-                   formControlName="tel">
-          </div>
-          <p
-            *ngIf="editFormGroup.controls['tel']?.touched
+          <div class="col-md-12 mt-2"><label class="labels"> Contact Number </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-phone"></i></span>
+              <input type="text" class="form-control"
+                     [class.is-valid]="editFormGroup.controls['tel'].valid && editFormGroup.controls['tel'].touched"
+                     [class.is-invalid]="editFormGroup.controls['tel'].invalid && editFormGroup.controls['tel'].touched"
+                     formControlName="tel">
+            </div>
+            <p
+              *ngIf="editFormGroup.controls['tel']?.touched
                   && editFormGroup.controls['tel']?.errors
               "
-            class="text-danger"
-          >
-            The phone number should have a maximum of 10 digits.
-          </p>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-md-6 me-4"><label class="labels"> Job </label>
-          <div class="input-group"><span class="input-group-text"><i class="fa fa-briefcase"></i></span>
-            <input type="text" class="form-control"
-                   [class.is-valid]="editFormGroup.controls['poste'].valid && editFormGroup.controls['poste'].touched"
-                   [class.is-invalid]="editFormGroup.controls['poste'].invalid && editFormGroup.controls['poste'].touched"
-                   formControlName="poste" >
+              class="text-danger"
+            >
+              The phone number should have a maximum of 10 digits.
+            </p>
           </div>
-          <p
-            *ngIf="editFormGroup.controls['poste']?.touched
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6 me-4"><label class="labels"> Job </label>
+            <div class="input-group"><span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+              <input type="text" class="form-control"
+                     [class.is-valid]="editFormGroup.controls['poste'].valid && editFormGroup.controls['poste'].touched"
+                     [class.is-invalid]="editFormGroup.controls['poste'].invalid && editFormGroup.controls['poste'].touched"
+                     formControlName="poste" >
+            </div>
+            <p
+              *ngIf="editFormGroup.controls['poste']?.touched
                   && editFormGroup.controls['poste']?.errors
               "
-            class="text-danger"
-          >
-            The job must have at least 3 characters.
-          </p>
-        </div>
-        <div class="col-md-2 mt-4" *ngIf="roles!=null && !roles.includes('ADMIN')">
-          <label class="labels switch" for="toggleSwitch">
-            <input type="checkbox" id="toggleSwitch" (change)="onToggleSwitchChange($event)" formControlName="status"
-                   [ngModel]="user?.status === 'ACTIVE'" >
-            <span class="slider round"></span> <span id="switchLabelContent">{{ switchLabel }}</span> </label>
-        </div>
-      </div>
-     <div class="row mt-2">
-        <div class="col-md-12"><label class="labels"> Password </label>
-          <div class="input-group "><span class="input-group-text"><i class="fa fa-lock"></i></span>
-            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control"
-                   [class.is-valid]="editFormGroup.controls['password'].valid && editFormGroup.controls['password'].touched"
-                   [class.is-invalid]="editFormGroup.controls['password'].invalid && editFormGroup.controls['password'].touched"
-                   formControlName="password">
-            <i class="fa position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password"
-               [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"
-               (click)="togglePasswordVisibility()"
-               style="color: #707683; opacity: 0.44; cursor: pointer;"
-            ></i>
+              class="text-danger"
+            >
+              The job must have at least 3 characters.
+            </p>
           </div>
-          <p
-            *ngIf="editFormGroup.controls['password']?.touched
+          <div class="col-md-2 mt-4" *ngIf="roles!=null && !roles.includes('ADMIN')">
+            <label class="labels switch" for="toggleSwitch">
+              <input type="checkbox" id="toggleSwitch" (change)="onToggleSwitchChange($event)" formControlName="status"
+                     [ngModel]="user?.status === 'ACTIVE'" >
+              <span class="slider round"></span> <span id="switchLabelContent">{{ switchLabel }}</span> </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12"><label class="labels"> Password </label>
+            <div class="input-group "><span class="input-group-text"><i class="fa fa-lock"></i></span>
+              <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control"
+                     [class.is-valid]="editFormGroup.controls['password'].valid && editFormGroup.controls['password'].touched"
+                     [class.is-invalid]="editFormGroup.controls['password'].invalid && editFormGroup.controls['password'].touched"
+                     formControlName="password">
+              <i class="fa position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password"
+                 [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"
+                 (click)="togglePasswordVisibility()"
+                 style="color: #707683; opacity: 0.44; cursor: pointer;"
+              ></i>
+            </div>
+            <p
+              *ngIf="editFormGroup.controls['password']?.touched
                   && editFormGroup.controls['password']?.errors"
-            class="text-danger"
-          >
-            The password must have at least 3 characters.
-          </p>
-          <p
-            *ngIf="editFormGroup.controls['password']?.touched
+              class="text-danger"
+            >
+              The password must have at least 3 characters.
+            </p>
+            <p
+              *ngIf="editFormGroup.controls['password']?.touched
                   && editFormGroup.get('password')?.hasError('pattern')
              "
-            class="text-danger">
-            Password must not contain spaces.
-          </p>
+              class="text-danger">
+              Password must not contain spaces.
+            </p>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-2 me-5">
+            <button class="btn profile-button1" type="reset" routerLink="/dashboard">Cancel</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn profile-button2" type="submit" [disabled]="!editFormGroup.valid" >Save</button>
+          </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-md-2 me-5">
-          <button class="btn profile-button1" type="reset" routerLink="/dashboard">Cancel</button>
-        </div>
-        <div class="col-md-2">
-          <button class="btn profile-button2" type="submit" [disabled]="!editFormGroup.valid" >Save</button>
-        </div>
-      </div>
+
     </div>
   </div>
-</div>
 </form>
-

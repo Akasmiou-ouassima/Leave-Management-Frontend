@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../model/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -23,7 +23,7 @@ export class UpdateUserPopUpComponent implements OnInit{
   equipes$!: Observable<any[]>;
   equipesList: any[] = [];
   selectedFile!: File;
-
+  users: User[] = [];
   closePopup1() {
     this.closePopupEvent.emit();
     this.updateFormGroup?.reset();
@@ -42,10 +42,6 @@ export class UpdateUserPopUpComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.equipes$ = this.userService.listEquipe();
-    this.equipes$.subscribe((equipes: any[]) => {
-      this.equipesList = equipes;
-    });
     this.userId = this.route.snapshot.params['id'];
     this.updateFormGroup = this.fb.group({
       id: this.fb.control(this.selectedUser?.id || '', [Validators.required, Validators.minLength(1)]),
@@ -62,8 +58,13 @@ export class UpdateUserPopUpComponent implements OnInit{
       equipeId: this.fb.control(this.selectedUser?.equipeId || '', [Validators.required]),
     });
   }
+  ngOnChanges(changes: SimpleChanges) {
+    this.equipes$ = this.userService.listEquipesWithoutMyEquipes(this.selectedUser?.id);
+    this.equipes$.subscribe((equipes: any[]) => {
+      this.equipesList = equipes;
+    });
+  }
 
-  users: User[] = [];
 
   handleUpdateUser() {
     let user: User = this.updateFormGroup?.value;

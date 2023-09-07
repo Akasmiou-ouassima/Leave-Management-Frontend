@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import {LeavesUserService} from "../services/leaves-user.service";
-
 export interface IChartProps {
   data?: any;
   data1?: any;
@@ -17,97 +16,14 @@ export interface IChartProps {
 @Injectable({
   providedIn: 'any'
 })
-export class DashboardChartsData {
+export class DashboardChartsData{
   constructor(private leavesUserService:LeavesUserService,private authService:AuthService) {
-    this.initMainChart();
   }
   public mainChart: IChartProps = {};
-  currentYear = new Date().getFullYear();
-  initMainChart() {
-    this.mainChart['elements'] = 12 ;
-    this.mainChart['Data1'] = [];
-    this.mainChart['Data2'] = [];
-    if(this.authService.isAdmin()){
-      console.log("initMainChart ...Admin..");
-      this.leavesUserService.getNbCongesByMoisAnnee(this.currentYear).subscribe((nbConges: number[]) => {
-        console.log("nbConges => "+JSON.stringify(nbConges));
-        //  this.mainChart['Data1'] = nbConges.slice(0, 12);
-        //  this.mainChart['Data2'] = nbConges.slice(12);
-        for (let i = 0; i <12; i += 1) {
-          this.mainChart['Data1'].push(nbConges[i]);
-        }
-        for (let j = 12; j <24; j+= 1) {
-          this.mainChart['Data2'].push(nbConges[j]);
-        }
-
-        console.log("this.mainChart['Data1'] => "+JSON.stringify(this.mainChart['Data1']));
-        console.log("this.mainChart['Data2'] => "+JSON.stringify(this.mainChart['Data2']));
-      });
-
-    }else{
-      console.log("initMainChart  User .....");
-      this.leavesUserService.getNbCongesByMoisUser(this.authService.tokens.id).subscribe((nbCongesUser: number[]) => {
-        console.log("nbCongesUser => "+JSON.stringify(nbCongesUser));
-        //this.mainChart['Data1'] = nbCongesUser.slice(0, 12);
-        for (let i = 0; i <12; i += 1) {
-          this.mainChart['Data1'].push(nbCongesUser[i]);
-        }
-        for (let j = 12; j <24; j+= 1) {
-          this.mainChart['Data2'].push(nbCongesUser[j]);
-        }
-        //  this.mainChart['Data2'] = nbCongesUser.slice(12);
-        console.log("this.mainChart1['Data1'] => "+JSON.stringify(this.mainChart['Data1']));
-        console.log("this.mainChart1['Data2'] => "+JSON.stringify(this.mainChart['Data2']));
-
-      });
-    }
-    //
-    let labels: string[] = [];
-
-    labels = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
 
 
-    const colors = [
-      {
-        backgroundColor: 'transparent',
-        borderColor: '#109CF1',
-        pointHoverBackgroundColor: '#fff',
-        fill: true
-      },
-      {
-        backgroundColor: 'transparent',
-        borderColor: '#DC3545',
-        pointHoverBackgroundColor: '#fff',
-      },
 
-    ];
-
-    const datasets = [
-      {
-        data: this.mainChart['Data1'],
-        label: 'Approved',
-        ...colors[0]
-      },
-      {
-        data: this.mainChart['Data2'],
-        label: 'Unapproved',
-        ...colors[1]
-      },
-    ];
-
+  initMainChart(): IChartProps{
 
     const plugins = {
       legend: {
@@ -166,10 +82,11 @@ export class DashboardChartsData {
         },
         y: {
           beginAtZero: true,
-          max: 25,
+          max: 1,
           ticks: {
-            maxTicksLimit: 5,
-            stepSize: Math.ceil(10 / 5)
+            maxTicksLimit: 1,
+            stepSize: 1
+
           }
         }
       },
@@ -187,14 +104,13 @@ export class DashboardChartsData {
     };
     this.mainChart.type = 'line';
     if(this.authService.isAdmin()){
+      console.log("options admin");
       this.mainChart.options = options;
     }else{
+      console.log("options user");
       this.mainChart.options = options1;
     }
-    this.mainChart.data = {
-      datasets,
-      labels
-    };
-  }
 
+    return this.mainChart;
+  };
 }
