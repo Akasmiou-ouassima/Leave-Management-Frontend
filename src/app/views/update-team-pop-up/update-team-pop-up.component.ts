@@ -3,6 +3,7 @@ import {Equipe} from "../model/equipe.model";
 import {EquipeService} from "../services/equipe.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {catchError, map, of, switchMap} from "rxjs";
+import Swal from "sweetalert2";
 @Component({
   selector: 'app-update-team-pop-up',
   templateUrl: './update-team-pop-up.component.html',
@@ -93,8 +94,16 @@ export class UpdateTeamPopUpComponent{
           }
         }),
         catchError(err => {
-          console.log('Erreur lors de l\'enregistrement de l\'équipe :', err);
-          throw err;
+          const errorMessage = err.error.message;
+          if (errorMessage.includes("Team already exists")) {
+            this.closePopup();
+            Swal.fire('Error', 'Team already exists. Please provide another name', 'error');
+            throw err;
+          } else {
+            this.closePopup();
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+            throw err;
+          }
         })
       ).subscribe();
 
