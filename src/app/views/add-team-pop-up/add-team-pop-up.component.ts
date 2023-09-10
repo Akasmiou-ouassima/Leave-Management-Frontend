@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 import {catchError, map, Observable, switchMap} from "rxjs";
 import {Equipe} from "../model/equipe.model";
 import {EquipeService} from "../services/equipe.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-add-team-pop-up',
@@ -18,7 +19,7 @@ export class AddTeamPopUpComponent implements OnInit {
   public respos!: Array<any>;
   selectedFile!: File;
   showSuccesAlert: boolean = false;
-  check=1;
+  check = 1;
 
   closeSuccessAlert() {
     this.showSuccesAlert = false;
@@ -29,13 +30,13 @@ export class AddTeamPopUpComponent implements OnInit {
     console.log("file " + this.selectedFile.name);
   }
 
-  constructor(private fb: FormBuilder, private equipeService: EquipeService,private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private equipeService: EquipeService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
     this.equipeService.getUsers().subscribe({
       next: data => {
-        this.respos =  data.filter( user => user.id!=1);
+        this.respos = data.filter(user => user.id != 1);
       },
       error: err => {
         console.log("err :" + err);
@@ -77,8 +78,16 @@ export class AddTeamPopUpComponent implements OnInit {
           );
         }),
         catchError(err => {
-          console.log('Erreur lors de l\'enregistrement de l\'équipe :', err);
-          throw err;
+          const errorMessage = err.error.message;
+          if (errorMessage.includes("Team already exists")) {
+            this.closePopup();
+            Swal.fire('Error', 'Team already exists. Please provide another name', 'error');
+            throw err;
+          } else {
+            this.closePopup();
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+            throw err;
+          }
         })
       ).subscribe();
     }
