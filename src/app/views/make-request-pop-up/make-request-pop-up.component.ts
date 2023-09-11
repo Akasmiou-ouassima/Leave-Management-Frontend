@@ -120,7 +120,10 @@ export class MakeRequestPopUpComponent implements OnInit{
             } else if (errorMessage.includes("Conge already exists")) {
               this.closePopup();
               Swal.fire('Error', 'Leave already exists. Please make new leave with a new start date and end date', 'error');
-           } else {
+           } else if (errorMessage.includes("The manager is on leave")) {
+            this.closePopup();
+            Swal.fire('', 'The manager is on leave, your leave request will not be submitted', 'info');
+          } else {
               this.closePopup();
               Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
             }
@@ -151,7 +154,10 @@ export class MakeRequestPopUpComponent implements OnInit{
             } else if (errorMessage.includes("Conge already exists")) {
               this.closePopup();
               Swal.fire('Error', 'Leave already exists. Please make new leave with a new start date and end date', 'error');
-            } else {
+            } else if (errorMessage.includes("The manager is on leave")) {
+              this.closePopup();
+              Swal.fire('', 'The manager is on leave, your leave request will not be submitted', 'info');
+            }else {
               this.closePopup();
               Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
             }
