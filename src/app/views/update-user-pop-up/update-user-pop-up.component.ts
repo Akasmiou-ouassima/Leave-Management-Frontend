@@ -50,7 +50,7 @@ export class UpdateUserPopUpComponent implements OnInit{
       prenom: this.fb.control(this.selectedUser?.prenom || '', [Validators.required, Validators.minLength(3)]),
       nom: this.fb.control(this.selectedUser?.nom || '', [Validators.required, Validators.minLength(3)]),
       poste: this.fb.control(this.selectedUser?.poste || '', [Validators.required, Validators.minLength(3)]),
-      tel: this.fb.control(this.selectedUser?.tel || '', [Validators.required, Validators.maxLength(10)]),
+      tel: this.fb.control(this.selectedUser?.tel || '', [Validators.required, Validators.maxLength(20)]),
       email: this.fb.control(this.selectedUser?.email || '', [Validators.required, Validators.email]),
       adresse: this.fb.control(this.selectedUser?.adresse || '', [Validators.required, Validators.minLength(5)]),
       status: this.fb.control(this.selectedUser?.status || '', [Validators.required]),

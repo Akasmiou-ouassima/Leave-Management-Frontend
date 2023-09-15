@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
           prenom: [this.user.prenom],
           nom: [this.user.nom],
           poste: [this.user.poste, [Validators.minLength(3)]],
-          tel: [this.user.tel, [Validators.maxLength(10)]],
+          tel: [this.user.tel, [Validators.maxLength(20)]],
           email: [this.user.email],
           adresse: [this.user.adresse, [Validators.minLength(5)]],
           status: [this.user.status],

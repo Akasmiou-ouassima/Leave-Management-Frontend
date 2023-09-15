@@ -34,7 +34,7 @@ export class AddUserPopUpComponent implements OnInit {
       prenom : this.fb.control(null, [Validators.required, Validators.minLength(3)]),
       nom : this.fb.control(null, [Validators.required, Validators.minLength(3)]),
       poste : this.fb.control(null, [Validators.required, Validators.minLength(3)]),
-      tel : this.fb.control(null, [Validators.required, Validators.maxLength(10)]),
+      tel : this.fb.control(null, [Validators.required, Validators.maxLength(20)]),
       email : this.fb.control(null, [Validators.required,  Validators.required]),
       adresse : this.fb.control(null, [Validators.required, Validators.minLength(5)]),
       equipeId : this.fb.control(null, [Validators.required]),

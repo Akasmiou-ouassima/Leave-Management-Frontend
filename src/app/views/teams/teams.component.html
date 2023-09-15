@@ -29,16 +29,17 @@
         <h4 class="card-title mb-4">{{equipe.nom}}</h4>
         <div class="row align-items-center mb-3">
           <div class="col-5">
-            <p class="card-manager">
+            <p class="card-manager ">
               Manager :
             </p>
           </div>
           <div class="col-2">
-            <img ngSrc="assets/img/users/{{equipeMembersCountsAndImgs[i].admin?.image}}" alt="admin team"  height="30" width="30">
+            <img ngSrc="assets/img/users/{{equipeMembersCountsAndImgs[i].admin?.image}}" alt="admin team"
+                 class="img-responsive rounded-5 " height="30" width="30">
           </div>
           <div class="col-5 ps-2">
             <p class="card-text name">
-              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU") | lowercase}}
+              {{ (this.authService.tokens.id!=equipeMembersCountsAndImgs[i].admin?.id?equipeMembersCountsAndImgs[i].admin?.prenom : "YOU")}}
             </p>
           </div>
         </div>

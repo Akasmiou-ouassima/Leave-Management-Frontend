@@ -44,7 +44,7 @@ export class AddTeamPopUpComponent implements OnInit {
     });
     this.equipeForm = this.fb.nonNullable.group({
       nom: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
-      description: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
+      description: this.fb.nonNullable.control(null, [Validators.required, Validators.maxLength(500), Validators.minLength(3)]),
       image: this.fb.nonNullable.control('', [Validators.required, Validators.pattern(/.(png|jpe?g)$/i)]),
       responsableId: this.fb.nonNullable.control('', Validators.required),
     })

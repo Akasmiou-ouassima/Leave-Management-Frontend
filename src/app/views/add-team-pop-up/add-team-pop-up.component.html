@@ -36,10 +36,10 @@
               Field is required.
             </div>
             <div *ngIf="equipeForm.get('description')?.hasError('minlength')">
-              Name must be at least {{ equipeForm.get('description')?.getError('minlength')?.requiredLength }} characters long.
+              Description must be at least {{ equipeForm.get('description')?.getError('minlength')?.requiredLength }} characters long.
             </div>
             <div *ngIf="equipeForm.get('description')?.hasError('maxlength')">
-              Name must not exceed {{ equipeForm.get('description')?.getError('maxlength')?.requiredLength }} characters.
+              Description must not exceed {{ equipeForm.get('description')?.getError('maxlength')?.requiredLength }} characters.
             </div>
           </div>
         </div>
