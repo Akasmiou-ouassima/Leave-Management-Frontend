@@ -196,7 +196,10 @@ export class EditRequestPopUpComponent {
                   } else if (errorMessage.includes("The leave status must be Pending")) {
                     this.closePopup();
                     Swal.fire('Error', 'The leave status must be in the Pending state.', 'error');
-                  } else {
+                  } else if (errorMessage.includes("The manager is on leave")) {
+                  this.closePopup();
+                  Swal.fire('', 'The manager is on leave, your leave request will not be submitted', 'info');
+                } else {
                     this.closePopup();
                     Swal.fire('Error', 'An error occurred while saving the leave request. Please try again later.', 'error');
                   }
