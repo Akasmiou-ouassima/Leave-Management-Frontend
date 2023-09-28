@@ -27,3 +27,25 @@ jobs:
       - name: Build Angular App
         run: npm run build --silent
 
+      - name: Build Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./dist
+          dockerfile: Dockerfile
+          push: false
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/leave-management-frontend:today
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push Frontend Image to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./dist
+          dockerfile: Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/leave-management-frontend:today
+
