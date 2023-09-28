@@ -30,7 +30,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./dist
+          context: dist/leave-management-frontend
           dockerfile: Dockerfile
           push: false
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/leave-management-frontend:today
@@ -44,7 +44,7 @@ jobs:
       - name: Push Frontend Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          context: ./dist
+          context: dist/leave-management-frontend
           dockerfile: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/leave-management-frontend:today
