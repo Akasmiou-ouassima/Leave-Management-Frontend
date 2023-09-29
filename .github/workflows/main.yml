@@ -49,4 +49,3 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/leave-management-frontend:today
 
-
